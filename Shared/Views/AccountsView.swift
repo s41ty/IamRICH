@@ -25,12 +25,12 @@ struct AccountsView: View {
         NavigationView {
             List {
                 ForEach(model.accounts) { account in
-                    NavigationLink(destination: Text(account.name)) {
+                    NavigationLink(destination: AccountView(model: AccountModel(sdk: sdk, account: account))) {
                         Text(account.name)
                     }
                 }
             }
-            .navigationTitle("Accounts")
+            .navigationTitle("Брокерские счета")
             .toolbar {
                 Button(action: {
                     credentials.deleteToken()
