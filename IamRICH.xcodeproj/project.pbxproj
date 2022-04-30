@@ -19,6 +19,10 @@
 		8B38FB57281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB55281C5BF600EB1F0F /* RoundedButtonStyle.swift */; };
 		8B38FB60281DDB4900EB1F0F /* AccountsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */; };
 		8B38FB61281DDB4900EB1F0F /* AccountsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */; };
+		8B38FB64281DDDF800EB1F0F /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB63281DDDF800EB1F0F /* AccountModel.swift */; };
+		8B38FB65281DDDF800EB1F0F /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB63281DDDF800EB1F0F /* AccountModel.swift */; };
+		8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB66281DDE9500EB1F0F /* AccountView.swift */; };
+		8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB66281DDE9500EB1F0F /* AccountView.swift */; };
 		8B479E5A2819C83B00DE6AED /* TinkoffInvestSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 8B479E592819C83B00DE6AED /* TinkoffInvestSDK */; };
 		8B479E5D2819C85D00DE6AED /* TinkoffInvestSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 8B479E5C2819C85D00DE6AED /* TinkoffInvestSDK */; };
 		8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138B2818A483006CF896 /* IamRICHApp.swift */; };
@@ -35,6 +39,8 @@
 		8B38FB52281BE9D200EB1F0F /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
 		8B38FB55281C5BF600EB1F0F /* RoundedButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButtonStyle.swift; sourceTree = "<group>"; };
 		8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsModel.swift; sourceTree = "<group>"; };
+		8B38FB63281DDDF800EB1F0F /* AccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		8B38FB66281DDE9500EB1F0F /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8B479E5F2819CB3600DE6AED /* TinkoffInvestSDK */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TinkoffInvestSDK; path = ../TinkoffInvestSDK; sourceTree = "<group>"; };
 		8B7D138B2818A483006CF896 /* IamRICHApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IamRICHApp.swift; sourceTree = "<group>"; };
 		8B7D138C2818A483006CF896 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
@@ -93,8 +99,9 @@
 		8B38FB5B281DD74E00EB1F0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8B7D138C2818A483006CF896 /* ContainerView.swift */,
+				8B38FB66281DDE9500EB1F0F /* AccountView.swift */,
 				8B38FB52281BE9D200EB1F0F /* AccountsView.swift */,
+				8B7D138C2818A483006CF896 /* ContainerView.swift */,
 				8B38FB4F281BE92500EB1F0F /* NewTokenView.swift */,
 			);
 			path = Views;
@@ -103,6 +110,7 @@
 		8B38FB62281DDB4C00EB1F0F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8B38FB63281DDDF800EB1F0F /* AccountModel.swift */,
 				8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */,
 			);
 			path = Models;
@@ -277,8 +285,10 @@
 				8B38FB53281BE9D200EB1F0F /* AccountsView.swift in Sources */,
 				8B38FB4B281BDD7200EB1F0F /* Credentials.swift in Sources */,
 				8B38FB56281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
+				8B38FB64281DDDF800EB1F0F /* AccountModel.swift in Sources */,
 				8B7D139D2818A485006CF896 /* ContainerView.swift in Sources */,
 				8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */,
+				8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */,
 				8B38FB50281BE92500EB1F0F /* NewTokenView.swift in Sources */,
 				8B38FB60281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
 			);
@@ -291,8 +301,10 @@
 				8B38FB54281BE9D200EB1F0F /* AccountsView.swift in Sources */,
 				8B38FB4C281BDD7200EB1F0F /* Credentials.swift in Sources */,
 				8B38FB57281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
+				8B38FB65281DDDF800EB1F0F /* AccountModel.swift in Sources */,
 				8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */,
 				8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */,
+				8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */,
 				8B38FB51281BE92500EB1F0F /* NewTokenView.swift in Sources */,
 				8B38FB61281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
 			);

@@ -9,19 +9,22 @@ import Combine
 import Foundation
 import TinkoffInvestSDK
 
-public class AccountsModel: ObservableObject {
+public class AccountModel: ObservableObject {
     
     // MARK: - Properties
     
-    @Published public var accounts = Array<Tinkoff_Public_Invest_Api_Contract_V1_Account>()
+    @Published public var account = Tinkoff_Public_Invest_Api_Contract_V1_PortfolioResponse()
+    
+    @Published public var accountName = String()
     
     private var cancellableSet = Set<AnyCancellable>()
 
     
     // MARK: - Init
 
-    public init(sdk: TinkoffInvestSDK) {
-        sdk.usersService.getAccounts()
+    public init(sdk: TinkoffInvestSDK, account: Tinkoff_Public_Invest_Api_Contract_V1_Account) {
+        accountName = account.name
+        sdk.operationsService.getPortfolio(accountID: account.id)
             .receive(on: RunLoop.main)
             .sink { completion in
                 switch completion {
@@ -32,13 +35,8 @@ public class AccountsModel: ObservableObject {
                 }
             } receiveValue: { [weak self] response in
                 print(response)
-                self?.accounts.append(contentsOf: response.accounts)
+                self?.account = response
             }
             .store(in: &cancellableSet)
     }
-}
-
-
-extension Tinkoff_Public_Invest_Api_Contract_V1_Account: Identifiable {
-
 }
