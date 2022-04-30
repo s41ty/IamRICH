@@ -7,17 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B38FB49281BDC6E00EB1F0F /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 8B38FB48281BDC6E00EB1F0F /* KeychainAccess */; };
+		8B38FB4B281BDD7200EB1F0F /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB4A281BDD7200EB1F0F /* Credentials.swift */; };
+		8B38FB4C281BDD7200EB1F0F /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB4A281BDD7200EB1F0F /* Credentials.swift */; };
+		8B38FB4E281BDDE100EB1F0F /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 8B38FB4D281BDDE100EB1F0F /* KeychainAccess */; };
+		8B38FB50281BE92500EB1F0F /* NewTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB4F281BE92500EB1F0F /* NewTokenView.swift */; };
+		8B38FB51281BE92500EB1F0F /* NewTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB4F281BE92500EB1F0F /* NewTokenView.swift */; };
+		8B38FB53281BE9D200EB1F0F /* AccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB52281BE9D200EB1F0F /* AccountsView.swift */; };
+		8B38FB54281BE9D200EB1F0F /* AccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB52281BE9D200EB1F0F /* AccountsView.swift */; };
+		8B38FB56281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB55281C5BF600EB1F0F /* RoundedButtonStyle.swift */; };
+		8B38FB57281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB55281C5BF600EB1F0F /* RoundedButtonStyle.swift */; };
+		8B38FB60281DDB4900EB1F0F /* AccountsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */; };
+		8B38FB61281DDB4900EB1F0F /* AccountsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */; };
+		8B479E5A2819C83B00DE6AED /* TinkoffInvestSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 8B479E592819C83B00DE6AED /* TinkoffInvestSDK */; };
+		8B479E5D2819C85D00DE6AED /* TinkoffInvestSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 8B479E5C2819C85D00DE6AED /* TinkoffInvestSDK */; };
 		8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138B2818A483006CF896 /* IamRICHApp.swift */; };
 		8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138B2818A483006CF896 /* IamRICHApp.swift */; };
-		8B7D139D2818A485006CF896 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138C2818A483006CF896 /* ContentView.swift */; };
-		8B7D139E2818A485006CF896 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138C2818A483006CF896 /* ContentView.swift */; };
+		8B7D139D2818A485006CF896 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138C2818A483006CF896 /* ContainerView.swift */; };
+		8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138C2818A483006CF896 /* ContainerView.swift */; };
 		8B7D139F2818A485006CF896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B7D138D2818A485006CF896 /* Assets.xcassets */; };
 		8B7D13A02818A485006CF896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B7D138D2818A485006CF896 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B38FB4A281BDD7200EB1F0F /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		8B38FB4F281BE92500EB1F0F /* NewTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenView.swift; sourceTree = "<group>"; };
+		8B38FB52281BE9D200EB1F0F /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
+		8B38FB55281C5BF600EB1F0F /* RoundedButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButtonStyle.swift; sourceTree = "<group>"; };
+		8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsModel.swift; sourceTree = "<group>"; };
+		8B479E5F2819CB3600DE6AED /* TinkoffInvestSDK */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TinkoffInvestSDK; path = ../TinkoffInvestSDK; sourceTree = "<group>"; };
 		8B7D138B2818A483006CF896 /* IamRICHApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IamRICHApp.swift; sourceTree = "<group>"; };
-		8B7D138C2818A483006CF896 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8B7D138C2818A483006CF896 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		8B7D138D2818A485006CF896 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B7D13922818A485006CF896 /* IamRICH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IamRICH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D13982818A485006CF896 /* IamRICH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IamRICH.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B38FB49281BDC6E00EB1F0F /* KeychainAccess in Frameworks */,
+				8B479E5A2819C83B00DE6AED /* TinkoffInvestSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,12 +58,63 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B38FB4E281BDDE100EB1F0F /* KeychainAccess in Frameworks */,
+				8B479E5D2819C85D00DE6AED /* TinkoffInvestSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B38FB58281DD0C200EB1F0F /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				8B38FB55281C5BF600EB1F0F /* RoundedButtonStyle.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		8B38FB59281DD0E000EB1F0F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8B7D138B2818A483006CF896 /* IamRICHApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		8B38FB5A281DD0EC00EB1F0F /* Credentials */ = {
+			isa = PBXGroup;
+			children = (
+				8B38FB4A281BDD7200EB1F0F /* Credentials.swift */,
+			);
+			path = Credentials;
+			sourceTree = "<group>";
+		};
+		8B38FB5B281DD74E00EB1F0F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8B7D138C2818A483006CF896 /* ContainerView.swift */,
+				8B38FB52281BE9D200EB1F0F /* AccountsView.swift */,
+				8B38FB4F281BE92500EB1F0F /* NewTokenView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8B38FB62281DDB4C00EB1F0F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8B479E5B2819C85D00DE6AED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8B7D13852818A483006CF896 = {
 			isa = PBXGroup;
 			children = (
@@ -49,14 +122,18 @@
 				8B7D138A2818A483006CF896 /* Shared */,
 				8B7D13992818A485006CF896 /* macOS */,
 				8B7D13932818A485006CF896 /* Products */,
+				8B479E5B2819C85D00DE6AED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		8B7D138A2818A483006CF896 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				8B7D138B2818A483006CF896 /* IamRICHApp.swift */,
-				8B7D138C2818A483006CF896 /* ContentView.swift */,
+				8B38FB59281DD0E000EB1F0F /* App */,
+				8B38FB5A281DD0EC00EB1F0F /* Credentials */,
+				8B38FB58281DD0C200EB1F0F /* Styles */,
+				8B38FB62281DDB4C00EB1F0F /* Models */,
+				8B38FB5B281DD74E00EB1F0F /* Views */,
 				8B7D138D2818A485006CF896 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -82,6 +159,7 @@
 		8B7D13A92818A49C006CF896 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				8B479E5F2819CB3600DE6AED /* TinkoffInvestSDK */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -102,6 +180,10 @@
 			dependencies = (
 			);
 			name = "IamRICH (iOS)";
+			packageProductDependencies = (
+				8B479E592819C83B00DE6AED /* TinkoffInvestSDK */,
+				8B38FB48281BDC6E00EB1F0F /* KeychainAccess */,
+			);
 			productName = "IamRICH (iOS)";
 			productReference = 8B7D13922818A485006CF896 /* IamRICH.app */;
 			productType = "com.apple.product-type.application";
@@ -119,6 +201,10 @@
 			dependencies = (
 			);
 			name = "IamRICH (macOS)";
+			packageProductDependencies = (
+				8B479E5C2819C85D00DE6AED /* TinkoffInvestSDK */,
+				8B38FB4D281BDDE100EB1F0F /* KeychainAccess */,
+			);
 			productName = "IamRICH (macOS)";
 			productReference = 8B7D13982818A485006CF896 /* IamRICH.app */;
 			productType = "com.apple.product-type.application";
@@ -150,6 +236,10 @@
 				Base,
 			);
 			mainGroup = 8B7D13852818A483006CF896;
+			packageReferences = (
+				8B479E582819C83B00DE6AED /* XCRemoteSwiftPackageReference "TinkoffInvestSDK" */,
+				8B38FB47281BDC6E00EB1F0F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = 8B7D13932818A485006CF896 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -184,8 +274,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B7D139D2818A485006CF896 /* ContentView.swift in Sources */,
+				8B38FB53281BE9D200EB1F0F /* AccountsView.swift in Sources */,
+				8B38FB4B281BDD7200EB1F0F /* Credentials.swift in Sources */,
+				8B38FB56281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
+				8B7D139D2818A485006CF896 /* ContainerView.swift in Sources */,
 				8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */,
+				8B38FB50281BE92500EB1F0F /* NewTokenView.swift in Sources */,
+				8B38FB60281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,8 +288,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B7D139E2818A485006CF896 /* ContentView.swift in Sources */,
+				8B38FB54281BE9D200EB1F0F /* AccountsView.swift in Sources */,
+				8B38FB4C281BDD7200EB1F0F /* Credentials.swift in Sources */,
+				8B38FB57281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
+				8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */,
 				8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */,
+				8B38FB51281BE92500EB1F0F /* NewTokenView.swift in Sources */,
+				8B38FB61281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +433,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.yuryev.rich.IamRICH;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yuryev.rich;
 				PRODUCT_NAME = IamRICH;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -363,7 +463,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.yuryev.rich.IamRICH;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yuryev.rich;
 				PRODUCT_NAME = IamRICH;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -393,7 +493,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.yuryev.rich.IamRICH;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yuryev.rich;
 				PRODUCT_NAME = IamRICH;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -421,7 +521,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.yuryev.rich.IamRICH;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yuryev.rich;
 				PRODUCT_NAME = IamRICH;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -460,6 +560,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B38FB47281BDC6E00EB1F0F /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		8B479E582819C83B00DE6AED /* XCRemoteSwiftPackageReference "TinkoffInvestSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/s41ty/TinkoffInvestSDK.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B38FB48281BDC6E00EB1F0F /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B38FB47281BDC6E00EB1F0F /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		8B38FB4D281BDDE100EB1F0F /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B38FB47281BDC6E00EB1F0F /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		8B479E592819C83B00DE6AED /* TinkoffInvestSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B479E582819C83B00DE6AED /* XCRemoteSwiftPackageReference "TinkoffInvestSDK" */;
+			productName = TinkoffInvestSDK;
+		};
+		8B479E5C2819C85D00DE6AED /* TinkoffInvestSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B479E582819C83B00DE6AED /* XCRemoteSwiftPackageReference "TinkoffInvestSDK" */;
+			productName = TinkoffInvestSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8B7D13862818A483006CF896 /* Project object */;
 }
