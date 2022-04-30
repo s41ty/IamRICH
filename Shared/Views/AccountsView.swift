@@ -12,7 +12,7 @@ struct AccountsView: View {
     
     // MARK: - Properties
     
-    @ObservedObject var model: AccountsModel
+    @ObservedObject var data: AccountsModel
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
@@ -24,8 +24,8 @@ struct AccountsView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(model.accounts) { account in
-                    NavigationLink(destination: AccountView(model: AccountModel(sdk: sdk, account: account))) {
+                ForEach(data.accounts) { account in
+                    NavigationLink(destination: AccountView(data: AccountModel(sdk: sdk, account: account))) {
                         Text(account.name)
                     }
                 }

@@ -12,15 +12,15 @@ struct AccountView: View {
     
     // MARK: - Properties
     
-    @ObservedObject var model: AccountModel
+    @ObservedObject var data: AccountModel
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
     var body: some View {
         VStack {
             Spacer()
-            Text("На вашем счету \(model.accountName):")
-            Text("\(model.account.totalAmountCurrencies.units) \(model.account.totalAmountCurrencies.currency)")
+            Text("На вашем счету \(data.accountName):")
+            Text("\(data.account.totalAmountCurrencies.units) \(data.account.totalAmountCurrencies.currency)")
             Spacer()
             Button("Поднять бабла") {
                 print("make me rich")
