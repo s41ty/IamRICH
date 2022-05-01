@@ -15,6 +15,8 @@ struct AccountsView: View {
     
     @ObservedObject var data: AccountsModel
     
+    @ObservedObject var sandbox: SandboxModel
+    
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
     @EnvironmentObject var credentials: Credentials
@@ -26,7 +28,7 @@ struct AccountsView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if data.accounts.count > 0 {
+                if data.accounts.count > 0 || sandbox.accounts.count > 0 {
                     List {
                         Section(header: Text("Основные счета")) {
                             ForEach(data.accounts) { account in
@@ -36,6 +38,15 @@ struct AccountsView: View {
                             }
                         }
                         Section(header: Text("Песочница")) {
+                            ForEach(sandbox.accounts) { account in
+                                NavigationLink(destination: Text(account.id)) {
+                                    Text(account.id)
+                                }.swipeActions {
+                                    Button(role: .destructive) { closeAccount(accountId: account.id) } label: {
+                                        Label("Удалить", systemImage: "trash")
+                                    }
+                                }
+                            }
                         }
                     }
                     .navigationTitle("Брокерские счета")
@@ -53,10 +64,15 @@ struct AccountsView: View {
             }
             .onAppear {
                 data.fetch()
+                sandbox.fetch()
             }
             .sheet(isPresented: $showingSettings) {
-                SettingsView()
+                SettingsView().environmentObject(sandbox)
             }
         }
+    }
+    
+    func closeAccount(accountId: String) {
+        sandbox.close(accountId: accountId)
     }
 }

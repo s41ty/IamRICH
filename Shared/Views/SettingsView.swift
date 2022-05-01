@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import TinkoffInvestSDK
 
 struct SettingsView: View {
+    
+    @EnvironmentObject var sdk: TinkoffInvestSDK
+    
+    @EnvironmentObject var sandbox: SandboxModel
     
     @EnvironmentObject var credentials: Credentials
     
@@ -26,6 +31,11 @@ struct SettingsView: View {
                 }
             }
             Spacer()
+            Button("Добавить счет в песочнице") {
+                print("add sandbox account")
+                sandbox.open()
+            }
+            .buttonStyle(RoundedButtonStyle(color: .blue))
             Button("Удалить токен") {
                 print("delete token")
                 credentials.deleteToken()

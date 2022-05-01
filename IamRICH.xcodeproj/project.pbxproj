@@ -35,6 +35,8 @@
 		8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FE6281F054200095B96 /* SettingsView.swift */; };
 		8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FE6281F054200095B96 /* SettingsView.swift */; };
 		8BA65FEA281F076400095B96 /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA65FE9281F076400095B96 /* SwiftfulLoadingIndicators */; };
+		8BA65FEC281F18EE00095B96 /* SandboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FEB281F18ED00095B96 /* SandboxModel.swift */; };
+		8BA65FED281F18EE00095B96 /* SandboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FEB281F18ED00095B96 /* SandboxModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,7 @@
 		8B7D13982818A485006CF896 /* IamRICH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IamRICH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D139A2818A485006CF896 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		8BA65FE6281F054200095B96 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8BA65FEB281F18ED00095B96 /* SandboxModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +123,7 @@
 			children = (
 				8B38FB63281DDDF800EB1F0F /* AccountModel.swift */,
 				8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */,
+				8BA65FEB281F18ED00095B96 /* SandboxModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -298,6 +302,7 @@
 				8B38FB56281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
 				8B38FB64281DDDF800EB1F0F /* AccountModel.swift in Sources */,
 				8B7D139D2818A485006CF896 /* ContainerView.swift in Sources */,
+				8BA65FEC281F18EE00095B96 /* SandboxModel.swift in Sources */,
 				8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */,
 				8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */,
@@ -315,6 +320,7 @@
 				8B38FB57281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
 				8B38FB65281DDDF800EB1F0F /* AccountModel.swift in Sources */,
 				8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */,
+				8BA65FED281F18EE00095B96 /* SandboxModel.swift in Sources */,
 				8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */,
 				8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */,

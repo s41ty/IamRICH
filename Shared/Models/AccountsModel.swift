@@ -38,11 +38,8 @@ public class AccountsModel: ObservableObject {
                 }
             } receiveValue: { [weak self] response in
                 print(response)
-                for account in response.accounts {
-                    if let accounts = self?.accounts, !accounts.contains(account) {
-                        self?.accounts.append(account)
-                    }
-                }
+                self?.accounts.removeAll()
+                self?.accounts.append(contentsOf: response.accounts)
             }
             .store(in: &cancellableSet)
     }
