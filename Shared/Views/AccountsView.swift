@@ -13,9 +13,7 @@ struct AccountsView: View {
     
     // MARK: - Properties
     
-    @ObservedObject var data: AccountsModel
-    
-    @ObservedObject var sandbox: SandboxModel
+    @ObservedObject var accounts: AccountsModel
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
@@ -28,18 +26,18 @@ struct AccountsView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if data.accounts.count > 0 || sandbox.accounts.count > 0 {
+                if accounts.real.count > 0 || accounts.sandboxes.count > 0 {
                     List {
                         Section(header: Text("Основные счета")) {
-                            ForEach(data.accounts) { account in
-                                NavigationLink(destination: AccountView(data: AccountModel(sdk: sdk, account: account))) {
+                            ForEach(accounts.real) { account in
+                                NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account))) {
                                     Text(account.name)
                                 }
                             }
                         }
                         Section(header: Text("Песочница")) {
-                            ForEach(sandbox.accounts) { account in
-                                NavigationLink(destination: Text(account.id)) {
+                            ForEach(accounts.sandboxes) { account in
+                                NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account, isSandbox: true))) {
                                     Text(account.id)
                                 }.swipeActions {
                                     Button(role: .destructive) { closeAccount(accountId: account.id) } label: {
@@ -63,16 +61,16 @@ struct AccountsView: View {
                 }
             }
             .onAppear {
-                data.fetch()
-                sandbox.fetch()
+                accounts.fetch()
             }
             .sheet(isPresented: $showingSettings) {
-                SettingsView().environmentObject(sandbox)
+                SettingsView()
+                    .environmentObject(accounts)
             }
         }
     }
     
     func closeAccount(accountId: String) {
-        sandbox.close(accountId: accountId)
+        accounts.closeSandbox(accountId: accountId)
     }
 }

@@ -13,7 +13,11 @@ public class AccountModel: ObservableObject {
     
     // MARK: - Properties
     
-    @Published public var account = Tinkoff_Public_Invest_Api_Contract_V1_PortfolioResponse()
+    @Published public var totalAmountCurrencies = Tinkoff_Public_Invest_Api_Contract_V1_MoneyValue()
+    
+    @Published public var hasTotalAmountCurrencies: Bool
+    
+    @Published public var isSandbox: Bool
     
     @Published public var accountName: String
     
@@ -26,26 +30,47 @@ public class AccountModel: ObservableObject {
     
     // MARK: - Fetch data
     
-    public init(sdk: TinkoffInvestSDK, account: Tinkoff_Public_Invest_Api_Contract_V1_Account) {
+    public init(sdk: TinkoffInvestSDK, account: Tinkoff_Public_Invest_Api_Contract_V1_Account, isSandbox: Bool = false) {
         self.sdk = sdk
+        self.hasTotalAmountCurrencies = false
+        self.isSandbox = isSandbox
         self.accountId = account.id
         self.accountName = account.name
     }
 
     public func fetch() {
-        sdk.operationsService.getPortfolio(accountID: accountId)
-            .receive(on: RunLoop.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("did finish loading getAccounts")
+        if isSandbox {
+            sdk.sandboxService.getSandboxPortfolio(accountID: accountId)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .finished:
+                        print("did finish loading getAccounts")
+                    }
+                } receiveValue: { [weak self] response in
+                    print(response)
+                    self?.totalAmountCurrencies = response.totalAmountCurrencies
+                    self?.hasTotalAmountCurrencies = response.hasTotalAmountCurrencies
                 }
-            } receiveValue: { [weak self] response in
-                print(response)
-                self?.account = response
-            }
-            .store(in: &cancellableSet)
+                .store(in: &cancellableSet)
+        } else {
+            sdk.operationsService.getPortfolio(accountID: accountId)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .finished:
+                        print("did finish loading getAccounts")
+                    }
+                } receiveValue: { [weak self] response in
+                    print(response)
+                    self?.totalAmountCurrencies = response.totalAmountCurrencies
+                    self?.hasTotalAmountCurrencies = response.hasTotalAmountCurrencies
+                }
+                .store(in: &cancellableSet)
+        }
     }
 }

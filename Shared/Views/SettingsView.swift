@@ -12,7 +12,7 @@ struct SettingsView: View {
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
-    @EnvironmentObject var sandbox: SandboxModel
+    @EnvironmentObject var accounts: AccountsModel
     
     @EnvironmentObject var credentials: Credentials
     
@@ -27,13 +27,15 @@ struct SettingsView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image(systemName: "xmark.circle").imageScale(.large)
+                    Image(systemName: "xmark.circle.fill")
+                        .imageScale(.large)
+                        .foregroundColor(Color(.systemGray4))
                 }
             }
             Spacer()
             Button("Добавить счет в песочнице") {
                 print("add sandbox account")
-                sandbox.open()
+                accounts.openSandbox()
             }
             .buttonStyle(RoundedButtonStyle(color: .blue))
             Button("Удалить токен") {

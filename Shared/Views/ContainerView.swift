@@ -23,14 +23,13 @@ struct ContainerView: View {
             if let token = credentials.accessToken {
                 let config = TinkoffInvestConfig(token: token, appName: "s41ty")
                 let sdk = TinkoffInvestSDK(config: config)
-                AccountsView(data: AccountsModel(sdk: sdk), sandbox: SandboxModel(sdk: sdk))
+                AccountsView(accounts: AccountsModel(sdk: sdk))
                     .environmentObject(sdk)
             } else {
                 NewTokenView()
             }
         }
         .onAppear {
-//            credentials.deleteToken()
         }
         #if os(macOS)
         .frame(minWidth: 1024, idealWidth: 1024, maxWidth: .infinity, minHeight: 768, idealHeight: 768, maxHeight: .infinity, alignment: .center)

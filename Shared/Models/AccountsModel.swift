@@ -13,7 +13,9 @@ public class AccountsModel: ObservableObject {
     
     // MARK: - Properties
     
-    @Published public var accounts = Array<Tinkoff_Public_Invest_Api_Contract_V1_Account>()
+    @Published public var real = Array<Tinkoff_Public_Invest_Api_Contract_V1_Account>()
+    
+    @Published public var sandboxes = Array<Tinkoff_Public_Invest_Api_Contract_V1_Account>()
     
     private var cancellableSet = Set<AnyCancellable>()
 
@@ -38,8 +40,78 @@ public class AccountsModel: ObservableObject {
                 }
             } receiveValue: { [weak self] response in
                 print(response)
-                self?.accounts.removeAll()
-                self?.accounts.append(contentsOf: response.accounts)
+                self?.real.removeAll()
+                self?.real.append(contentsOf: response.accounts)
+            }
+            .store(in: &cancellableSet)
+        
+        sdk.sandboxService.getSandboxAccounts()
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("did finish loading getSandboxAccounts")
+                }
+            } receiveValue: { [weak self] response in
+                print(response)
+                self?.sandboxes.removeAll()
+                self?.sandboxes.append(contentsOf: response.accounts)
+            }
+            .store(in: &cancellableSet)
+    }
+    
+    public func openSandbox() {
+        sdk.sandboxService.openSandboxAccount()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("did finish loading getSandboxAccounts")
+                }
+                self?.fetch()
+            } receiveValue: { response in
+                print(response)
+            }
+            .store(in: &cancellableSet)
+    }
+    
+    public func closeSandbox(accountId: String) {
+        sdk.sandboxService.closeSandboxAccount(accountID: accountId)
+            .receive(on: RunLoop.main)
+            .sink { [weak self]  completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("did finish loading getSandboxAccounts")
+                }
+                self?.fetch()
+            } receiveValue: { response in
+                print(response)
+            }
+            .store(in: &cancellableSet)
+    }
+    
+    public func addSandbox(accountId: String, rubAmmount: Int64) {
+        var value = Tinkoff_Public_Invest_Api_Contract_V1_MoneyValue()
+        value.currency = "RUB"
+        value.units = rubAmmount
+        sdk.sandboxService.sandboxPayIn(accountID: accountId, ammount: value)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("did finish loading getSandboxAccounts")
+                }
+                self?.fetch()
+            } receiveValue: { response in
+                print(response)
             }
             .store(in: &cancellableSet)
     }

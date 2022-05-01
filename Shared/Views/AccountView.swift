@@ -13,18 +13,16 @@ struct AccountView: View {
     
     // MARK: - Properties
     
-    @ObservedObject var data: AccountModel
-    
-    @EnvironmentObject var accountsData: AccountsModel
+    @ObservedObject var account: AccountModel
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
     var body: some View {
         VStack {
-            if data.account.hasTotalAmountCurrencies {
+            if account.hasTotalAmountCurrencies {
                 Spacer()
-                Text("На вашем счету \(data.accountName):")
-                Text("\(data.account.totalAmountCurrencies.units) \(data.account.totalAmountCurrencies.currency)")
+                Text("На вашем счету \(account.accountName):")
+                Text("\(account.totalAmountCurrencies.units) \(account.totalAmountCurrencies.currency)")
                 Spacer()
                 Button("Поднять бабла") {
                     print("make me rich")
@@ -37,7 +35,7 @@ struct AccountView: View {
         }
         .padding()
         .onAppear {
-            data.fetch()
+            account.fetch()
         }
     }
 }
