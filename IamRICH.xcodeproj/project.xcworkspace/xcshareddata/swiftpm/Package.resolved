@@ -99,6 +99,15 @@
           "revision": "e1499bc69b9040b29184f7f2996f7bab467c1639",
           "version": "1.19.0"
         }
+      },
+      {
+        "package": "SwiftfulLoadingIndicators",
+        "repositoryURL": "https://github.com/SwiftfulThinking/SwiftfulLoadingIndicators.git",
+        "state": {
+          "branch": "main",
+          "revision": "eae1c40bb29234f0a8f6614af1a80550994fc6b9",
+          "version": null
+        }
       }
     ]
   },

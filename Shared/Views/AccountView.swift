@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TinkoffInvestSDK
+import SwiftfulLoadingIndicators
 
 struct AccountView: View {
     
@@ -14,20 +15,29 @@ struct AccountView: View {
     
     @ObservedObject var data: AccountModel
     
+    @EnvironmentObject var accountsData: AccountsModel
+    
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
     var body: some View {
         VStack {
-            Spacer()
-            Text("На вашем счету \(data.accountName):")
-            Text("\(data.account.totalAmountCurrencies.units) \(data.account.totalAmountCurrencies.currency)")
-            Spacer()
-            Button("Поднять бабла") {
-                print("make me rich")
+            if data.account.hasTotalAmountCurrencies {
+                Spacer()
+                Text("На вашем счету \(data.accountName):")
+                Text("\(data.account.totalAmountCurrencies.units) \(data.account.totalAmountCurrencies.currency)")
+                Spacer()
+                Button("Поднять бабла") {
+                    print("make me rich")
+                }
+                .buttonStyle(RoundedButtonStyle())
+            } else {
+                LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
             }
-            .buttonStyle(RoundedButtonStyle())
+            
         }
         .padding()
-        
+        .onAppear {
+            data.fetch()
+        }
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TinkoffInvestSDK
+import SwiftfulLoadingIndicators
 
 struct AccountsView: View {
     
@@ -23,20 +24,34 @@ struct AccountsView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(data.accounts) { account in
-                    NavigationLink(destination: AccountView(data: AccountModel(sdk: sdk, account: account))) {
-                        Text(account.name)
+            VStack {
+                if data.accounts.count > 0 {
+                    List {
+                        Section(header: Text("Основные счета")) {
+                            ForEach(data.accounts) { account in
+                                NavigationLink(destination: AccountView(data: AccountModel(sdk: sdk, account: account))) {
+                                    Text(account.name)
+                                }
+                            }
+                        }
+                        Section(header: Text("Песочница")) {
+                        }
                     }
+                    .navigationTitle("Брокерские счета")
+                    .navigationViewStyle(.stack)
+                    .toolbar {
+                        Button(action: {
+                            credentials.deleteToken()
+                        }) {
+                            Image(systemName: "trash.fill")
+                        }
+                    }
+                } else {
+                    LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
                 }
             }
-            .navigationTitle("Брокерские счета")
-            .toolbar {
-                Button(action: {
-                    credentials.deleteToken()
-                }) {
-                    Image(systemName: "trash.fill")
-                }
+            .onAppear {
+                data.fetch()
             }
         }
     }

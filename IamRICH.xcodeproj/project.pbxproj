@@ -31,6 +31,7 @@
 		8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138C2818A483006CF896 /* ContainerView.swift */; };
 		8B7D139F2818A485006CF896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B7D138D2818A485006CF896 /* Assets.xcassets */; };
 		8B7D13A02818A485006CF896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B7D138D2818A485006CF896 /* Assets.xcassets */; };
+		8BA65FE5281EC39900095B96 /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA65FE4281EC39900095B96 /* SwiftfulLoadingIndicators */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 			files = (
 				8B38FB49281BDC6E00EB1F0F /* KeychainAccess in Frameworks */,
 				8B479E5A2819C83B00DE6AED /* TinkoffInvestSDK in Frameworks */,
+				8BA65FE5281EC39900095B96 /* SwiftfulLoadingIndicators in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +193,7 @@
 			packageProductDependencies = (
 				8B479E592819C83B00DE6AED /* TinkoffInvestSDK */,
 				8B38FB48281BDC6E00EB1F0F /* KeychainAccess */,
+				8BA65FE4281EC39900095B96 /* SwiftfulLoadingIndicators */,
 			);
 			productName = "IamRICH (iOS)";
 			productReference = 8B7D13922818A485006CF896 /* IamRICH.app */;
@@ -247,6 +250,7 @@
 			packageReferences = (
 				8B479E582819C83B00DE6AED /* XCRemoteSwiftPackageReference "TinkoffInvestSDK" */,
 				8B38FB47281BDC6E00EB1F0F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				8BA65FE3281EC39900095B96 /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */,
 			);
 			productRefGroup = 8B7D13932818A485006CF896 /* Products */;
 			projectDirPath = "";
@@ -590,6 +594,14 @@
 				kind = branch;
 			};
 		};
+		8BA65FE3281EC39900095B96 /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftfulThinking/SwiftfulLoadingIndicators.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -612,6 +624,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8B479E582819C83B00DE6AED /* XCRemoteSwiftPackageReference "TinkoffInvestSDK" */;
 			productName = TinkoffInvestSDK;
+		};
+		8BA65FE4281EC39900095B96 /* SwiftfulLoadingIndicators */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BA65FE3281EC39900095B96 /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */;
+			productName = SwiftfulLoadingIndicators;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
