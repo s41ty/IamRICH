@@ -31,7 +31,16 @@ struct AccountView: View {
             } else {
                 LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
             }
-            
+        }
+        .toolbar {
+            if account.isSandbox {
+                Button(action: {
+                    print("add money")
+                    account.sandboxPayIn(accountId: account.accountId, rubAmmount: 1000)
+                }) {
+                    Text("Пополнить")
+                }
+            }
         }
         .padding()
         .onAppear {

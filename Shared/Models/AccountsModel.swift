@@ -95,26 +95,6 @@ public class AccountsModel: ObservableObject {
             }
             .store(in: &cancellableSet)
     }
-    
-    public func addSandbox(accountId: String, rubAmmount: Int64) {
-        var value = Tinkoff_Public_Invest_Api_Contract_V1_MoneyValue()
-        value.currency = "RUB"
-        value.units = rubAmmount
-        sdk.sandboxService.sandboxPayIn(accountID: accountId, ammount: value)
-            .receive(on: RunLoop.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("did finish loading getSandboxAccounts")
-                }
-                self?.fetch()
-            } receiveValue: { response in
-                print(response)
-            }
-            .store(in: &cancellableSet)
-    }
 }
 
 

@@ -30,7 +30,7 @@ struct AccountsView: View {
                     List {
                         Section(header: Text("Основные счета")) {
                             ForEach(accounts.real) { account in
-                                NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account))) {
+                                NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account, isSandbox: false))) {
                                     Text(account.name)
                                 }
                             }
