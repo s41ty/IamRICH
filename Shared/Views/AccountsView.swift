@@ -19,6 +19,7 @@ struct AccountsView: View {
     
     @EnvironmentObject var credentials: Credentials
     
+    @State private var showingSettings = false
     
     // MARK: - View
     
@@ -38,12 +39,12 @@ struct AccountsView: View {
                         }
                     }
                     .navigationTitle("Брокерские счета")
-                    .navigationViewStyle(.stack)
+                    .navigationViewStyle(.automatic)
                     .toolbar {
                         Button(action: {
-                            credentials.deleteToken()
+                            showingSettings.toggle()
                         }) {
-                            Image(systemName: "trash.fill")
+                            Image(systemName: "gearshape.fill")
                         }
                     }
                 } else {
@@ -52,6 +53,9 @@ struct AccountsView: View {
             }
             .onAppear {
                 data.fetch()
+            }
+            .sheet(isPresented: $showingSettings) {
+                SettingsView()
             }
         }
     }

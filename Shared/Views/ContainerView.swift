@@ -29,6 +29,13 @@ struct ContainerView: View {
                 NewTokenView()
             }
         }
+        .onAppear {
+//            credentials.deleteToken()
+        }
+        #if os(macOS)
+        .frame(minWidth: 1024, idealWidth: 1024, maxWidth: .infinity, minHeight: 768, idealHeight: 768, maxHeight: .infinity, alignment: .center)
+        #else
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        #endif
     }
 }
