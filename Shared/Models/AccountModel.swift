@@ -15,16 +15,25 @@ public class AccountModel: ObservableObject {
     
     @Published public var account = Tinkoff_Public_Invest_Api_Contract_V1_PortfolioResponse()
     
-    @Published public var accountName = String()
+    @Published public var accountName: String
+    
+    @Published public var accountId: String
     
     private var cancellableSet = Set<AnyCancellable>()
 
+    private var sdk: TinkoffInvestSDK
     
-    // MARK: - Init
-
+    
+    // MARK: - Fetch data
+    
     public init(sdk: TinkoffInvestSDK, account: Tinkoff_Public_Invest_Api_Contract_V1_Account) {
-        accountName = account.name
-        sdk.operationsService.getPortfolio(accountID: account.id)
+        self.sdk = sdk
+        self.accountId = account.id
+        self.accountName = account.name
+    }
+
+    public func fetch() {
+        sdk.operationsService.getPortfolio(accountID: accountId)
             .receive(on: RunLoop.main)
             .sink { completion in
                 switch completion {

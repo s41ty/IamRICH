@@ -17,10 +17,16 @@ public class AccountsModel: ObservableObject {
     
     private var cancellableSet = Set<AnyCancellable>()
 
+    private var sdk: TinkoffInvestSDK
     
-    // MARK: - Init
-
+    
+    // MARK: - Fetch data
+    
     public init(sdk: TinkoffInvestSDK) {
+        self.sdk = sdk
+    }
+
+    public func fetch() {
         sdk.usersService.getAccounts()
             .receive(on: RunLoop.main)
             .sink { completion in
@@ -32,7 +38,11 @@ public class AccountsModel: ObservableObject {
                 }
             } receiveValue: { [weak self] response in
                 print(response)
-                self?.accounts.append(contentsOf: response.accounts)
+                for account in response.accounts {
+                    if let accounts = self?.accounts, !accounts.contains(account) {
+                        self?.accounts.append(account)
+                    }
+                }
             }
             .store(in: &cancellableSet)
     }
