@@ -18,6 +18,8 @@ struct SettingsView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @State private var deleteToken = false
+    
     var body: some View {
         VStack {
             HStack {
@@ -42,7 +44,7 @@ struct SettingsView: View {
             .frame(maxWidth: 400)
             Button("Удалить токен") {
                 print("delete token")
-                credentials.deleteToken()
+                deleteToken = true
                 dismiss()
             }
             .buttonStyle(RoundedButtonStyle(color: .red))
@@ -54,6 +56,11 @@ struct SettingsView: View {
         #else
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         #endif
+        .onDisappear {
+            if deleteToken {
+                credentials.deleteToken()
+            }
+        }
     }
 }
 
