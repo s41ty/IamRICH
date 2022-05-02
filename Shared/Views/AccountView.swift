@@ -28,6 +28,7 @@ struct AccountView: View {
                     print("make me rich")
                 }
                 .buttonStyle(RoundedButtonStyle())
+                .frame(maxWidth: 400)
             } else {
                 LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
             }

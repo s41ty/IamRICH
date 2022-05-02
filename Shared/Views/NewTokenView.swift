@@ -36,6 +36,7 @@ struct NewTokenView: View {
                 credentials.saveToken(newToken)
             }
             .buttonStyle(RoundedButtonStyle())
+            .frame(maxWidth: 400)
             .disabled(newToken.count < 1)
         }
         .padding()

@@ -29,8 +29,9 @@ struct SettingsView: View {
                 }) {
                     Image(systemName: "xmark.circle.fill")
                         .imageScale(.large)
-                        .foregroundColor(Color(.systemGray4))
+                        .foregroundColor(.gray.opacity(0.7))
                 }
+                .buttonStyle(BorderlessButtonStyle())
             }
             Spacer()
             Button("Добавить счет в песочнице") {
@@ -38,12 +39,14 @@ struct SettingsView: View {
                 accounts.openSandbox()
             }
             .buttonStyle(RoundedButtonStyle(color: .blue))
+            .frame(maxWidth: 400)
             Button("Удалить токен") {
                 print("delete token")
                 credentials.deleteToken()
                 dismiss()
             }
             .buttonStyle(RoundedButtonStyle(color: .red))
+            .frame(maxWidth: 400)
         }
         .padding()
         #if os(macOS)
