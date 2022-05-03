@@ -33,11 +33,12 @@ struct AccountView: View {
                 LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
             }
         }
+        .navigationTitle(account.accountName.count > 0 ? account.accountName : account.accountId)
         .toolbar {
             if account.isSandbox {
                 Button(action: {
                     print("add money")
-                    account.sandboxPayIn(accountId: account.accountId, rubAmmount: 1000)
+                    account.sandboxPayIn(accountId: account.accountId, rubAmmount: 100000)
                 }) {
                     Text("Пополнить")
                 }

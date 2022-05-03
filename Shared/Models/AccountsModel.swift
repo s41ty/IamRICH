@@ -22,7 +22,7 @@ public class AccountsModel: ObservableObject {
     private var sdk: TinkoffInvestSDK
     
     
-    // MARK: - Fetch data
+    // MARK: - Init
     
     public init(sdk: TinkoffInvestSDK) {
         self.sdk = sdk

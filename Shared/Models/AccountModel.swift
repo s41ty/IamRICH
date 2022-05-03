@@ -28,7 +28,7 @@ public class AccountModel: ObservableObject {
     private var sdk: TinkoffInvestSDK
     
     
-    // MARK: - Fetch data
+    // MARK: - Init
     
     public init(sdk: TinkoffInvestSDK, account: Tinkoff_Public_Invest_Api_Contract_V1_Account, isSandbox: Bool = false) {
         self.sdk = sdk

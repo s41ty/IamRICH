@@ -25,6 +25,8 @@
 		8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB66281DDE9500EB1F0F /* AccountView.swift */; };
 		8B479E5A2819C83B00DE6AED /* TinkoffInvestSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 8B479E592819C83B00DE6AED /* TinkoffInvestSDK */; };
 		8B479E5D2819C85D00DE6AED /* TinkoffInvestSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 8B479E5C2819C85D00DE6AED /* TinkoffInvestSDK */; };
+		8B6999DD282082300080160B /* OrdersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6999DC282082300080160B /* OrdersModel.swift */; };
+		8B6999DE282082300080160B /* OrdersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6999DC282082300080160B /* OrdersModel.swift */; };
 		8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138B2818A483006CF896 /* IamRICHApp.swift */; };
 		8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138B2818A483006CF896 /* IamRICHApp.swift */; };
 		8B7D139D2818A485006CF896 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138C2818A483006CF896 /* ContainerView.swift */; };
@@ -46,6 +48,7 @@
 		8B38FB63281DDDF800EB1F0F /* AccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		8B38FB66281DDE9500EB1F0F /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8B479E5F2819CB3600DE6AED /* TinkoffInvestSDK */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TinkoffInvestSDK; path = ../TinkoffInvestSDK; sourceTree = "<group>"; };
+		8B6999DC282082300080160B /* OrdersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersModel.swift; sourceTree = "<group>"; };
 		8B7D138B2818A483006CF896 /* IamRICHApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IamRICHApp.swift; sourceTree = "<group>"; };
 		8B7D138C2818A483006CF896 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		8B7D138D2818A485006CF896 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 			children = (
 				8B38FB63281DDDF800EB1F0F /* AccountModel.swift */,
 				8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */,
+				8B6999DC282082300080160B /* OrdersModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -301,6 +305,7 @@
 				8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */,
 				8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */,
+				8B6999DD282082300080160B /* OrdersModel.swift in Sources */,
 				8B38FB50281BE92500EB1F0F /* NewTokenView.swift in Sources */,
 				8B38FB60281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
 			);
@@ -318,6 +323,7 @@
 				8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */,
 				8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */,
+				8B6999DE282082300080160B /* OrdersModel.swift in Sources */,
 				8B38FB51281BE92500EB1F0F /* NewTokenView.swift in Sources */,
 				8B38FB61281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
 			);
