@@ -39,7 +39,8 @@ struct AccountsView: View {
                             ForEach(accounts.sandboxes) { account in
                                 NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account, isSandbox: true))) {
                                     Text(account.id)
-                                }.swipeActions {
+                                }
+                                .swipeActions {
                                     Button(role: .destructive) { closeAccount(accountId: account.id) } label: {
                                         Label("Удалить", systemImage: "trash")
                                     }
@@ -49,6 +50,9 @@ struct AccountsView: View {
                     }
                     .navigationTitle("Брокерские счета")
                     .navigationViewStyle(.automatic)
+                    #if os(iOS)
+                    .navigationBarTitleDisplayMode(.inline)
+                    #endif
                     .toolbar {
                         Button(action: {
                             showingSettings.toggle()

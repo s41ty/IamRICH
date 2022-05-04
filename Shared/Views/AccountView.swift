@@ -33,8 +33,9 @@ struct AccountView: View {
                 LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
             }
         }
-        #if os(macOS)
         .navigationTitle(account.accountName.count > 0 ? account.accountName : account.accountId)
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
         #endif
         .toolbar {
             if account.isSandbox {
