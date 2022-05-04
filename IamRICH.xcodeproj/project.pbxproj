@@ -39,6 +39,8 @@
 		8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FE6281F054200095B96 /* SettingsView.swift */; };
 		8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FE6281F054200095B96 /* SettingsView.swift */; };
 		8BA65FEA281F076400095B96 /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA65FE9281F076400095B96 /* SwiftfulLoadingIndicators */; };
+		8BF1A18628231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
+		8BF1A18728231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +61,7 @@
 		8B7D13982818A485006CF896 /* IamRICH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IamRICH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D139A2818A485006CF896 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		8BA65FE6281F054200095B96 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8BF1A18528231C45007277D6 /* RobotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,7 @@
 				8B38FB4F281BE92500EB1F0F /* NewTokenView.swift */,
 				8BA65FE6281F054200095B96 /* SettingsView.swift */,
 				8B6999DF2821D7680080160B /* OrderView.swift */,
+				8BF1A18528231C45007277D6 /* RobotView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -243,7 +247,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					8B7D13912818A485006CF896 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -306,6 +310,7 @@
 				8B38FB56281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
 				8B38FB64281DDDF800EB1F0F /* AccountModel.swift in Sources */,
 				8B7D139D2818A485006CF896 /* ContainerView.swift in Sources */,
+				8BF1A18628231C45007277D6 /* RobotView.swift in Sources */,
 				8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */,
 				8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */,
@@ -325,6 +330,7 @@
 				8B38FB57281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
 				8B38FB65281DDDF800EB1F0F /* AccountModel.swift in Sources */,
 				8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */,
+				8BF1A18728231C45007277D6 /* RobotView.swift in Sources */,
 				8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */,
 				8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */,
@@ -516,6 +522,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -544,6 +551,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
