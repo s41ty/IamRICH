@@ -24,10 +24,10 @@ public class OrdersModel: ObservableObject {
     
     // MARK: - Init
     
-    public init(sdk: TinkoffInvestSDK, account: Tinkoff_Public_Invest_Api_Contract_V1_Account, isSandbox: Bool = false) {
+    public init(sdk: TinkoffInvestSDK, accountId: String, isSandbox: Bool = false) {
         self.sdk = sdk
         self.isSandbox = isSandbox
-        self.accountId = account.id
+        self.accountId = accountId
     }
     
     public func fetch() {
