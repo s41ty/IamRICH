@@ -21,10 +21,10 @@ extension AccountPosition: Identifiable {
 
 
 public class AccountModel: ObservableObject {
-    
+
     // MARK: - Properties
     
-    @Published public var totalAmountCurrencies = Tinkoff_Public_Invest_Api_Contract_V1_MoneyValue()
+    @Published public var totalAmount = ""
     
     @Published public var positions = [AccountPosition]()
     
@@ -48,7 +48,11 @@ public class AccountModel: ObservableObject {
         self.hasTotalAmountCurrencies = false
         self.isSandbox = isSandbox
         self.accountId = account.id
-        self.accountName = account.name
+        if account.name.count < 1 {
+            self.accountName = String(account.id.split(separator: "-").first ?? "")
+        } else {
+            self.accountName = account.name
+        }
     }
 
     public func fetch() {
@@ -64,8 +68,7 @@ public class AccountModel: ObservableObject {
                     }
                 } receiveValue: { [weak self] response in
                     print(response)
-                    self?.totalAmountCurrencies = response.totalAmountCurrencies
-                    self?.hasTotalAmountCurrencies = response.hasTotalAmountCurrencies
+                    self?.totalAmount = response.totalAmountCurrencies.asString
                     self?.positions.removeAll()
                     self?.positions.append(contentsOf: response.positions.map { position in
                         return AccountPosition(figi: position.figi, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
@@ -84,8 +87,7 @@ public class AccountModel: ObservableObject {
                     }
                 } receiveValue: { [weak self] response in
                     print(response)
-                    self?.totalAmountCurrencies = response.totalAmountCurrencies
-                    self?.hasTotalAmountCurrencies = response.hasTotalAmountCurrencies
+                    self?.totalAmount = response.totalAmountCurrencies.asString
                     self?.positions.removeAll()
                     self?.positions.append(contentsOf: response.positions.map { position in
                         return AccountPosition(figi: position.figi, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)

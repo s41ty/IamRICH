@@ -19,10 +19,10 @@ struct AccountView: View {
     
     var body: some View {
         VStack {
-            if account.hasTotalAmountCurrencies {
+            if account.totalAmount.count > 0 {
                 Spacer()
                 Text("На вашем счету \(account.accountName):")
-                Text("\(account.totalAmountCurrencies.units) \(account.totalAmountCurrencies.currency)")
+                Text("\(account.totalAmount)")
                 Spacer()
                 Button("Поднять бабла") {
                     print("make me rich")
@@ -33,7 +33,7 @@ struct AccountView: View {
                 LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
             }
         }
-        .navigationTitle(account.accountName.count > 0 ? account.accountName : account.accountId)
+        .navigationTitle(account.accountName)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
@@ -48,8 +48,13 @@ struct AccountView: View {
             }
         }
         .padding()
-        .onAppear {
-            account.fetch()
+//        .onAppear {
+//            account.fetch()
+//        }
+        .onReceive(account.$totalAmount) { newTotalAmmount in
+            if newTotalAmmount.count < 1 {
+                account.fetch()
+            }
         }
     }
 }
