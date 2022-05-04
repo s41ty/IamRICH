@@ -9,11 +9,24 @@ import Combine
 import Foundation
 import TinkoffInvestSDK
 
+public struct AccountPosition {
+    var figi: String
+    var quantity: Decimal
+    var value: String
+}
+
+extension AccountPosition: Identifiable {
+    public var id: String { figi }
+}
+
+
 public class AccountModel: ObservableObject {
     
     // MARK: - Properties
     
     @Published public var totalAmountCurrencies = Tinkoff_Public_Invest_Api_Contract_V1_MoneyValue()
+    
+    @Published public var positions = [AccountPosition]()
     
     @Published public var hasTotalAmountCurrencies: Bool
     
@@ -53,6 +66,10 @@ public class AccountModel: ObservableObject {
                     print(response)
                     self?.totalAmountCurrencies = response.totalAmountCurrencies
                     self?.hasTotalAmountCurrencies = response.hasTotalAmountCurrencies
+                    self?.positions.removeAll()
+                    self?.positions.append(contentsOf: response.positions.map { position in
+                        return AccountPosition(figi: position.figi, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
+                    })
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -69,6 +86,10 @@ public class AccountModel: ObservableObject {
                     print(response)
                     self?.totalAmountCurrencies = response.totalAmountCurrencies
                     self?.hasTotalAmountCurrencies = response.hasTotalAmountCurrencies
+                    self?.positions.removeAll()
+                    self?.positions.append(contentsOf: response.positions.map { position in
+                        return AccountPosition(figi: position.figi, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
+                    })
                 }
                 .store(in: &cancellableSet)
         }
