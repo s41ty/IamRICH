@@ -48,9 +48,6 @@ struct AccountView: View {
             }
         }
         .padding()
-//        .onAppear {
-//            account.fetch()
-//        }
         .onReceive(account.$totalAmount) { newTotalAmmount in
             if newTotalAmmount.count < 1 {
                 account.fetch()
