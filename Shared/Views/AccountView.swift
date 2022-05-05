@@ -13,9 +13,18 @@ struct AccountView: View {
     
     // MARK: - Properties
     
-    @ObservedObject var account: AccountModel
+    @ObservedObject private var account: AccountModel
     
-    @EnvironmentObject var sdk: TinkoffInvestSDK
+    
+    // MARK: - Init
+    
+    init(account: AccountModel) {
+        self.account = account;
+        self.account.fetch()
+    }
+    
+    
+    // MARK: - View
     
     var body: some View {
         VStack {
@@ -48,10 +57,5 @@ struct AccountView: View {
             }
         }
         .padding()
-        .onReceive(account.$totalAmount) { newTotalAmmount in
-            if newTotalAmmount.count < 1 {
-                account.fetch()
-            }
-        }
     }
 }

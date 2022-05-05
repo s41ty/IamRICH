@@ -13,13 +13,20 @@ struct AccountsView: View {
     
     // MARK: - Properties
     
-    @ObservedObject var accounts: AccountsModel
+    @ObservedObject private var accounts: AccountsModel
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
-    @EnvironmentObject var credentials: Credentials
-    
     @State private var showingSettings = false
+    
+    
+    // MARK: - Init
+    
+    init(accounts: AccountsModel) {
+        self.accounts = accounts;
+        self.accounts.fetch()
+    }
+    
     
     // MARK: - View
     
@@ -60,12 +67,12 @@ struct AccountsView: View {
                             Image(systemName: "gearshape.fill")
                         }
                     }
+                    .refreshable {
+                        self.accounts.fetch()
+                    }
                 } else {
                     LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
                 }
-            }
-            .onAppear {
-                accounts.fetch()
             }
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
