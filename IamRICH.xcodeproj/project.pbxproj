@@ -41,6 +41,8 @@
 		8BA65FEA281F076400095B96 /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA65FE9281F076400095B96 /* SwiftfulLoadingIndicators */; };
 		8BF1A18628231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 		8BF1A18728231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
+		8BF1A189282453C9007277D6 /* RobotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A188282453C9007277D6 /* RobotModel.swift */; };
+		8BF1A18A282453C9007277D6 /* RobotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A188282453C9007277D6 /* RobotModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,7 @@
 		8B7D139A2818A485006CF896 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		8BA65FE6281F054200095B96 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8BF1A18528231C45007277D6 /* RobotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotView.swift; sourceTree = "<group>"; };
+		8BF1A188282453C9007277D6 /* RobotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,7 @@
 				8B38FB63281DDDF800EB1F0F /* AccountModel.swift */,
 				8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */,
 				8B6999DC282082300080160B /* OrdersModel.swift */,
+				8BF1A188282453C9007277D6 /* RobotModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -305,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF1A189282453C9007277D6 /* RobotModel.swift in Sources */,
 				8B38FB53281BE9D200EB1F0F /* AccountsView.swift in Sources */,
 				8B38FB4B281BDD7200EB1F0F /* Credentials.swift in Sources */,
 				8B38FB56281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
@@ -325,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF1A18A282453C9007277D6 /* RobotModel.swift in Sources */,
 				8B38FB54281BE9D200EB1F0F /* AccountsView.swift in Sources */,
 				8B38FB4C281BDD7200EB1F0F /* Credentials.swift in Sources */,
 				8B38FB57281C5BF600EB1F0F /* RoundedButtonStyle.swift in Sources */,
