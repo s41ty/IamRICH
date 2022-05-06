@@ -17,6 +17,8 @@ public class OrdersModel: ObservableObject {
     
     @Published public var accountId: String
     
+    @Published public var orders = [Tinkoff_Public_Invest_Api_Contract_V1_OrderState]()
+    
     private var cancellableSet = Set<AnyCancellable>()
 
     private var sdk: TinkoffInvestSDK
@@ -41,8 +43,9 @@ public class OrdersModel: ObservableObject {
                     case .finished:
                         print("did finish loading getSandboxAccounts")
                     }
-                } receiveValue: { response in
-                    print(response)
+                } receiveValue: { [weak self] response in
+                    self?.orders.removeAll()
+                    self?.orders.append(contentsOf: response.orders)
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -55,8 +58,9 @@ public class OrdersModel: ObservableObject {
                     case .finished:
                         print("did finish loading getOrders")
                     }
-                } receiveValue: { response in
-                    print(response)
+                } receiveValue: { [weak self] response in
+                    self?.orders.removeAll()
+                    self?.orders.append(contentsOf: response.orders)
                 }
                 .store(in: &cancellableSet)
         }
