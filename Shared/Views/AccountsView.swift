@@ -55,6 +55,7 @@ struct AccountsView: View {
                             }
                         }
                     }
+                    .listStyle(SidebarListStyle())
                     .navigationTitle("Брокерские счета")
                     .navigationViewStyle(.automatic)
                     #if os(iOS)
@@ -78,6 +79,10 @@ struct AccountsView: View {
                 SettingsView()
                     .environmentObject(accounts)
             }
+            #if os(macOS)
+            // fix collision between table items and navigation bar
+            .padding(1)
+            #endif
         }
     }
     
