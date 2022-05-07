@@ -20,7 +20,6 @@ extension AccountPosition: Identifiable {
     public var id: String { figi }
 }
 
-
 public class AccountModel: ObservableObject {
 
     // MARK: - Properties
@@ -28,8 +27,6 @@ public class AccountModel: ObservableObject {
     @Published public var totalAmount = ""
     
     @Published public var positions = [AccountPosition]()
-    
-    @Published public var instruments = [String: String]()
     
     @Published public var hasTotalAmountCurrencies: Bool
     
@@ -74,7 +71,6 @@ public class AccountModel: ObservableObject {
                     self?.totalAmount = response.totalAmountCurrencies.asString
                     self?.positions.removeAll()
                     self?.positions.append(contentsOf: response.positions.map { position in
-                        self?.getInstrument(figi: position.figi, type: position.instrumentType)
                         return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
                     })
                 }
@@ -94,7 +90,6 @@ public class AccountModel: ObservableObject {
                     self?.totalAmount = response.totalAmountCurrencies.asString
                     self?.positions.removeAll()
                     self?.positions.append(contentsOf: response.positions.map { position in
-                        self?.getInstrument(figi: position.figi, type: position.instrumentType)
                         return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
                     })
                 }
@@ -121,76 +116,5 @@ public class AccountModel: ObservableObject {
                 print(response)
             }
             .store(in: &cancellableSet)
-    }
-    
-    public func getInstrument(figi: String, type: String) {
-        if self.instruments[figi] != nil {
-            return
-        } else if figi == "FG0000000000" {
-            self.instruments[figi] = "Российский рубль"
-            return
-        }
-        
-        if type == "currency" {
-            sdk.instrumentsService.currencyBy(figi: figi)
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading currencyBy")
-                    }
-                } receiveValue: { [weak self] response in
-                    print(response)
-                    self?.instruments[response.instrument.figi] = response.instrument.name
-                }
-                .store(in: &cancellableSet)
-        } else if type == "bond" {
-            sdk.instrumentsService.bondBy(figi: figi)
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading bondBy")
-                    }
-                } receiveValue: { [weak self] response in
-                    print(response)
-                    self?.instruments[response.instrument.figi] = response.instrument.name
-                }
-                .store(in: &cancellableSet)
-        } else if type == "share" {
-            sdk.instrumentsService.shareBy(figi: figi)
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading shareBy")
-                    }
-                } receiveValue: { [weak self] response in
-                    print(response)
-                    self?.instruments[response.instrument.figi] = response.instrument.name
-                }
-                .store(in: &cancellableSet)
-        } else if type == "eft" {
-            sdk.instrumentsService.etfBy(figi: figi)
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading etfBy")
-                    }
-                } receiveValue: { [weak self] response in
-                    print(response)
-                    self?.instruments[response.instrument.figi] = response.instrument.name
-                }
-                .store(in: &cancellableSet)
-        }
     }
 }
