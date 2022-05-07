@@ -42,13 +42,25 @@ struct AccountView: View {
                     List {
                         Section(header: Text("Счёт")) {
                             NavigationLink(destination:Text("Всего средств: \(account.totalAmount)")) {
-                                Text("Всего средств: \(account.totalAmount)")
+                                HStack {
+                                    Text("Всего средств")
+                                    Spacer()
+                                    Text("\(account.totalAmount)")
+                                }
                             }
                         }
                         Section(header: Text("Позиции")) {
                             ForEach(account.positions) { position in
                                 NavigationLink(destination:Text(position.figi)) {
-                                    Text(position.figi)
+                                    HStack {
+                                        if let name = account.instruments[position.figi] {
+                                            Text(name)
+                                        } else {
+                                            Text(position.figi)
+                                        }
+                                        Spacer()
+                                        Text("\(position.quantity)" as String)
+                                    }
                                 }
                             }
                         }
