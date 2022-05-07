@@ -24,7 +24,7 @@ struct AccountsView: View {
     
     init(accounts: AccountsModel) {
         self.accounts = accounts;
-        self.accounts.fetch()
+        accounts.fetch()
     }
     
     
