@@ -14,11 +14,11 @@ struct OrderView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @State var figi: String = "BBG006L8G4H1"
+    @State var figi: String = "BBG333333333"
     
     @State var quantity: Int64 = 1
     
-    @State var price: Decimal = 2000
+    @State var price: Decimal = 7
 
     var body: some View {
         VStack {
