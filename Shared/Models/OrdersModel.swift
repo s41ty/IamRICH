@@ -39,7 +39,7 @@ public class OrdersModel: ObservableObject {
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
                         print("did finish loading getSandboxAccounts")
                     }
@@ -54,7 +54,7 @@ public class OrdersModel: ObservableObject {
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
                         print("did finish loading getOrders")
                     }
@@ -73,7 +73,7 @@ public class OrdersModel: ObservableObject {
                 .sink { [weak self] completion in
                     switch completion {
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
                         print("did finish loading cancelSandboxOrder")
                     }
@@ -88,7 +88,7 @@ public class OrdersModel: ObservableObject {
                 .sink { [weak self] completion in
                     switch completion {
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
                         print("did finish loading cancelOrder")
                     }
@@ -119,7 +119,7 @@ public class OrdersModel: ObservableObject {
                 .sink { [weak self] completion in
                     switch completion {
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
                         print("did finish loading postSandboxOrder")
                     }
@@ -141,7 +141,7 @@ public class OrdersModel: ObservableObject {
                 .sink { [weak self] completion in
                     switch completion {
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
                         print("did finish loading postOrder")
                     }

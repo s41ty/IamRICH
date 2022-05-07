@@ -34,7 +34,7 @@ public class AccountsModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                 case .finished:
                     print("did finish loading getAccounts")
                 }
@@ -50,7 +50,7 @@ public class AccountsModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                 case .finished:
                     print("did finish loading getSandboxAccounts")
                 }
@@ -68,7 +68,7 @@ public class AccountsModel: ObservableObject {
             .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                 case .finished:
                     print("did finish loading getSandboxAccounts")
                 }
@@ -85,7 +85,7 @@ public class AccountsModel: ObservableObject {
             .sink { [weak self]  completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                 case .finished:
                     print("did finish loading getSandboxAccounts")
                 }
