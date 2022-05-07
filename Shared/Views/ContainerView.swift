@@ -25,6 +25,7 @@ struct ContainerView: View {
                 let sdk = TinkoffInvestSDK(config: config)
                 AccountsView(accounts: AccountsModel(sdk: sdk))
                     .environmentObject(sdk)
+                    .environmentObject(InstrumentsModel(sdk: sdk))
             } else {
                 NewTokenView()
             }

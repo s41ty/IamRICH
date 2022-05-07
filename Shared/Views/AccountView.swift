@@ -15,6 +15,8 @@ struct AccountView: View {
     
     @ObservedObject private var account: AccountModel
     
+    @EnvironmentObject var instruments: InstrumentsModel
+    
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
     @State var selectedTag:Int? = nil
@@ -26,7 +28,7 @@ struct AccountView: View {
     
     init(account: AccountModel) {
         self.account = account;
-        self.account.fetch()
+        account.fetch()
     }
     
     
@@ -53,10 +55,13 @@ struct AccountView: View {
                             ForEach(account.positions) { position in
                                 NavigationLink(destination:Text(position.figi)) {
                                     HStack {
-                                        if let name = account.instruments[position.figi] {
+                                        if let name = instruments.cached[position.figi] {
                                             Text(name)
                                         } else {
                                             Text(position.figi)
+                                                .onAppear() {
+                                                    instruments.getInstrument(figi: position.figi, type: position.type)
+                                                }
                                         }
                                         Spacer()
                                         Text("\(position.quantity)" as String)
