@@ -9,6 +9,14 @@ import Combine
 import Foundation
 import TinkoffInvestSDK
 
+public struct AccountOrder {
+    var figi: String
+}
+
+extension AccountOrder: Identifiable {
+    public var id: String { figi }
+}
+
 public class OrdersModel: ObservableObject {
     
     // MARK: - Properties
@@ -17,7 +25,7 @@ public class OrdersModel: ObservableObject {
     
     @Published public var accountId: String
     
-    @Published public var orders = [Tinkoff_Public_Invest_Api_Contract_V1_OrderState]()
+    @Published public var all = [AccountOrder]()
     
     private var cancellableSet = Set<AnyCancellable>()
 
@@ -41,11 +49,13 @@ public class OrdersModel: ObservableObject {
                     case .failure(let error):
                         print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
-                        print("did finish loading getSandboxAccounts")
+                        print("did finish loading getSandboxOrders")
                     }
                 } receiveValue: { [weak self] response in
-                    self?.orders.removeAll()
-                    self?.orders.append(contentsOf: response.orders)
+                    self?.all.removeAll()
+                    self?.all.append(contentsOf: response.orders.map { order in
+                        return AccountOrder(figi: order.figi)
+                    })
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -59,8 +69,10 @@ public class OrdersModel: ObservableObject {
                         print("did finish loading getOrders")
                     }
                 } receiveValue: { [weak self] response in
-                    self?.orders.removeAll()
-                    self?.orders.append(contentsOf: response.orders)
+                    self?.all.removeAll()
+                    self?.all.append(contentsOf: response.orders.map { order in
+                        return AccountOrder(figi: order.figi)
+                    })
                 }
                 .store(in: &cancellableSet)
         }
