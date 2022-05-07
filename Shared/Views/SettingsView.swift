@@ -10,6 +10,8 @@ import TinkoffInvestSDK
 
 struct SettingsView: View {
     
+    // MARK: - Properties
+    
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
     @EnvironmentObject var accounts: AccountsModel
@@ -19,6 +21,9 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var deleteToken = false
+    
+    
+    // MARK: - View
     
     var body: some View {
         VStack {
