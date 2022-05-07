@@ -67,7 +67,7 @@ public class AccountModel: ObservableObject {
                     case .failure(let error):
                         print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
-                        print("did finish loading getAccounts")
+                        print("did finish loading getSandboxPortfolio")
                     }
                 } receiveValue: { [weak self] response in
                     print(response)
@@ -87,7 +87,7 @@ public class AccountModel: ObservableObject {
                     case .failure(let error):
                         print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                     case .finished:
-                        print("did finish loading getAccounts")
+                        print("did finish loading getPortfolio")
                     }
                 } receiveValue: { [weak self] response in
                     print(response)
@@ -192,8 +192,5 @@ public class AccountModel: ObservableObject {
                 }
                 .store(in: &cancellableSet)
         }
-        
-        
-        
     }
 }
