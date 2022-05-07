@@ -6,15 +6,42 @@
 //
 
 import SwiftUI
+import TinkoffInvestSDK
 
 struct RobotView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
+    // MARK: - Properties
+    
+    @EnvironmentObject var sdk: TinkoffInvestSDK
+    
+    @EnvironmentObject var orders: OrdersModel
+    
+    @ObservedObject private var robot: RobotModel
+    
+    @State private var showingOrder = false
+    
+    // MARK: - Init
+    
+    init(robot: RobotModel) {
+        self.robot = robot
     }
-}
-
-struct RobotView_Previews: PreviewProvider {
-    static var previews: some View {
-        RobotView()
+    
+    
+    // MARK: - View
+    
+    var body: some View {
+        VStack {
+            Text("Забатываю деньги для тебя!")
+        }
+        .toolbar {
+            Button(action: {
+                showingOrder.toggle()
+            }) {
+                Image(systemName: "plus.app.fill")
+            }
+        }
+        .sheet(isPresented: $showingOrder) {
+            OrderView(orders: orders)
+        }
     }
 }
