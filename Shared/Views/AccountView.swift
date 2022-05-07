@@ -15,6 +15,8 @@ struct AccountView: View {
     
     @ObservedObject private var account: AccountModel
     
+    @ObservedObject private var orders: OrdersModel
+    
     @EnvironmentObject var instruments: InstrumentsModel
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
@@ -26,9 +28,11 @@ struct AccountView: View {
     
     // MARK: - Init
     
-    init(account: AccountModel) {
+    init(account: AccountModel, orders: OrdersModel) {
         self.account = account;
         account.fetch()
+        self.orders = orders
+        orders.fetch()
     }
     
     
@@ -39,6 +43,7 @@ struct AccountView: View {
             VStack {
                 if selectedMac {
                     RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox))
+                        .environmentObject(orders)
                 }
                 else if account.totalAmount.count > 0 {
                     List {
@@ -51,7 +56,7 @@ struct AccountView: View {
                                 }
                             }
                         }
-                        Section(header: Text("Позиции")) {
+                        Section(header: Text("Портфель")) {
                             ForEach(account.positions) { position in
                                 NavigationLink(destination:Text(position.figi)) {
                                     HStack {
@@ -60,11 +65,28 @@ struct AccountView: View {
                                         } else {
                                             Text(position.figi)
                                                 .onAppear() {
-                                                    instruments.getInstrument(figi: position.figi, type: position.type)
+                                                    instruments.getInstrument(figi: position.figi)
                                                 }
                                         }
                                         Spacer()
                                         Text("\(position.quantity)" as String)
+                                    }
+                                }
+                            }
+                        }
+                        Section(header: Text("Заявки")) {
+                            ForEach(orders.all) { order in
+                                NavigationLink(destination:Text(order.figi)) {
+                                    HStack {
+                                        if let name = instruments.cached[order.figi] {
+                                            Text(name)
+                                        } else {
+                                            Text(order.figi)
+                                                .onAppear() {
+                                                    instruments.getInstrument(figi: order.figi)
+                                                }
+                                        }
+                                        Spacer()
                                     }
                                 }
                             }
@@ -110,7 +132,8 @@ struct AccountView: View {
                 .frame(maxWidth: 400)
                 .background(
                     NavigationLink(
-                        destination: RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox)),
+                        destination: RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox))
+                            .environmentObject(orders),
                         tag: 1,
                         selection: $selectedTag,
                         label: { EmptyView() }
