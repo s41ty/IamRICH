@@ -43,6 +43,8 @@
 		8BF1A18728231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 		8BF1A189282453C9007277D6 /* RobotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A188282453C9007277D6 /* RobotModel.swift */; };
 		8BF1A18A282453C9007277D6 /* RobotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A188282453C9007277D6 /* RobotModel.swift */; };
+		8BF1A18C28271340007277D6 /* InstrumentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18B28271340007277D6 /* InstrumentsModel.swift */; };
+		8BF1A18D28271340007277D6 /* InstrumentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18B28271340007277D6 /* InstrumentsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,7 @@
 		8BA65FE6281F054200095B96 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8BF1A18528231C45007277D6 /* RobotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotView.swift; sourceTree = "<group>"; };
 		8BF1A188282453C9007277D6 /* RobotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotModel.swift; sourceTree = "<group>"; };
+		8BF1A18B28271340007277D6 /* InstrumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,7 @@
 				8B38FB5F281DDB4900EB1F0F /* AccountsModel.swift */,
 				8B6999DC282082300080160B /* OrdersModel.swift */,
 				8BF1A188282453C9007277D6 /* RobotModel.swift */,
+				8BF1A18B28271340007277D6 /* InstrumentsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,6 +325,7 @@
 				8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */,
 				8B6999DD282082300080160B /* OrdersModel.swift in Sources */,
 				8B6999E02821D7680080160B /* OrderView.swift in Sources */,
+				8BF1A18C28271340007277D6 /* InstrumentsModel.swift in Sources */,
 				8B38FB50281BE92500EB1F0F /* NewTokenView.swift in Sources */,
 				8B38FB60281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
 			);
@@ -342,6 +347,7 @@
 				8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */,
 				8B6999DE282082300080160B /* OrdersModel.swift in Sources */,
 				8B6999E12821D7690080160B /* OrderView.swift in Sources */,
+				8BF1A18D28271340007277D6 /* InstrumentsModel.swift in Sources */,
 				8B38FB51281BE92500EB1F0F /* NewTokenView.swift in Sources */,
 				8B38FB61281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
 			);
