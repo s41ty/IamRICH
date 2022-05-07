@@ -26,7 +26,7 @@ public class InstrumentsModel: ObservableObject {
         self.sdk = sdk
     }
     
-    public func getInstrument(figi: String, type: String) {
+    public func getInstrument(figi: String) {
         if self.cached[figi] != nil {
             return
         } else if figi == "FG0000000000" {
@@ -34,67 +34,20 @@ public class InstrumentsModel: ObservableObject {
             return
         }
         
-        if type == "currency" {
-            sdk.instrumentsService.currencyBy(figi: figi)
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading currencyBy")
-                    }
-                } receiveValue: { [weak self] response in
-                    print(response)
-                    self?.cached[response.instrument.figi] = response.instrument.name
+        sdk.instrumentsService.getInstrumentBy(figi: figi)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
+                case .finished:
+                    print("did finish loading getInstrumentBy")
                 }
-                .store(in: &cancellableSet)
-        } else if type == "bond" {
-            sdk.instrumentsService.bondBy(figi: figi)
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading bondBy")
-                    }
-                } receiveValue: { [weak self] response in
-                    print(response)
-                    self?.cached[response.instrument.figi] = response.instrument.name
-                }
-                .store(in: &cancellableSet)
-        } else if type == "share" {
-            sdk.instrumentsService.shareBy(figi: figi)
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading shareBy")
-                    }
-                } receiveValue: { [weak self] response in
-                    print(response)
-                    self?.cached[response.instrument.figi] = response.instrument.name
-                }
-                .store(in: &cancellableSet)
-        } else if type == "eft" {
-            sdk.instrumentsService.etfBy(figi: figi)
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading etfBy")
-                    }
-                } receiveValue: { [weak self] response in
-                    print(response)
-                    self?.cached[response.instrument.figi] = response.instrument.name
-                }
-                .store(in: &cancellableSet)
-        }
+            } receiveValue: { [weak self] response in
+                print(response)
+                self?.cached[response.instrument.figi] = response.instrument.name
+            }
+            .store(in: &cancellableSet)
     }
     
     public func getEfts() {
