@@ -37,18 +37,20 @@ struct AccountsView: View {
                     List {
                         Section(header: Text("Основные счета")) {
                             ForEach(accounts.real) { account in
-                                NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account, isSandbox: false))) {
+                                NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account, isSandbox: false), orders: OrdersModel(sdk: sdk, accountId: account.id, isSandbox: false))) {
                                     Text(account.name)
                                 }
                             }
                         }
                         Section(header: Text("Песочница")) {
                             ForEach(accounts.sandboxes) { account in
-                                NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account, isSandbox: true))) {
+                                NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account, isSandbox: true), orders: OrdersModel(sdk: sdk, accountId: account.id, isSandbox: true))) {
                                     Text(account.id)
                                 }
                                 .swipeActions {
-                                    Button(role: .destructive) { closeAccount(accountId: account.id) } label: {
+                                    Button(role: .destructive) {
+                                        accounts.closeSandbox(accountId: account.id)
+                                    } label: {
                                         Label("Удалить", systemImage: "trash")
                                     }
                                 }
@@ -84,9 +86,5 @@ struct AccountsView: View {
             .padding(1)
             #endif
         }
-    }
-    
-    func closeAccount(accountId: String) {
-        accounts.closeSandbox(accountId: accountId)
     }
 }
