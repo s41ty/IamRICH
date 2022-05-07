@@ -10,6 +10,8 @@ import Combine
 
 struct OrderView: View {
     
+    // MARK: - Properties
+    
     @ObservedObject var orders: OrdersModel
     
     @Environment(\.dismiss) var dismiss
@@ -20,6 +22,16 @@ struct OrderView: View {
     
     @State var price: Decimal = 7
 
+    
+    // MARK: - Init
+    
+    init(orders: OrdersModel) {
+        self.orders = orders
+    }
+    
+    
+    // MARK: - View
+    
     var body: some View {
         VStack {
             HStack {
