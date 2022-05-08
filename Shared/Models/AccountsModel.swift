@@ -13,9 +13,9 @@ public class AccountsModel: ObservableObject {
     
     // MARK: - Properties
     
-    @Published public var real = Array<Tinkoff_Public_Invest_Api_Contract_V1_Account>()
+    @Published public var real = [Tinkoff_Public_Invest_Api_Contract_V1_Account]()
     
-    @Published public var sandboxes = Array<Tinkoff_Public_Invest_Api_Contract_V1_Account>()
+    @Published public var sandboxes = [Tinkoff_Public_Invest_Api_Contract_V1_Account]()
     
     private var cancellableSet = Set<AnyCancellable>()
 
@@ -35,22 +35,18 @@ public class AccountsModel: ObservableObject {
         )
         .receive(on: RunLoop.main)
         .sink(
-            receiveCompletion: { [weak self] completion in
+            receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
                     print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                 case .finished:
-                    print(self?.real)
-                    print(self?.sandboxes)
                     print("did finish loading getAccounts and getSandboxAccounts")
                 }
             },
             receiveValue: { [weak self] r, s in
                 print(r, s)
-                self?.real.removeAll()
-                self?.real.append(contentsOf: r.accounts)
-                self?.sandboxes.removeAll()
-                self?.sandboxes.append(contentsOf: s.accounts)
+                self?.real = r.accounts
+                self?.sandboxes = s.accounts
             }
         )
         .store(in: &cancellableSet)

@@ -75,10 +75,9 @@ public class AccountModel: ObservableObject {
                 } receiveValue: { [weak self] response in
                     print(response)
                     self?.totalAmount = response.totalAmountCurrencies.asString
-                    self?.positions.removeAll()
-                    self?.positions.append(contentsOf: response.positions.map { position in
+                    self?.positions = response.positions.map { position in
                         return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
-                    })
+                    }
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -94,10 +93,9 @@ public class AccountModel: ObservableObject {
                 } receiveValue: { [weak self] response in
                     print(response)
                     self?.totalAmount = response.totalAmountCurrencies.asString
-                    self?.positions.removeAll()
-                    self?.positions.append(contentsOf: response.positions.map { position in
+                    self?.positions = response.positions.map { position in
                         return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
-                    })
+                    }
                 }
                 .store(in: &cancellableSet)
         }
