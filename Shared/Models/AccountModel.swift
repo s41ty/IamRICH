@@ -20,6 +20,12 @@ extension AccountPosition: Identifiable {
     public var id: String { figi }
 }
 
+extension AccountPosition: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(figi)
+    }
+}
+
 public class AccountModel: ObservableObject {
 
     // MARK: - Properties

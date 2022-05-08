@@ -17,6 +17,12 @@ extension AccountOrder: Identifiable {
     public var id: String { figi }
 }
 
+extension AccountOrder: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(figi)
+    }
+}
+
 public class OrdersModel: ObservableObject {
     
     // MARK: - Properties
@@ -52,10 +58,9 @@ public class OrdersModel: ObservableObject {
                         print("did finish loading getSandboxOrders")
                     }
                 } receiveValue: { [weak self] response in
-                    self?.all.removeAll()
-                    self?.all.append(contentsOf: response.orders.map { order in
+                    self?.all = response.orders.map { order in
                         return AccountOrder(figi: order.figi)
-                    })
+                    }
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -69,10 +74,9 @@ public class OrdersModel: ObservableObject {
                         print("did finish loading getOrders")
                     }
                 } receiveValue: { [weak self] response in
-                    self?.all.removeAll()
-                    self?.all.append(contentsOf: response.orders.map { order in
+                    self?.all = response.orders.map { order in
                         return AccountOrder(figi: order.figi)
-                    })
+                    }
                 }
                 .store(in: &cancellableSet)
         }
