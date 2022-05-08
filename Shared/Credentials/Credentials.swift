@@ -25,6 +25,7 @@ public class Credentials: ObservableObject {
         self.accessToken = loadToken()
     }
     
+    
     // MARK: - Keychain methods
     
     public func saveToken(_ newToken: String) {
