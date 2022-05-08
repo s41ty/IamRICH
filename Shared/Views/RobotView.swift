@@ -14,8 +14,6 @@ struct RobotView: View {
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
     
-    @EnvironmentObject var orders: OrdersModel
-    
     @ObservedObject private var robot: RobotModel
     
     @State private var showingOrder = false
@@ -24,6 +22,7 @@ struct RobotView: View {
     
     init(robot: RobotModel) {
         self.robot = robot
+        robot.start()
     }
     
     
@@ -41,7 +40,7 @@ struct RobotView: View {
             }
         }
         .sheet(isPresented: $showingOrder) {
-            OrderView(orders: orders)
+            OrderView(orders: robot.orders)
         }
     }
 }

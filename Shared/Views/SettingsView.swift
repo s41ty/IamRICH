@@ -6,13 +6,10 @@
 //
 
 import SwiftUI
-import TinkoffInvestSDK
 
 struct SettingsView: View {
     
     // MARK: - Properties
-    
-    @EnvironmentObject var sdk: TinkoffInvestSDK
     
     @EnvironmentObject var accounts: AccountsModel
     

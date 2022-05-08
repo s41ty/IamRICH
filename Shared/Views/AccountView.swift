@@ -17,6 +17,8 @@ struct AccountView: View {
     
     @ObservedObject private var orders: OrdersModel
     
+    @EnvironmentObject var accounts: AccountsModel
+    
     @EnvironmentObject var instruments: InstrumentsModel
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
@@ -31,6 +33,8 @@ struct AccountView: View {
     init(account: AccountModel, orders: OrdersModel) {
         self.account = account
         self.orders = orders
+        account.fetch()
+        orders.fetch()
     }
 
     
@@ -89,16 +93,15 @@ struct AccountView: View {
                             .frame(height: 30)
                             .listRowBackground(Color.clear)
                     }
-                    .listStyle(SidebarListStyle())
                     .navigationTitle(account.accountName)
                     .navigationViewStyle(.automatic)
                     #if os(iOS)
+                    .listStyle(SidebarListStyle())
                     .navigationBarTitleDisplayMode(.inline)
                     #endif
                     .toolbar {
                         if account.isSandbox {
                             Button(action: {
-                                print("add money")
                                 account.sandboxPayIn(accountId: account.accountId, rubAmmount: 100000)
                             }) {
                                 Image(systemName: "dollarsign.square.fill")
@@ -119,8 +122,7 @@ struct AccountView: View {
             #endif
             VStack {
                 Spacer()
-                Button("Поднять бабла") {
-                    print("make me rich")
+                Button("Запустить робота") {
                     #if os(iOS)
                     selectedTag = 1
                     #elseif os(macOS)
@@ -131,8 +133,7 @@ struct AccountView: View {
                 .frame(maxWidth: 400)
                 .background(
                     NavigationLink(
-                        destination: RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox))
-                            .environmentObject(orders),
+                        destination: RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox, orders: orders)),
                         tag: 1,
                         selection: $selectedTag,
                         label: { EmptyView() }
@@ -146,17 +147,11 @@ struct AccountView: View {
             #endif
             #if os(macOS)
             VStack {
-                RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox))
-                    .environmentObject(orders)
+                RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox, orders: orders))
             }
             .zIndex(2)
             .opacity(selectedMac ? 1 : 0)
             #endif
-            
         }
-        .onAppear(perform: {
-            account.fetch()
-            orders.fetch()
-        })
     }
 }

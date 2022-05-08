@@ -23,7 +23,8 @@ struct AccountsView: View {
     // MARK: - Init
     
     init(accounts: AccountsModel) {
-        self.accounts = accounts;
+        self.accounts = accounts
+        accounts.fetch()
     }
     
     
@@ -53,13 +54,22 @@ struct AccountsView: View {
                                         Label("Удалить", systemImage: "trash")
                                     }
                                 }
+                                #if os(macOS)
+                                .contextMenu {
+                                    Button(action: {
+                                        accounts.closeSandbox(accountId: account.id)
+                                    }){
+                                        Text("Удалить")
+                                    }
+                                }
+                                #endif
                             }
                         }
                     }
-                    .listStyle(SidebarListStyle())
                     .navigationTitle("Брокерские счета")
                     .navigationViewStyle(.automatic)
                     #if os(iOS)
+                    .listStyle(SidebarListStyle())
                     .navigationBarTitleDisplayMode(.inline)
                     #endif
                     .toolbar {
@@ -85,8 +95,5 @@ struct AccountsView: View {
             .padding(1)
             #endif
         }
-        .onAppear(perform: {
-            accounts.fetch()
-        })
     }
 }
