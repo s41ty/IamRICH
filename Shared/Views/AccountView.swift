@@ -29,23 +29,17 @@ struct AccountView: View {
     // MARK: - Init
     
     init(account: AccountModel, orders: OrdersModel) {
-        self.account = account;
-        account.fetch()
+        self.account = account
         self.orders = orders
-        orders.fetch()
     }
-    
+
     
     // MARK: - View
     
     var body: some View {
         ZStack {
             VStack {
-                if selectedMac {
-                    RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox))
-                        .environmentObject(orders)
-                }
-                else if account.totalAmount.count > 0 {
+                if account.totalAmount.count > 0 {
                     List {
                         Section(header: Text("Счёт")) {
                             NavigationLink(destination:Text("Всего средств: \(account.totalAmount)")) {
@@ -57,7 +51,7 @@ struct AccountView: View {
                             }
                         }
                         Section(header: Text("Портфель")) {
-                            ForEach(account.positions) { position in
+                            ForEach(account.positions, id:\.self) { position in
                                 NavigationLink(destination:Text(position.figi)) {
                                     HStack {
                                         if let name = instruments.cached[position.figi] {
@@ -75,7 +69,7 @@ struct AccountView: View {
                             }
                         }
                         Section(header: Text("Заявки")) {
-                            ForEach(orders.all) { order in
+                            ForEach(orders.all, id:\.self) { order in
                                 NavigationLink(destination:Text(order.figi)) {
                                     HStack {
                                         if let name = instruments.cached[order.figi] {
@@ -107,17 +101,22 @@ struct AccountView: View {
                                 print("add money")
                                 account.sandboxPayIn(accountId: account.accountId, rubAmmount: 100000)
                             }) {
-                                Text("Пополнить")
+                                Image(systemName: "dollarsign.square.fill")
                             }
                         }
                     }
                     .refreshable {
                         account.fetch()
+                        orders.fetch()
                     }
-                } else {
+                }
+                else {
                     LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
                 }
             }
+            #if os(macOS)
+            .opacity(selectedMac ? 0 : 1)
+            #endif
             VStack {
                 Spacer()
                 Button("Поднять бабла") {
@@ -142,6 +141,22 @@ struct AccountView: View {
             }
             .padding()
             .zIndex(1)
+            #if os(macOS)
+            .opacity(selectedMac ? 0 : 1)
+            #endif
+            #if os(macOS)
+            VStack {
+                RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox))
+                    .environmentObject(orders)
+            }
+            .zIndex(2)
+            .opacity(selectedMac ? 1 : 0)
+            #endif
+            
         }
+        .onAppear(perform: {
+            account.fetch()
+            orders.fetch()
+        })
     }
 }

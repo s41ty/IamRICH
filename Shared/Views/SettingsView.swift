@@ -42,13 +42,11 @@ struct SettingsView: View {
             }
             Spacer()
             Button("Добавить счет в песочнице") {
-                print("add sandbox account")
                 accounts.openSandbox()
             }
             .buttonStyle(RoundedButtonStyle(color: .blue))
             .frame(maxWidth: 400)
             Button("Удалить токен") {
-                print("delete token")
                 deleteToken = true
                 dismiss()
             }
