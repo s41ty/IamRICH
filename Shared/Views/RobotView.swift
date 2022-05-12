@@ -28,7 +28,6 @@ struct RobotView: View {
     init(robot: RobotModel,selectedMac: Binding<Bool>) {
         self.robot = robot
         _selectedMac = selectedMac
-        robot.start()
     }
     
     
@@ -47,9 +46,9 @@ struct RobotView: View {
                     }
                 }
                 .navigationTitle("Робот")
-                .navigationViewStyle(.automatic)
+//                .navigationViewStyle(.automatic)
                 #if os(iOS)
-                .listStyle(SidebarListStyle())
+//                .listStyle(SidebarListStyle())
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
                 .toolbar {
@@ -60,22 +59,38 @@ struct RobotView: View {
                     }
                 }
             }
+            .opacity(robot.isActive ? 1 : 0)
             VStack {
                 Spacer()
-                Button("Остановить робота") {
-                    #if os(iOS)
-                    robot.stop()
-                    self.mode.wrappedValue.dismiss()
-                    #elseif os(macOS)
-                    robot.stop()
-                    selectedMac.toggle()
-                    #endif
+                Text("Результаты робота")
+                Spacer()
+            }
+            .zIndex(1)
+            .opacity(robot.isActive ? 0 : 1)
+            VStack {
+                Spacer()
+                if !robot.isActive {
+                    Button("Запустить робота") {
+                        robot.start()
+                    }
+                    .buttonStyle(RoundedButtonStyle())
+                    .frame(maxWidth: 400)
+                } else {
+                    Button("Остановить робота") {
+                        robot.stop()
+                        #if os(iOS)
+//                        self.mode.wrappedValue.dismiss()
+                        #elseif os(macOS)
+//                        selectedMac.toggle()
+                        #endif
+                    }
+                    .buttonStyle(RoundedButtonStyle(color: .red))
+                    .frame(maxWidth: 400)
                 }
-                .buttonStyle(RoundedButtonStyle(color: .red))
-                .frame(maxWidth: 400)
+                
             }
             .padding()
-            .zIndex(1)
+            .zIndex(2)
         }
         .sheet(isPresented: $showingOrder) {
             OrderView(orders: robot.orders)
