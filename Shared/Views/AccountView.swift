@@ -122,7 +122,7 @@ struct AccountView: View {
             #endif
             VStack {
                 Spacer()
-                Button("Запустить робота") {
+                Button("Открыть робота") {
                     #if os(iOS)
                     selectedTag = 1
                     #elseif os(macOS)
