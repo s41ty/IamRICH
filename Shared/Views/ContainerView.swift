@@ -23,7 +23,7 @@ struct ContainerView: View {
             if let token = credentials.accessToken {
                 let config = TinkoffInvestConfig(token: token, appName: "s41ty")
                 let sdk = TinkoffInvestSDK(config: config)
-                AccountsView(accounts: AccountsModel(sdk: sdk))
+                AccountsView(accounts: AccountsModel(sdk: sdk, credentials: credentials))
                     .environmentObject(sdk)
                     .environmentObject(InstrumentsModel(sdk: sdk))
             } else {

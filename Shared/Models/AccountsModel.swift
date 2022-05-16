@@ -21,11 +21,14 @@ public class AccountsModel: ObservableObject {
 
     private var sdk: TinkoffInvestSDK
     
+    private var credentials: Credentials
+    
     
     // MARK: - Init
     
-    public init(sdk: TinkoffInvestSDK) {
+    public init(sdk: TinkoffInvestSDK, credentials: Credentials) {
         self.sdk = sdk
+        self.credentials = credentials
     }
 
     public func fetch() {
@@ -35,10 +38,20 @@ public class AccountsModel: ObservableObject {
         )
         .receive(on: RunLoop.main)
         .sink(
-            receiveCompletion: { completion in
+            receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
                     print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
+                    guard let trailingMetadata = error.trailingMetadata else {
+                        return
+                    }
+                    for metadata in trailingMetadata {
+                        if metadata.value == "Authentication failed" {
+                            print("Authentication failed")
+                            print("Drop is removed")
+                            self?.credentials.deleteToken()
+                        }
+                    }
                 case .finished:
                     print("did finish loading getAccounts and getSandboxAccounts")
                 }
