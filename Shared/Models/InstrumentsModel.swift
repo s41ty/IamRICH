@@ -44,7 +44,7 @@ public class InstrumentsModel: ObservableObject {
                     print("did finish loading getInstrumentBy")
                 }
             } receiveValue: { [weak self] response in
-                print(response)
+//                print(response)
                 self?.cached[response.instrument.figi] = response.instrument.name
             }
             .store(in: &cancellableSet)
@@ -61,7 +61,7 @@ public class InstrumentsModel: ObservableObject {
                     print("did finish loading etfs")
                 }
             } receiveValue: { response in
-                print(response)
+//                print(response)
             }
             .store(in: &cancellableSet)
     }
@@ -77,7 +77,7 @@ public class InstrumentsModel: ObservableObject {
                     print("did finish loading bonds")
                 }
             } receiveValue: { response in
-                print(response)
+//                print(response)
             }
             .store(in: &cancellableSet)
     }
@@ -93,7 +93,7 @@ public class InstrumentsModel: ObservableObject {
                     print("did finish loading shares")
                 }
             } receiveValue: { response in
-                print(response)
+//                print(response)
             }
             .store(in: &cancellableSet)
     }
@@ -109,7 +109,7 @@ public class InstrumentsModel: ObservableObject {
                     print("did finish loading currencies")
                 }
             } receiveValue: { response in
-                print(response)
+//                print(response)
             }
             .store(in: &cancellableSet)
     }
