@@ -14,6 +14,7 @@ public struct AccountPosition {
     var type: String
     var quantity: Decimal
     var value: String
+    var average: Decimal
 }
 
 extension AccountPosition: Identifiable {
@@ -73,10 +74,10 @@ public class AccountModel: ObservableObject {
                         print("did finish loading getSandboxPortfolio")
                     }
                 } receiveValue: { [weak self] response in
-                    print(response)
+//                    print(response)
                     self?.totalAmount = response.totalAmountCurrencies.asString
                     self?.positions = response.positions.map { position in
-                        return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
+                        return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString, average: position.averagePositionPrice.asDecimal)
                     }
                 }
                 .store(in: &cancellableSet)
@@ -91,10 +92,10 @@ public class AccountModel: ObservableObject {
                         print("did finish loading getPortfolio")
                     }
                 } receiveValue: { [weak self] response in
-                    print(response)
+//                    print(response)
                     self?.totalAmount = response.totalAmountCurrencies.asString
                     self?.positions = response.positions.map { position in
-                        return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString)
+                        return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString, average: position.averagePositionPrice.asDecimal)
                     }
                 }
                 .store(in: &cancellableSet)
@@ -117,7 +118,7 @@ public class AccountModel: ObservableObject {
                 }
                 self?.fetch()
             } receiveValue: { response in
-                print(response)
+//                print(response)
             }
             .store(in: &cancellableSet)
     }
