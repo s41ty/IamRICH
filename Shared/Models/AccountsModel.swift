@@ -77,7 +77,7 @@ public class AccountsModel: ObservableObject {
                 }
                 self?.fetch()
             } receiveValue: { response in
-                print(response)
+//                print(response)
             }
             .store(in: &cancellableSet)
     }
@@ -94,7 +94,7 @@ public class AccountsModel: ObservableObject {
                 }
                 self?.fetch()
             } receiveValue: { response in
-                print(response)
+//                print(response)
             }
             .store(in: &cancellableSet)
     }
