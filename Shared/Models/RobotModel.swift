@@ -45,7 +45,7 @@ public class RobotModel: ObservableObject {
     
     @Published public var instrumentTicker = "TMOS"
     
-    @Published public var lastChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumWithMaximum(of: -0.001), topLine: .maximum(of: 0.001)), noDataText: Text("Загружаю данные"))
+    @Published public var lastChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumWithMaximum(of: -0.004), topLine: .maximum(of: 0.004)), noDataText: Text("Загружаю данные"))
     
     private var cancellableSet = Set<AnyCancellable>()
 
@@ -170,10 +170,6 @@ public class RobotModel: ObservableObject {
             return
         }
         
-        guard let position = positions.first else {
-            return
-        }
-        
         let lastClose = last.close
         
         let previousMACD = previous.macd
@@ -182,31 +178,36 @@ public class RobotModel: ObservableObject {
         let previousSignal = previous.signal
         let lastSignal = last.signal
         
-        print("makeDecision")
+        print("make decision")
         
-        // .... or sell
         if previousSignal < previousMACD && lastSignal > lastMACD {
-            let price = self.portfolioPrice * 0.99
-            let round = Double(floor(1000*NSDecimalNumber(decimal: price).doubleValue)/1000)
+            print("trying to sell...")
+            guard let position = positions.first else {
+                print("don't have enought quantity")
+                return
+            }
+            let price = self.portfolioPrice * 0.98
+            let round = Double(floor(10000*NSDecimalNumber(decimal: price).doubleValue)/10000)
             let fix = Decimal(round)
             let quantity = NSDecimalNumber(decimal: position.quantity).int64Value
-            if price > lastClose && position.average > price {
+            if position.average > price {
                 self.addOrder(figi: self.instrumentFigi, quantity: quantity, price: fix, direction: .sell)
+                self.sellQuantity += 1
                 print("selling quantity:\(quantity) price:\(fix)")
+            } else {
+                print("price is not good")
             }
-        }
-        
-        // .... or buy
-        if previousSignal > previousMACD && lastSignal < lastMACD {
+        } else if previousSignal > previousMACD && lastSignal < lastMACD {
+            print("trying to buy...")
             let price = lastClose * 1.01
-            let round = Double(floor(1000*NSDecimalNumber(decimal: price).doubleValue)/1000)
+            let round = Double(floor(10000*NSDecimalNumber(decimal: price).doubleValue)/10000)
             let fix = Decimal(round)
             self.addOrder(figi: self.instrumentFigi, quantity: 10, price: fix, direction: .buy)
+            self.buyQuantity += 1
             print("buying quantity:\(10) price:\(fix)")
+        } else {
+            print("waiting with potfolio quantity:\(self.portfolioQuantity) average price:\(self.portfolioPrice), last price:\(self.lastPrice)")
         }
-        
-        // .... waiting
-        print("waiting with potfolio quantity:\(self.portfolioQuantity) average price:\(self.portfolioPrice), last price:\(self.lastPrice)")
     }
     
     public func addOrder(
