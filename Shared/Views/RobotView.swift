@@ -45,6 +45,8 @@ struct RobotView: View {
                     Text("Количество заявок купить: \(robot.buyQuantity)")
                     Text("Количество заявок продать: \(robot.sellQuantity)")
                 }
+                Spacer()
+                    .frame(height: 150)
                 VStack {
                     ChartView(data: robot.lastChartData)
                         .frame(minHeight: 0, maxHeight: 100)
@@ -59,9 +61,11 @@ struct RobotView: View {
                             .font(.subheadline)
                             .foregroundColor(.red)
                     }
+                    .padding()
                 }
                 .padding()
                 Spacer()
+                    .frame(height: 100)
             }
             .navigationTitle("Робот")
 //                .navigationViewStyle(.automatic)
