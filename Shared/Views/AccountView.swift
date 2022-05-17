@@ -133,7 +133,7 @@ struct AccountView: View {
                 .frame(maxWidth: 400)
                 .background(
                     NavigationLink(
-                        destination: RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox, orders: orders), selectedMac: $selectedMac),
+                        destination: RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox), selectedMac: $selectedMac).environmentObject(orders),
                         tag: 1,
                         selection: $selectedTag,
                         label: { EmptyView() }
@@ -147,7 +147,7 @@ struct AccountView: View {
             #endif
             #if os(macOS)
             VStack {
-                RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox, orders: orders), selectedMac: $selectedMac)
+                RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox), selectedMac: $selectedMac).environmentObject(orders)
             }
             .zIndex(2)
             .opacity(selectedMac ? 1 : 0)
