@@ -39,6 +39,10 @@
 		8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FE6281F054200095B96 /* SettingsView.swift */; };
 		8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FE6281F054200095B96 /* SettingsView.swift */; };
 		8BA65FEA281F076400095B96 /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA65FE9281F076400095B96 /* SwiftfulLoadingIndicators */; };
+		8BB9217B2832C62A00700612 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB9217A2832C62A00700612 /* ChartView.swift */; };
+		8BB9217C2832C62A00700612 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB9217A2832C62A00700612 /* ChartView.swift */; };
+		8BB9218D2832CA7500700612 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB9218C2832CA7500700612 /* SwiftUICharts */; };
+		8BB9218F2832CA7B00700612 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB9218E2832CA7B00700612 /* SwiftUICharts */; };
 		8BF1A18628231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 		8BF1A18728231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 		8BF1A189282453C9007277D6 /* RobotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A188282453C9007277D6 /* RobotModel.swift */; };
@@ -65,6 +69,7 @@
 		8B7D13982818A485006CF896 /* IamRICH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IamRICH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D139A2818A485006CF896 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		8BA65FE6281F054200095B96 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8BB9217A2832C62A00700612 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		8BF1A18528231C45007277D6 /* RobotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotView.swift; sourceTree = "<group>"; };
 		8BF1A188282453C9007277D6 /* RobotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotModel.swift; sourceTree = "<group>"; };
 		8BF1A18B28271340007277D6 /* InstrumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentsModel.swift; sourceTree = "<group>"; };
@@ -76,6 +81,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B38FB49281BDC6E00EB1F0F /* KeychainAccess in Frameworks */,
+				8BB9218D2832CA7500700612 /* SwiftUICharts in Frameworks */,
 				8B479E5A2819C83B00DE6AED /* TinkoffInvestSDK in Frameworks */,
 				8BA65FE5281EC39900095B96 /* SwiftfulLoadingIndicators in Frameworks */,
 			);
@@ -86,6 +92,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B38FB4E281BDDE100EB1F0F /* KeychainAccess in Frameworks */,
+				8BB9218F2832CA7B00700612 /* SwiftUICharts in Frameworks */,
 				8B479E5D2819C85D00DE6AED /* TinkoffInvestSDK in Frameworks */,
 				8BA65FEA281F076400095B96 /* SwiftfulLoadingIndicators in Frameworks */,
 			);
@@ -128,6 +135,7 @@
 				8BA65FE6281F054200095B96 /* SettingsView.swift */,
 				8B6999DF2821D7680080160B /* OrderView.swift */,
 				8BF1A18528231C45007277D6 /* RobotView.swift */,
+				8BB9217A2832C62A00700612 /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 				8B479E592819C83B00DE6AED /* TinkoffInvestSDK */,
 				8B38FB48281BDC6E00EB1F0F /* KeychainAccess */,
 				8BA65FE4281EC39900095B96 /* SwiftfulLoadingIndicators */,
+				8BB9218C2832CA7500700612 /* SwiftUICharts */,
 			);
 			productName = "IamRICH (iOS)";
 			productReference = 8B7D13922818A485006CF896 /* IamRICH.app */;
@@ -242,6 +251,7 @@
 				8B479E5C2819C85D00DE6AED /* TinkoffInvestSDK */,
 				8B38FB4D281BDDE100EB1F0F /* KeychainAccess */,
 				8BA65FE9281F076400095B96 /* SwiftfulLoadingIndicators */,
+				8BB9218E2832CA7B00700612 /* SwiftUICharts */,
 			);
 			productName = "IamRICH (macOS)";
 			productReference = 8B7D13982818A485006CF896 /* IamRICH.app */;
@@ -278,6 +288,7 @@
 				8B479E582819C83B00DE6AED /* XCRemoteSwiftPackageReference "TinkoffInvestSDK" */,
 				8B38FB47281BDC6E00EB1F0F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				8BA65FE3281EC39900095B96 /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */,
+				8BB9218B2832CA7500700612 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = 8B7D13932818A485006CF896 /* Products */;
 			projectDirPath = "";
@@ -320,6 +331,7 @@
 				8B38FB64281DDDF800EB1F0F /* AccountModel.swift in Sources */,
 				8B7D139D2818A485006CF896 /* ContainerView.swift in Sources */,
 				8BF1A18628231C45007277D6 /* RobotView.swift in Sources */,
+				8BB9217B2832C62A00700612 /* ChartView.swift in Sources */,
 				8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */,
 				8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */,
@@ -342,6 +354,7 @@
 				8B38FB65281DDDF800EB1F0F /* AccountModel.swift in Sources */,
 				8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */,
 				8BF1A18728231C45007277D6 /* RobotView.swift in Sources */,
+				8BB9217C2832C62A00700612 /* ChartView.swift in Sources */,
 				8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */,
 				8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */,
@@ -643,6 +656,14 @@
 				kind = branch;
 			};
 		};
+		8BB9218B2832CA7500700612 /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/willdale/SwiftUICharts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -675,6 +696,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8BA65FE3281EC39900095B96 /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */;
 			productName = SwiftfulLoadingIndicators;
+		};
+		8BB9218C2832CA7500700612 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BB9218B2832CA7500700612 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
+			productName = SwiftUICharts;
+		};
+		8BB9218E2832CA7B00700612 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BB9218B2832CA7500700612 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
+			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
