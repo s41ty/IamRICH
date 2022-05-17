@@ -95,7 +95,7 @@ public class OrdersModel: ObservableObject {
                     }
                     self?.fetch()
                 } receiveValue: { response in
-                    print(response)
+//                    print(response)
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -110,7 +110,7 @@ public class OrdersModel: ObservableObject {
                     }
                     self?.fetch()
                 } receiveValue: { response in
-                    print(response)
+//                    print(response)
                 }
                 .store(in: &cancellableSet)
         }
@@ -141,7 +141,7 @@ public class OrdersModel: ObservableObject {
                     }
                     self?.fetch()
                 } receiveValue: { response in
-                    print(response)
+//                    print(response)
                 }
                 .store(in: &cancellableSet)
         } else {
