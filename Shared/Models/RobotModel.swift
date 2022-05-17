@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import CombineGRPC
 import Foundation
 import TinkoffInvestSDK
 import SwiftUICharts
@@ -266,7 +267,6 @@ public class RobotModel: ObservableObject {
     }
     
     private func calculateIntervals(candles: [Tinkoff_Public_Invest_Api_Contract_V1_HistoricCandle]) -> [Interval] {
-
         var intervals = [Interval]()
         let fastWeightingMultiplier: Decimal = 2 / (12 + 1)   // ~ 0,154
         let slowWeightingMultiplier: Decimal = 2 / (26 + 1)  // ~ 0,07
@@ -330,7 +330,6 @@ public class RobotModel: ObservableObject {
     }
     
     private func prepareChartData(intervals: [Interval]) {
-
         let lastIntervals = intervals.suffix(30)
         var macdData = [LineChartDataPoint]()
         var signalData = [LineChartDataPoint]()
@@ -358,6 +357,5 @@ public class RobotModel: ObservableObject {
                             strokeStyle: Stroke(lineWidth: 2)
                         )),
         ])
-        
     }
 }
