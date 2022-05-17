@@ -8,6 +8,7 @@
 import SwiftUI
 import TinkoffInvestSDK
 
+
 struct RobotView: View {
     
     // MARK: - Properties
@@ -36,27 +37,43 @@ struct RobotView: View {
     var body: some View {
         ZStack {
             VStack {
-                List {
-                    Section(header: Text("Логи")) {
-                        ForEach(robot.logs, id:\.self) { log in
-                            NavigationLink(destination: Text(log)) {
-                                Text(log)
-                            }
-                        }
+                Group {
+                    Text("Тикер: \(robot.instrumentTicker)")
+                    Text("Последняя цена продажи: \(String(describing: robot.lastPrice))")
+                    Text("Количество на брокерском счёте: \(String(describing: robot.portfolioQuantity))")
+                    Text("Средняя цена на брокерском счёте: \(String(describing: robot.portfolioPrice))")
+                    Text("Количество заявок купить: \(robot.buyQuantity)")
+                    Text("Количество заявок продать: \(robot.sellQuantity)")
+                }
+                VStack {
+                    ChartView(data: robot.lastChartData)
+                        .frame(minHeight: 0, maxHeight: 100)
+                    Spacer()
+                        .frame(height: 100)
+                    HStack {
+                        Text("MACD")
+                            .font(.subheadline)
+                            .foregroundColor(.blue)
+                        Spacer()
+                        Text("Signal")
+                            .font(.subheadline)
+                            .foregroundColor(.red)
                     }
                 }
-                .navigationTitle("Робот")
+                .padding()
+                Spacer()
+            }
+            .navigationTitle("Робот")
 //                .navigationViewStyle(.automatic)
-                #if os(iOS)
+            #if os(iOS)
 //                .listStyle(SidebarListStyle())
-                .navigationBarTitleDisplayMode(.inline)
-                #endif
-                .toolbar {
-                    Button(action: {
-                        showingOrder.toggle()
-                    }) {
-                        Image(systemName: "plus.app.fill")
-                    }
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                Button(action: {
+                    showingOrder.toggle()
+                }) {
+                    Image(systemName: "plus.app.fill")
                 }
             }
             .opacity(robot.isActive ? 1 : 0)
@@ -93,7 +110,11 @@ struct RobotView: View {
             .zIndex(2)
         }
         .sheet(isPresented: $showingOrder) {
-            OrderView(orders: robot.orders)
+            OrderView()
+        }
+        .onDisappear {
+            robot.stop()
         }
     }
+        
 }
