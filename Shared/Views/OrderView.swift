@@ -20,7 +20,7 @@ struct OrderView: View {
     
     @State var quantity: Int64 = 1
     
-    @State var price: Decimal = 7
+    @State var price: Decimal = 4.5
 
     
     // MARK: - View
@@ -28,7 +28,7 @@ struct OrderView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Купить|продать")
+                Text("Купить или Продать")
                     .font(.system(size: 34, weight: .bold, design: .default))
                 Spacer()
                 Button(action: {
@@ -60,12 +60,14 @@ struct OrderView: View {
             Button("Купить") {
                 print("buy \(figi) \(quantity) \(price)")
                 orders.add(figi: figi, quantity: quantity, price: price, direction: .buy)
+                dismiss()
             }
             .buttonStyle(RoundedButtonStyle())
             .frame(maxWidth: 400)
             Button("Продать") {
                 print("sell \(figi) \(quantity) \(price)")
                 orders.add(figi: figi, quantity: quantity, price: price, direction: .sell)
+                dismiss()
             }
             .buttonStyle(RoundedButtonStyle(color: .red))
             .frame(maxWidth: 400)
