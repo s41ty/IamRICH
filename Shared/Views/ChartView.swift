@@ -13,10 +13,8 @@ struct ChartView: View {
     @State var data : MultiLineChartData
             
     var body: some View {
-        VStack {
-            MultiLineChart(chartData: data)
-                .id(data.id)
-                .padding(.horizontal)
-        }
+        MultiLineChart(chartData: data)
+            .id(data.id)
+            .padding(.horizontal)
     }
 }
