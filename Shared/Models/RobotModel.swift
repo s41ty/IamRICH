@@ -186,25 +186,29 @@ public class RobotModel: ObservableObject {
                 print("don't have enought quantity")
                 return
             }
-            let price = self.portfolioPrice * 0.98
-            let round = Double(floor(10000*NSDecimalNumber(decimal: price).doubleValue)/10000)
-            let fix = Decimal(round)
+            let price = self.portfolioPrice * 0.99
+            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
+            let fix = Decimal(floatLiteral: round)
             let quantity = NSDecimalNumber(decimal: position.quantity).int64Value
             if position.average > price {
                 self.addOrder(figi: self.instrumentFigi, quantity: quantity, price: fix, direction: .sell)
                 self.sellQuantity += 1
                 print("selling quantity:\(quantity) price:\(fix)")
-            } else {
+            }
+            else {
                 print("price is not good")
             }
         } else if previousSignal > previousMACD && lastSignal < lastMACD {
             print("trying to buy...")
             let price = lastClose * 1.01
-            let round = Double(floor(10000*NSDecimalNumber(decimal: price).doubleValue)/10000)
-            let fix = Decimal(round)
-            self.addOrder(figi: self.instrumentFigi, quantity: 10, price: fix, direction: .buy)
+            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
+            let fix = Decimal(floatLiteral: round)
+            let quantity: Int64 = 20
+            self.addOrder(figi: self.instrumentFigi, quantity: quantity, price: lastClose, direction: .buy)
             self.buyQuantity += 1
-            print("buying quantity:\(10) price:\(fix)")
+            self.addOrder(figi: self.instrumentFigi, quantity: quantity, price: fix, direction: .buy)
+            self.buyQuantity += 1
+            print("buying quantity:\(quantity) price:\(fix)")
         } else {
             print("waiting with potfolio quantity:\(self.portfolioQuantity) average price:\(self.portfolioPrice), last price:\(self.lastPrice)")
         }
