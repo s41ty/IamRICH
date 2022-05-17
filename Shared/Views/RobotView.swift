@@ -68,9 +68,7 @@ struct RobotView: View {
                     .frame(height: 100)
             }
             .navigationTitle("Робот")
-//                .navigationViewStyle(.automatic)
             #if os(iOS)
-//                .listStyle(SidebarListStyle())
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
@@ -80,13 +78,14 @@ struct RobotView: View {
                     Image(systemName: "plus.app.fill")
                 }
             }
+            .zIndex(3)
             .opacity(robot.isActive ? 1 : 0)
             VStack {
                 Spacer()
                 Text("Результаты робота")
                 Spacer()
             }
-            .zIndex(1)
+            .zIndex(4)
             .opacity(robot.isActive ? 0 : 1)
             VStack {
                 Spacer()
@@ -99,19 +98,13 @@ struct RobotView: View {
                 } else {
                     Button("Остановить робота") {
                         robot.stop()
-                        #if os(iOS)
-//                        self.mode.wrappedValue.dismiss()
-                        #elseif os(macOS)
-//                        selectedMac.toggle()
-                        #endif
                     }
                     .buttonStyle(RoundedButtonStyle(color: .red))
                     .frame(maxWidth: 400)
                 }
-                
             }
             .padding()
-            .zIndex(2)
+            .zIndex(5)
         }
         .sheet(isPresented: $showingOrder) {
             OrderView()
@@ -120,5 +113,4 @@ struct RobotView: View {
             robot.stop()
         }
     }
-        
 }
