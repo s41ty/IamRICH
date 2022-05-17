@@ -40,22 +40,24 @@ struct OrderView: View {
                 }
                 .buttonStyle(BorderlessButtonStyle())
             }
+            Text("Идентификатора инструмента - figi")
             TextField("Идентификатора инструмента", text: $figi)
+            Text("Количество")
             TextField("Количество", text: Binding(
                 get: { String(quantity) },
                 set: { quantity = Int64($0) ?? 0 }
             ))
-                #if os(iOS)
-                .keyboardType(.numbersAndPunctuation)
-                #endif
-            
+            #if os(iOS)
+            .keyboardType(.numbersAndPunctuation)
+            #endif
+            Text("Цена")
             TextField("Цена", text: Binding(
                 get: { "\(price)" },
                 set: { price = Decimal(string: $0) ?? 0 }
             ))
-                #if os(iOS)
-                .keyboardType(.numbersAndPunctuation)
-                #endif
+            #if os(iOS)
+            .keyboardType(.numbersAndPunctuation)
+            #endif
             Spacer()
             Button("Купить") {
                 print("buy \(figi) \(quantity) \(price)")
