@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import CombineGRPC
 import Foundation
 import TinkoffInvestSDK
 import SwiftUICharts
@@ -38,15 +37,15 @@ public class RobotModel: ObservableObject {
     
     @Published public var portfolioPrice: Decimal = 0
     
-    @Published public var buyQuantity: Int = 0
+    @Published public var buyOrders = [AccountOrder]()
     
-    @Published public var sellQuantity: Int = 0
+    @Published public var sellOrders = [AccountOrder]()
     
-    @Published public var instrumentFigi = "BBG333333333"
+    @Published public var figi = "BBG333333333"
     
-    @Published public var instrumentTicker = "TMOS"
+    @Published public var ticker = "TMOS"
     
-    @Published public var lastChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumWithMaximum(of: -0.004), topLine: .maximum(of: 0.004)), noDataText: Text("Загружаю данные"))
+    @Published public var lastChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumWithMaximum(of: -0.005), topLine: .maximum(of: 0.005)), noDataText: Text("Загружаю данные"))
     
     private var cancellableSet = Set<AnyCancellable>()
 
@@ -80,12 +79,15 @@ public class RobotModel: ObservableObject {
     }
     
     @objc private func fetch() {
+        print("==========")
+        print("fetching data")
+        
         let fromDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         let toDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())!
         
         if isSandbox {
             Publishers.Zip3(
-                sdk.marketDataService.getCandels(figi: instrumentFigi, from: fromDate.asProtobuf, to: toDate.asProtobuf, interval: .candleInterval1Min),
+                sdk.marketDataService.getCandels(figi: figi, from: fromDate.asProtobuf, to: toDate.asProtobuf, interval: .candleInterval1Min),
                 sdk.sandboxService.getSandboxPortfolio(accountID: accountId),
                 sdk.sandboxService.getSandboxOrders(accountID: accountId)
             )
@@ -95,7 +97,7 @@ public class RobotModel: ObservableObject {
                 case .failure(let error):
                     print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                 case .finished:
-                    print("did finish loading getCandels, getSandboxPortfolio and getSandboxOrders")
+                    print("did finish fetching data")
                 }
             } receiveValue: { [weak self] c, p, o in
 //                print(response)
@@ -104,7 +106,7 @@ public class RobotModel: ObservableObject {
             .store(in: &cancellableSet)
         } else {
             Publishers.Zip3(
-                sdk.marketDataService.getCandels(figi: instrumentFigi, from: fromDate.asProtobuf, to: toDate.asProtobuf, interval: .candleInterval1Min),
+                sdk.marketDataService.getCandels(figi: figi, from: fromDate.asProtobuf, to: toDate.asProtobuf, interval: .candleInterval1Min),
                 sdk.operationsService.getPortfolio(accountID: accountId),
                 sdk.ordersService.getOrders(accountID: accountId)
             )
@@ -114,7 +116,7 @@ public class RobotModel: ObservableObject {
                 case .failure(let error):
                     print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
                 case .finished:
-                    print("did finish loading getCandels, getPortfolio and getOrders")
+                    print("did finish fetching data")
                 }
             } receiveValue: { [weak self] c, p, o in
 //                print(response)
@@ -126,40 +128,38 @@ public class RobotModel: ObservableObject {
     
     private func updateData(candles: [Tinkoff_Public_Invest_Api_Contract_V1_HistoricCandle], positions: [Tinkoff_Public_Invest_Api_Contract_V1_PortfolioPosition], orders: [Tinkoff_Public_Invest_Api_Contract_V1_OrderState]) {
         
-        var accountPortolio = [AccountPosition]()
-        for position in positions {
-            if position.figi == self.instrumentFigi {
-                accountPortolio.append(AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString, average: position.averagePositionPrice.asDecimal))
-            }
+        let accountPositions = positions.filter { position in
+            return position.figi == figi
+        }.map { position in
+//                averagePositionPriceFifo ???
+            return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString, average: position.averagePositionPrice.asDecimal)
+        }
+        buyOrders = orders.filter { order in
+            return order.figi == figi && order.direction == .buy
+        }.map { order in
+            return AccountOrder(figi: order.figi)
+        }
+        sellOrders = orders.filter { order in
+            return order.figi == figi && order.direction == .sell
+        }.map { order in
+            return AccountOrder(figi: order.figi)
         }
         
-        var buyOrders = [AccountOrder]()
-        var sellOrders = [AccountOrder]()
-        for order in orders {
-            if order.figi == self.instrumentFigi && order.direction == .buy {
-                buyOrders.append(AccountOrder(figi: order.figi))
-            } else if order.figi == self.instrumentFigi && order.direction == .sell {
-                sellOrders.append(AccountOrder(figi: order.figi))
-            }
-        }
-        self.buyQuantity = buyOrders.count
-        self.sellQuantity = sellOrders.count
+        let intervals = calculateIntervals(candles: candles)
+        prepareChartData(intervals: intervals)
         
-        let intervals = self.calculateIntervals(candles: candles)
-        self.prepareChartData(intervals: intervals)
-        
-        if let lastInterval = intervals.last {
-            self.lastPrice = lastInterval.close
-        }
-        if let lastPortfolio = accountPortolio.last {
-            self.portfolioQuantity = lastPortfolio.quantity
-            self.portfolioPrice = lastPortfolio.average
-        }
-        
-        self.makeDecision(intervals: intervals, positions: accountPortolio, buyOrders: buyOrders, sellOrders: sellOrders)
+        makeDecision(intervals: intervals, positions: accountPositions, buyOrders: buyOrders, sellOrders: sellOrders)
     }
     
     private func makeDecision(intervals: [Interval], positions: [AccountPosition], buyOrders: [AccountOrder], sellOrders: [AccountOrder]) {
+        if let lastInterval = intervals.last {
+            lastPrice = lastInterval.close
+        }
+        if let lastPosition = positions.last {
+            portfolioQuantity = lastPosition.quantity
+            portfolioPrice = lastPosition.average
+        }
+        
         let lastTwo = intervals.suffix(2)
         
         guard lastTwo.count > 1 else {
@@ -172,46 +172,38 @@ public class RobotModel: ObservableObject {
         }
         
         let lastClose = last.close
-        
         let previousMACD = previous.macd
         let lastMACD = last.macd
-        
         let previousSignal = previous.signal
         let lastSignal = last.signal
         
-        print("make decision")
+        print("making decision")
         
         if previousSignal < previousMACD && lastSignal > lastMACD {
             print("trying to sell...")
-            guard let position = positions.first else {
-                print("don't have enought quantity")
-                return
-            }
-            let price = self.portfolioPrice * 0.99
-            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
-            let fix = Decimal(floatLiteral: round)
-            let quantity = NSDecimalNumber(decimal: position.quantity).int64Value
-            if position.average > price {
-                self.addOrder(figi: self.instrumentFigi, quantity: quantity, price: fix, direction: .sell)
-                self.sellQuantity += 1
-                print("selling quantity:\(quantity) price:\(fix)")
+            let price = portfolioPrice
+//            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
+//            let fix = Decimal(floatLiteral: round)
+            let quantity = NSDecimalNumber(decimal: portfolioQuantity).int64Value
+            if lastClose > price {
+                addOrder(figi: figi, quantity: quantity, price: price, direction: .sell)
+                print("selling quantity:\(quantity) price:\(price)")
             }
             else {
                 print("price is not good")
             }
         } else if previousSignal > previousMACD && lastSignal < lastMACD {
             print("trying to buy...")
-            let price = lastClose * 1.01
-            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
-            let fix = Decimal(floatLiteral: round)
-            let quantity: Int64 = 20
-            self.addOrder(figi: self.instrumentFigi, quantity: quantity, price: lastClose, direction: .buy)
-            self.buyQuantity += 1
-            self.addOrder(figi: self.instrumentFigi, quantity: quantity, price: fix, direction: .buy)
-            self.buyQuantity += 1
-            print("buying quantity:\(quantity) price:\(fix)")
+            let price = lastClose
+//            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
+//            let fix = Decimal(floatLiteral: round)
+            let quantity: Int64 = 40
+            addOrder(figi: figi, quantity: quantity, price: price, direction: .buy)
+            print("buying quantity:\(quantity) price:\(price)")
+//            addOrder(figi: figi, quantity: quantity, price: fix, direction: .buy)
+//            print("buying quantity:\(quantity) price:\(fix)")
         } else {
-            print("waiting with potfolio quantity:\(self.portfolioQuantity) average price:\(self.portfolioPrice), last price:\(self.lastPrice)")
+            print("waiting with potfolio quantity:\(portfolioQuantity) average price:\(portfolioPrice), last price:\(lastPrice)")
         }
     }
     
@@ -260,7 +252,7 @@ public class RobotModel: ObservableObject {
                         print("did finish loading postOrder")
                     }
                 } receiveValue: { response in
-                    print(response)
+//                    print(response)
                 }
                 .store(in: &cancellableSet)
         }
