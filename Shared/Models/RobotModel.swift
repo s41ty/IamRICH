@@ -49,7 +49,7 @@ public class RobotModel: ObservableObject {
     
     @Published public var sellOrders = [AccountOrder]()
     
-    @Published public var chartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumWithMaximum(of: -0.005), topLine: .maximum(of: 0.005)), noDataText: Text("Загружаю данные"))
+    @Published public var chartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumValue, topLine: .maximumValue), noDataText: Text("Загружаю данные"))
     
     private var cancellableSet = Set<AnyCancellable>()
 
@@ -84,7 +84,7 @@ public class RobotModel: ObservableObject {
     
     public func start() {
         isActive = true
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(fetch), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(fetch), userInfo: nil, repeats: true)
         timer?.fire()
     }
     
