@@ -10,11 +10,15 @@ import SwiftUICharts
 
 struct ChartView: View {
     
-    @State var data : MultiLineChartData
+    @ObservedObject var data : MultiLineChartData
             
     var body: some View {
-        MultiLineChart(chartData: data)
-            .id(data.id)
-            .padding(.horizontal)
+        VStack {
+            MultiLineChart(chartData: data)
+                .legends(chartData: data, columns: [GridItem(.flexible()), GridItem(.flexible())])
+                .id(data.id)
+                .padding(.horizontal)
+                .frame(minWidth: 75, idealWidth: 75, maxWidth: 600, minHeight: 150, idealHeight: 150, maxHeight: 300, alignment: .center)
+        }
     }
 }

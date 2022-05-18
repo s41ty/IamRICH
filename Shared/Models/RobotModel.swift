@@ -49,7 +49,7 @@ public class RobotModel: ObservableObject {
     
     @Published public var sellOrders = [AccountOrder]()
     
-    @Published public var lastChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumWithMaximum(of: -0.005), topLine: .maximum(of: 0.005)), noDataText: Text("Загружаю данные"))
+    @Published public var chartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumWithMaximum(of: -0.005), topLine: .maximum(of: 0.005)), noDataText: Text("Загружаю данные"))
     
     private var cancellableSet = Set<AnyCancellable>()
 
@@ -84,7 +84,7 @@ public class RobotModel: ObservableObject {
     
     public func start() {
         isActive = true
-        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(fetch), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(fetch), userInfo: nil, repeats: true)
         timer?.fire()
     }
     
@@ -352,32 +352,29 @@ public class RobotModel: ObservableObject {
     // MARK: - Chart data
     
     private func prepareChartData(intervals: [Interval]) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "mm"
         let lastIntervals = intervals.suffix(30)
         var macdData = [LineChartDataPoint]()
         var signalData = [LineChartDataPoint]()
         for interval in lastIntervals {
             let macd = NSDecimalNumber(decimal: interval.macd).doubleValue
             let signal = NSDecimalNumber(decimal: interval.signal).doubleValue
-            macdData.append(LineChartDataPoint(value: macd, date: interval.time))
-            signalData.append(LineChartDataPoint(value: signal, date: interval.time))
+            let mins = formatter.string(from: interval.time)
+            macdData.append(LineChartDataPoint(value: macd, xAxisLabel: mins))
+            signalData.append(LineChartDataPoint(value: signal, xAxisLabel: mins))
         }
-        lastChartData.dataSets = MultiLineDataSet(dataSets: [
-            LineDataSet(dataPoints: macdData,
-                        legendTitle: "MACD",
-                        pointStyle: PointStyle(pointType: .outline, pointShape: .circle),
-                        style: LineStyle(
-                            lineColour: ColourStyle(colour: .blue),
-                            lineType: .curvedLine,
-                            strokeStyle: Stroke(lineWidth: 2)
-                        )),
-            LineDataSet(dataPoints: signalData,
-                        legendTitle: "Signal",
-                        pointStyle: PointStyle(pointType: .outline, pointShape: .circle),
-                        style: LineStyle(
-                            lineColour: ColourStyle(colour: .red),
-                            lineType: .curvedLine,
-                            strokeStyle: Stroke(lineWidth: 2)
-                        )),
-        ])
+        
+        chartData = MultiLineChartData(dataSets: MultiLineDataSet(
+            dataSets: [
+                LineDataSet(dataPoints: macdData, legendTitle: "MACD", pointStyle: PointStyle(pointType: .outline, pointShape: .circle),
+                            style: LineStyle(lineColour: ColourStyle(colour: .blue), lineType: .curvedLine, strokeStyle: Stroke(lineWidth: 2))),
+                LineDataSet(dataPoints: signalData, legendTitle: "Signal", pointStyle: PointStyle(pointType: .outline, pointShape: .circle),
+                            style: LineStyle(lineColour: ColourStyle(colour: .red), lineType: .curvedLine, strokeStyle: Stroke(lineWidth: 2))),
+                ]),
+            metadata: ChartMetadata(),
+            xAxisLabels: nil,
+            chartStyle: LineChartStyle(baseline: .minimumValue, topLine: .maximumValue),
+            noDataText: Text("Загружаю данные"))
     }
 }

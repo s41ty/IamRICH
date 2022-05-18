@@ -48,26 +48,11 @@ struct RobotView: View {
                     Text("Активных заявок (продажа): \(robot.sellOrders.count)")
                 }
                 Spacer()
-                    .frame(height: 150)
                 VStack {
-                    ChartView(data: robot.lastChartData)
-                        .frame(minHeight: 0, maxHeight: 100)
-                    Spacer()
-                        .frame(height: 100)
-                    HStack {
-                        Text("MACD")
-                            .font(.subheadline)
-                            .foregroundColor(.blue)
-                        Spacer()
-                        Text("Signal")
-                            .font(.subheadline)
-                            .foregroundColor(.red)
-                    }
-                    .padding()
+                    ChartView(data: robot.chartData)
                 }
                 .padding()
                 Spacer()
-                    .frame(height: 100)
             }
             .navigationTitle("Робот")
             #if os(iOS)
