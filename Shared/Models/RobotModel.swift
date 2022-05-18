@@ -181,27 +181,27 @@ public class RobotModel: ObservableObject {
         
         if previousSignal < previousMACD && lastSignal > lastMACD {
             print("trying to sell...")
-            let price = portfolioPrice
-//            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
-//            let fix = Decimal(floatLiteral: round)
+            let price = lastClose * 0.999
+            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
+            let fix = Decimal(floatLiteral: round)
             let quantity = NSDecimalNumber(decimal: portfolioQuantity).int64Value
-            if lastClose > price {
-                addOrder(figi: figi, quantity: quantity, price: price, direction: .sell)
-                print("selling quantity:\(quantity) price:\(price)")
+            if lastClose > portfolioPrice {
+                addOrder(figi: figi, quantity: quantity, price: fix, direction: .sell)
+                print("selling quantity:\(quantity) price:\(fix)")
             }
             else {
-                print("price is not good")
+                print("last price is not good")
             }
         } else if previousSignal > previousMACD && lastSignal < lastMACD {
             print("trying to buy...")
-            let price = lastClose
-//            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
-//            let fix = Decimal(floatLiteral: round)
-            let quantity: Int64 = 40
-            addOrder(figi: figi, quantity: quantity, price: price, direction: .buy)
-            print("buying quantity:\(quantity) price:\(price)")
-//            addOrder(figi: figi, quantity: quantity, price: fix, direction: .buy)
-//            print("buying quantity:\(quantity) price:\(fix)")
+            let price = lastClose * 1.001
+            let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
+            let fix = Decimal(floatLiteral: round)
+            let quantity: Int64 = 30
+            addOrder(figi: figi, quantity: quantity, price: fix, direction: .buy)
+            print("buying quantity:\(quantity) price:\(fix)")
+            addOrder(figi: figi, quantity: quantity, price: lastClose, direction: .buy)
+            print("buying quantity:\(quantity) price:\(lastClose)")
         } else {
             print("waiting with potfolio quantity:\(portfolioQuantity) average price:\(portfolioPrice), last price:\(lastPrice)")
         }
