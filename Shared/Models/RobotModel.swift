@@ -185,7 +185,7 @@ public class RobotModel: ObservableObject {
             let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
             let fix = Decimal(floatLiteral: round)
             let quantity = NSDecimalNumber(decimal: portfolioQuantity).int64Value
-            if lastClose > portfolioPrice {
+            if fix > portfolioPrice {
                 addOrder(figi: figi, quantity: quantity, price: fix, direction: .sell)
                 print("selling quantity:\(quantity) price:\(fix)")
             }
