@@ -23,6 +23,8 @@ struct RobotView: View {
     
     @State private var showingOrder = false
     
+    @State private var showingSettings = false
+    
     
     // MARK: - Init
     
@@ -38,7 +40,7 @@ struct RobotView: View {
         ZStack {
             VStack {
                 Group {
-                    Text("Тикер: \(robot.ticker)")
+                    Text("Тикер: \(robot.settings.ticker)")
                     Text("Последняя цена продажи: \(String(describing: robot.lastPrice))")
                     Text("Количество на счёте: \(String(describing: robot.portfolioQuantity))")
                     Text("Средневзвешенная цена: \(String(describing: robot.portfolioPrice))")
@@ -72,10 +74,19 @@ struct RobotView: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
-                Button(action: {
-                    showingOrder.toggle()
-                }) {
-                    Image(systemName: "plus.app.fill")
+                ToolbarItem {
+                    HStack {
+                        Button(action: {
+                            showingSettings.toggle()
+                        }) {
+                            Image(systemName: "gearshape.fill")
+                        }
+                        Button(action: {
+                            showingOrder.toggle()
+                        }) {
+                            Image(systemName: "plus.app.fill")
+                        }
+                    }
                 }
             }
             .zIndex(3)
@@ -108,6 +119,10 @@ struct RobotView: View {
         }
         .sheet(isPresented: $showingOrder) {
             OrderView()
+        }
+        .sheet(isPresented: $showingSettings) {
+            RobotSetupView()
+                .environmentObject(robot)
         }
         .onDisappear {
             robot.stop()

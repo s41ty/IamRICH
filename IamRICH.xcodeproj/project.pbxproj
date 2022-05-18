@@ -35,6 +35,8 @@
 		8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D138C2818A483006CF896 /* ContainerView.swift */; };
 		8B7D139F2818A485006CF896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B7D138D2818A485006CF896 /* Assets.xcassets */; };
 		8B7D13A02818A485006CF896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B7D138D2818A485006CF896 /* Assets.xcassets */; };
+		8BA0363828353C610056A068 /* RobotSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA0363728353C610056A068 /* RobotSetupView.swift */; };
+		8BA0363928353C610056A068 /* RobotSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA0363728353C610056A068 /* RobotSetupView.swift */; };
 		8BA65FE5281EC39900095B96 /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA65FE4281EC39900095B96 /* SwiftfulLoadingIndicators */; };
 		8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FE6281F054200095B96 /* SettingsView.swift */; };
 		8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA65FE6281F054200095B96 /* SettingsView.swift */; };
@@ -68,6 +70,7 @@
 		8B7D13922818A485006CF896 /* IamRICH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IamRICH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D13982818A485006CF896 /* IamRICH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IamRICH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D139A2818A485006CF896 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		8BA0363728353C610056A068 /* RobotSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotSetupView.swift; sourceTree = "<group>"; };
 		8BA65FE6281F054200095B96 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8BB9217A2832C62A00700612 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		8BF1A18528231C45007277D6 /* RobotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotView.swift; sourceTree = "<group>"; };
@@ -134,6 +137,7 @@
 				8B38FB4F281BE92500EB1F0F /* NewTokenView.swift */,
 				8BA65FE6281F054200095B96 /* SettingsView.swift */,
 				8B6999DF2821D7680080160B /* OrderView.swift */,
+				8BA0363728353C610056A068 /* RobotSetupView.swift */,
 				8BF1A18528231C45007277D6 /* RobotView.swift */,
 				8BB9217A2832C62A00700612 /* ChartView.swift */,
 			);
@@ -333,6 +337,7 @@
 				8BF1A18628231C45007277D6 /* RobotView.swift in Sources */,
 				8BB9217B2832C62A00700612 /* ChartView.swift in Sources */,
 				8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */,
+				8BA0363828353C610056A068 /* RobotSetupView.swift in Sources */,
 				8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */,
 				8B6999DD282082300080160B /* OrdersModel.swift in Sources */,
@@ -356,6 +361,7 @@
 				8BF1A18728231C45007277D6 /* RobotView.swift in Sources */,
 				8BB9217C2832C62A00700612 /* ChartView.swift in Sources */,
 				8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */,
+				8BA0363928353C610056A068 /* RobotSetupView.swift in Sources */,
 				8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */,
 				8B6999DE282082300080160B /* OrdersModel.swift in Sources */,

@@ -20,6 +20,12 @@ struct Interval {
     var signal: Decimal
 }
 
+public struct RobotSettings {
+    var figi: String
+    var ticker: String
+    var limit: Decimal
+}
+
 
 public class RobotModel: ObservableObject {
     
@@ -37,13 +43,11 @@ public class RobotModel: ObservableObject {
     
     @Published public var portfolioPrice: Decimal = 0
     
+    @Published public var settings = RobotSettings(figi: "BBG333333333", ticker: "TMOS", limit: 700)
+    
     @Published public var buyOrders = [AccountOrder]()
     
     @Published public var sellOrders = [AccountOrder]()
-    
-    @Published public var figi = "BBG333333333"
-    
-    @Published public var ticker = "TMOS"
     
     @Published public var lastChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumWithMaximum(of: -0.005), topLine: .maximum(of: 0.005)), noDataText: Text("Загружаю данные"))
     
@@ -67,6 +71,17 @@ public class RobotModel: ObservableObject {
         stop()
     }
     
+    
+    // MARK: - Settings
+    
+    public func updateSettings(newSettings: RobotSettings) {
+        stop()
+        settings = newSettings
+        start()
+    }
+    
+    // MARK: - Timer
+    
     public func start() {
         isActive = true
         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(fetch), userInfo: nil, repeats: true)
@@ -78,6 +93,9 @@ public class RobotModel: ObservableObject {
         timer = nil
     }
     
+    
+    // MARK: - Data loading
+    
     @objc private func fetch() {
         print("==========")
         print("fetching data")
@@ -87,7 +105,7 @@ public class RobotModel: ObservableObject {
         
         if isSandbox {
             Publishers.Zip3(
-                sdk.marketDataService.getCandels(figi: figi, from: fromDate.asProtobuf, to: toDate.asProtobuf, interval: .candleInterval1Min),
+                sdk.marketDataService.getCandels(figi: settings.figi, from: fromDate.asProtobuf, to: toDate.asProtobuf, interval: .candleInterval1Min),
                 sdk.sandboxService.getSandboxPortfolio(accountID: accountId),
                 sdk.sandboxService.getSandboxOrders(accountID: accountId)
             )
@@ -106,7 +124,7 @@ public class RobotModel: ObservableObject {
             .store(in: &cancellableSet)
         } else {
             Publishers.Zip3(
-                sdk.marketDataService.getCandels(figi: figi, from: fromDate.asProtobuf, to: toDate.asProtobuf, interval: .candleInterval1Min),
+                sdk.marketDataService.getCandels(figi: settings.figi, from: fromDate.asProtobuf, to: toDate.asProtobuf, interval: .candleInterval1Min),
                 sdk.operationsService.getPortfolio(accountID: accountId),
                 sdk.ordersService.getOrders(accountID: accountId)
             )
@@ -129,18 +147,18 @@ public class RobotModel: ObservableObject {
     private func updateData(candles: [Tinkoff_Public_Invest_Api_Contract_V1_HistoricCandle], positions: [Tinkoff_Public_Invest_Api_Contract_V1_PortfolioPosition], orders: [Tinkoff_Public_Invest_Api_Contract_V1_OrderState]) {
         
         let accountPositions = positions.filter { position in
-            return position.figi == figi
+            return position.figi == settings.figi
         }.map { position in
 //                averagePositionPriceFifo ???
             return AccountPosition(figi: position.figi, type: position.instrumentType, quantity: position.quantity.asDecimal, value: position.averagePositionPrice.asString, average: position.averagePositionPrice.asDecimal)
         }
         buyOrders = orders.filter { order in
-            return order.figi == figi && order.direction == .buy
+            return order.figi == settings.figi && order.direction == .buy
         }.map { order in
             return AccountOrder(figi: order.figi)
         }
         sellOrders = orders.filter { order in
-            return order.figi == figi && order.direction == .sell
+            return order.figi == settings.figi && order.direction == .sell
         }.map { order in
             return AccountOrder(figi: order.figi)
         }
@@ -150,6 +168,9 @@ public class RobotModel: ObservableObject {
         
         makeDecision(intervals: intervals, positions: accountPositions, buyOrders: buyOrders, sellOrders: sellOrders)
     }
+    
+    
+    // MARK: - Decision maker
     
     private func makeDecision(intervals: [Interval], positions: [AccountPosition], buyOrders: [AccountOrder], sellOrders: [AccountOrder]) {
         if let lastInterval = intervals.last {
@@ -186,7 +207,7 @@ public class RobotModel: ObservableObject {
             let fix = Decimal(floatLiteral: round)
             let quantity = NSDecimalNumber(decimal: portfolioQuantity).int64Value
             if fix > portfolioPrice {
-                addOrder(figi: figi, quantity: quantity, price: fix, direction: .sell)
+                addOrder(figi: settings.figi, quantity: quantity, price: fix, direction: .sell)
                 print("selling quantity:\(quantity) price:\(fix)")
             }
             else {
@@ -198,14 +219,17 @@ public class RobotModel: ObservableObject {
             let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
             let fix = Decimal(floatLiteral: round)
             let quantity: Int64 = 30
-            addOrder(figi: figi, quantity: quantity, price: fix, direction: .buy)
+            addOrder(figi: settings.figi, quantity: quantity, price: fix, direction: .buy)
             print("buying quantity:\(quantity) price:\(fix)")
-            addOrder(figi: figi, quantity: quantity, price: lastClose, direction: .buy)
+            addOrder(figi: settings.figi, quantity: quantity, price: lastClose, direction: .buy)
             print("buying quantity:\(quantity) price:\(lastClose)")
         } else {
             print("waiting with potfolio quantity:\(portfolioQuantity) average price:\(portfolioPrice), last price:\(lastPrice)")
         }
     }
+    
+    
+    // MARK: - Orders
     
     public func addOrder(
         figi: String,
@@ -257,6 +281,9 @@ public class RobotModel: ObservableObject {
                 .store(in: &cancellableSet)
         }
     }
+    
+    
+    // MARK: - MACD and signal
     
     private func calculateIntervals(candles: [Tinkoff_Public_Invest_Api_Contract_V1_HistoricCandle]) -> [Interval] {
         var intervals = [Interval]()
@@ -320,6 +347,9 @@ public class RobotModel: ObservableObject {
         }
         return intervals
     }
+    
+    
+    // MARK: - Chart data
     
     private func prepareChartData(intervals: [Interval]) {
         let lastIntervals = intervals.suffix(30)

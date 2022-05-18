@@ -8,19 +8,19 @@
 import SwiftUI
 import Combine
 
-struct OrderView: View {
+struct RobotSetupView: View {
     
     // MARK: - Properties
     
-    @EnvironmentObject private var orders: OrdersModel
-    
+    @EnvironmentObject private var robot: RobotModel
+
     @Environment(\.dismiss) var dismiss
     
     @State var figi: String = "BBG333333333"
     
-    @State var quantity: Int64 = 1
+    @State var ticker: String = "TMOS"
     
-    @State var price: Decimal = 4.5
+    @State var limit: Decimal = 700
 
     
     // MARK: - View
@@ -28,7 +28,7 @@ struct OrderView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Заявка")
+                Text("Настройки робота")
                     .font(.system(size: 34, weight: .bold, design: .default))
                 Spacer()
                 Button(action: {
@@ -55,13 +55,10 @@ struct OrderView: View {
                 .frame(height: 30)
             Group {
                 HStack {
-                    Text("Количество")
+                    Text("Идентификатора инструмента - ticker")
                     Spacer()
                 }
-                TextField("Количество", text: Binding(
-                    get: { String(quantity) },
-                    set: { quantity = Int64($0) ?? 0 }
-                ))
+                TextField("Идентификатора инструмента - ticker", text: $ticker)
                 .frame(height: 40)
                 .textFieldStyle(.roundedBorder)
                 #if os(iOS)
@@ -72,12 +69,12 @@ struct OrderView: View {
                 .frame(height: 30)
             Group {
                 HStack {
-                    Text("Цена")
+                    Text("Лимит по инструменту")
                     Spacer()
                 }
-                TextField("Цена", text: Binding(
-                    get: { "\(price)" },
-                    set: { price = Decimal(string: $0) ?? 0 }
+                TextField("Лимит по инструменту", text: Binding(
+                    get: { "\(limit)" },
+                    set: { limit = Decimal(string: $0) ?? 0 }
                 ))
                 .frame(height: 40)
                 .textFieldStyle(.roundedBorder)
@@ -86,19 +83,16 @@ struct OrderView: View {
                 #endif
             }
             Spacer()
-            Button("Купить") {
-                print("buy \(figi) \(quantity) \(price)")
-                orders.add(figi: figi, quantity: quantity, price: price, direction: .buy)
+            #if os(iOS)
+            .keyboardType(.numbersAndPunctuation)
+            #endif
+            Spacer()
+            Button("Сохранить") {
+                let settings = RobotSettings(figi: figi, ticker: ticker, limit: limit)
+                robot.updateSettings(newSettings: settings)
                 dismiss()
             }
             .buttonStyle(RoundedButtonStyle())
-            .frame(maxWidth: 400)
-            Button("Продать") {
-                print("sell \(figi) \(quantity) \(price)")
-                orders.add(figi: figi, quantity: quantity, price: price, direction: .sell)
-                dismiss()
-            }
-            .buttonStyle(RoundedButtonStyle(color: .red))
             .frame(maxWidth: 400)
         }
         .padding()
