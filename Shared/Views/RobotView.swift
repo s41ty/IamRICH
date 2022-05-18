@@ -38,12 +38,12 @@ struct RobotView: View {
         ZStack {
             VStack {
                 Group {
-                    Text("Тикер: \(robot.instrumentTicker)")
+                    Text("Тикер: \(robot.ticker)")
                     Text("Последняя цена продажи: \(String(describing: robot.lastPrice))")
-                    Text("Количество на брокерском счёте: \(String(describing: robot.portfolioQuantity))")
-                    Text("Средняя цена на брокерском счёте: \(String(describing: robot.portfolioPrice))")
-                    Text("Количество заявок купить: \(robot.buyQuantity)")
-                    Text("Количество заявок продать: \(robot.sellQuantity)")
+                    Text("Количество на счёте: \(String(describing: robot.portfolioQuantity))")
+                    Text("Средневзвешенная цена: \(String(describing: robot.portfolioPrice))")
+                    Text("Активных заявок (покупка): \(robot.buyOrders.count)")
+                    Text("Активных заявок (продажа): \(robot.sellOrders.count)")
                 }
                 Spacer()
                     .frame(height: 150)
