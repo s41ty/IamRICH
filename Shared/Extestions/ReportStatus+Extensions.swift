@@ -23,8 +23,6 @@ extension Tinkoff_Public_Invest_Api_Contract_V1_OrderExecutionReportStatus {
             return "Новая"
         case .executionReportStatusPartiallyfill:
             return "Частично исполнена"
-        case .UNRECOGNIZED(let _):
-            return "Нет информации"
         default:
             return "Нет информации"
         }

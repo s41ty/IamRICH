@@ -47,6 +47,8 @@
 		8BB9218F2832CA7B00700612 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB9218E2832CA7B00700612 /* SwiftUICharts */; };
 		8BBA081A2836B3D5007DDEFE /* ReportStatus+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA08192836B3D5007DDEFE /* ReportStatus+Extensions.swift */; };
 		8BBA081B2836B3D5007DDEFE /* ReportStatus+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA08192836B3D5007DDEFE /* ReportStatus+Extensions.swift */; };
+		8BBA081D2836B675007DDEFE /* Array+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA081C2836B675007DDEFE /* Array+Extenstions.swift */; };
+		8BBA081E2836B675007DDEFE /* Array+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA081C2836B675007DDEFE /* Array+Extenstions.swift */; };
 		8BF1A18628231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 		8BF1A18728231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 		8BF1A189282453C9007277D6 /* RobotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A188282453C9007277D6 /* RobotModel.swift */; };
@@ -76,6 +78,7 @@
 		8BA65FE6281F054200095B96 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8BB9217A2832C62A00700612 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		8BBA08192836B3D5007DDEFE /* ReportStatus+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatus+Extensions.swift"; sourceTree = "<group>"; };
+		8BBA081C2836B675007DDEFE /* Array+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extenstions.swift"; sourceTree = "<group>"; };
 		8BF1A18528231C45007277D6 /* RobotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotView.swift; sourceTree = "<group>"; };
 		8BF1A188282453C9007277D6 /* RobotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotModel.swift; sourceTree = "<group>"; };
 		8BF1A18B28271340007277D6 /* InstrumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentsModel.swift; sourceTree = "<group>"; };
@@ -220,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				8BBA08192836B3D5007DDEFE /* ReportStatus+Extensions.swift */,
+				8BBA081C2836B675007DDEFE /* Array+Extenstions.swift */,
 			);
 			path = Extestions;
 			sourceTree = "<group>";
@@ -349,6 +353,7 @@
 				8BF1A18628231C45007277D6 /* RobotView.swift in Sources */,
 				8BB9217B2832C62A00700612 /* ChartView.swift in Sources */,
 				8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */,
+				8BBA081D2836B675007DDEFE /* Array+Extenstions.swift in Sources */,
 				8BA0363828353C610056A068 /* RobotSetupView.swift in Sources */,
 				8B7D139B2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB67281DDE9500EB1F0F /* AccountView.swift in Sources */,
@@ -374,6 +379,7 @@
 				8BF1A18728231C45007277D6 /* RobotView.swift in Sources */,
 				8BB9217C2832C62A00700612 /* ChartView.swift in Sources */,
 				8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */,
+				8BBA081E2836B675007DDEFE /* Array+Extenstions.swift in Sources */,
 				8BA0363928353C610056A068 /* RobotSetupView.swift in Sources */,
 				8B7D139C2818A485006CF896 /* IamRICHApp.swift in Sources */,
 				8B38FB68281DDE9500EB1F0F /* AccountView.swift in Sources */,
