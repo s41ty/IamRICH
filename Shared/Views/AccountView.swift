@@ -53,6 +53,9 @@ struct AccountView: View {
                                 Spacer()
                                     .frame(width: 10)
                             }
+                            #if os(macOS)
+                            Divider()
+                            #endif
                         }
                         Section(header: Text("Состав портфеля")) {
                             ForEach(account.positions, id:\.self) { position in
@@ -70,6 +73,9 @@ struct AccountView: View {
                                     Spacer()
                                         .frame(width: 10)
                                 }
+                                #if os(macOS)
+                                Divider()
+                                #endif
                             }
                         }
                         Section(header: Text("Активные заявки")) {
@@ -86,6 +92,9 @@ struct AccountView: View {
                                     Spacer()
                                         .frame(width: 10)
                                 }
+                                #if os(macOS)
+                                Divider()
+                                #endif
                             }
                         }
                         Color(.clear)
