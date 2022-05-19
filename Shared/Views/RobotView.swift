@@ -53,12 +53,16 @@ struct RobotView: View {
                     Text(robot.decisionMessages.suffix(5).joined(separator: "\n"))
                 }
                 Spacer()
-                    .frame(height: 40)
                 VStack {
                     ChartView(data: robot.chartData)
                 }
                 .padding()
                 Spacer()
+                    #if os(iOS)
+                    .frame(height: 100)
+                    #elseif os(macOS)
+                    .frame(height: 200)
+                    #endif
             }
             .navigationTitle("Робот")
             #if os(iOS)
