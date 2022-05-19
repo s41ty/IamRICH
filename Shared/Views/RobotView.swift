@@ -15,6 +15,8 @@ struct RobotView: View {
     
     @Binding var selectedMac: Bool
     
+    @EnvironmentObject var instruments: InstrumentsModel
+    
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @EnvironmentObject var sdk: TinkoffInvestSDK
@@ -81,7 +83,31 @@ struct RobotView: View {
                     List {
                         Section(header: Text("История заявок")) {
                             ForEach(robot.historyOrders, id:\.self) { order in
-                                Text(order.orderId)
+                                VStack {
+                                    HStack {
+                                        if let name = instruments.cached[order.figi] {
+                                            Text(name)
+                                        } else {
+                                            Text(order.figi)
+                                                .onAppear() {
+                                                    instruments.getInstrument(figi: order.figi)
+                                                }
+                                        }
+                                        Spacer()
+                                        if (order.direction == .buy) {
+                                            Image(systemName: "arrow.down.to.line.circle.fill")
+                                        } else {
+                                            Image(systemName: "arrow.up.to.line.circle.fill")
+                                        }
+                                    }
+                                    Spacer()
+                                        .frame(width: 20)
+                                    HStack {
+                                        Text("\(order.status.stringValue)")
+                                        Spacer()
+                                        Text("\(order.totalOrderAmount)")
+                                    }
+                                }
                             }
                         }
                     }

@@ -45,6 +45,8 @@
 		8BB9217C2832C62A00700612 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB9217A2832C62A00700612 /* ChartView.swift */; };
 		8BB9218D2832CA7500700612 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB9218C2832CA7500700612 /* SwiftUICharts */; };
 		8BB9218F2832CA7B00700612 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB9218E2832CA7B00700612 /* SwiftUICharts */; };
+		8BBA081A2836B3D5007DDEFE /* ReportStatus+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA08192836B3D5007DDEFE /* ReportStatus+Extensions.swift */; };
+		8BBA081B2836B3D5007DDEFE /* ReportStatus+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA08192836B3D5007DDEFE /* ReportStatus+Extensions.swift */; };
 		8BF1A18628231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 		8BF1A18728231C45007277D6 /* RobotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A18528231C45007277D6 /* RobotView.swift */; };
 		8BF1A189282453C9007277D6 /* RobotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1A188282453C9007277D6 /* RobotModel.swift */; };
@@ -73,6 +75,7 @@
 		8BA0363728353C610056A068 /* RobotSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotSetupView.swift; sourceTree = "<group>"; };
 		8BA65FE6281F054200095B96 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8BB9217A2832C62A00700612 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		8BBA08192836B3D5007DDEFE /* ReportStatus+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatus+Extensions.swift"; sourceTree = "<group>"; };
 		8BF1A18528231C45007277D6 /* RobotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotView.swift; sourceTree = "<group>"; };
 		8BF1A188282453C9007277D6 /* RobotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotModel.swift; sourceTree = "<group>"; };
 		8BF1A18B28271340007277D6 /* InstrumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentsModel.swift; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 		8B7D138A2818A483006CF896 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8BBA08182836B3A5007DDEFE /* Extestions */,
 				8B38FB59281DD0E000EB1F0F /* App */,
 				8B38FB5A281DD0EC00EB1F0F /* Credentials */,
 				8B38FB58281DD0C200EB1F0F /* Styles */,
@@ -210,6 +214,14 @@
 				8B479E5F2819CB3600DE6AED /* TinkoffInvestSDK */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		8BBA08182836B3A5007DDEFE /* Extestions */ = {
+			isa = PBXGroup;
+			children = (
+				8BBA08192836B3D5007DDEFE /* ReportStatus+Extensions.swift */,
+			);
+			path = Extestions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +357,7 @@
 				8BF1A18C28271340007277D6 /* InstrumentsModel.swift in Sources */,
 				8B38FB50281BE92500EB1F0F /* NewTokenView.swift in Sources */,
 				8B38FB60281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
+				8BBA081A2836B3D5007DDEFE /* ReportStatus+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +382,7 @@
 				8BF1A18D28271340007277D6 /* InstrumentsModel.swift in Sources */,
 				8B38FB51281BE92500EB1F0F /* NewTokenView.swift in Sources */,
 				8B38FB61281DDB4900EB1F0F /* AccountsModel.swift in Sources */,
+				8BBA081B2836B3D5007DDEFE /* ReportStatus+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
