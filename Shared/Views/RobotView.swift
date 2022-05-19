@@ -48,8 +48,12 @@ struct RobotView: View {
                     Text("Средневзвешенная цена: \(String(describing: robot.portfolioPrice))")
                     Text("Активных заявок (покупка): \(robot.buyOrders.count)")
                     Text("Активных заявок (продажа): \(robot.sellOrders.count)")
+                    Spacer()
+                        .frame(height: 20)
+                    Text(robot.decisionMessages.suffix(5).joined(separator: "\n"))
                 }
                 Spacer()
+                    .frame(height: 40)
                 VStack {
                     ChartView(data: robot.chartData)
                 }
@@ -66,7 +70,7 @@ struct RobotView: View {
                         Button(action: {
                             showingSettings.toggle()
                         }) {
-                            Image(systemName: "gearshape.fill")
+                            Image(systemName: "wrench.fill")
                         }
                         Button(action: {
                             showingOrder.toggle()

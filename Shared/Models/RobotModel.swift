@@ -43,6 +43,8 @@ public class RobotModel: ObservableObject {
     
     @Published public var portfolioPrice: Decimal = 0
     
+    @Published public var decisionMessages = [String]()
+    
     @Published public var settings = RobotSettings(figi: "BBG333333333", ticker: "TMOS", limit: 700)
     
     @Published public var buyOrders = [AccountOrder]()
@@ -198,6 +200,10 @@ public class RobotModel: ObservableObject {
         
         print("making decision")
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let currentTime = formatter.string(from: Date())
+        
         if previous.signal < previous.macd && last.signal > last.macd {
             print("trying to sell...")
             let price = last.close * 0.999
@@ -207,9 +213,11 @@ public class RobotModel: ObservableObject {
             if fix > portfolioPrice {
                 addOrder(figi: settings.figi, quantity: quantity, price: fix, direction: .sell)
                 print("selling quantity:\(quantity) price:\(fix)")
+                decisionMessages.append("\(currentTime) Заявка на продажу:\(quantity) по цене:\(fix)")
             }
             else {
                 print("last price is not good")
+                decisionMessages.append("\(currentTime) Заявка на продажу не создана - низкая цена")
             }
         } else if previous.signal > previous.macd && last.signal < last.macd {
             print("trying to buy...")
@@ -219,10 +227,13 @@ public class RobotModel: ObservableObject {
             let quantity: Int64 = 30
             addOrder(figi: settings.figi, quantity: quantity, price: fix, direction: .buy)
             print("buying quantity:\(quantity) price:\(fix)")
+            decisionMessages.append("\(currentTime) Заявка на покупку:\(quantity) по цене:\(fix)")
             addOrder(figi: settings.figi, quantity: quantity, price: last.close, direction: .buy)
             print("buying quantity:\(quantity) price:\(last.close)")
+            decisionMessages.append("(currentTime) Заявка на покупку:\(quantity) по цене:\(last.close)")
         } else {
             print("waiting with potfolio quantity:\(portfolioQuantity) average price:\(portfolioPrice), last price:\(lastPrice)")
+            decisionMessages.append("\(currentTime) Ожидаю следующего обновления...")
         }
     }
 
