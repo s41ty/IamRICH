@@ -162,12 +162,12 @@ public class RobotModel: ObservableObject {
         buyOrders = orders.filter { order in
             return order.figi == settings.figi && order.direction == .buy
         }.map { order in
-            return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox)
+            return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox, direction: order.direction, status: order.executionReportStatus, totalOrderAmount: order.totalOrderAmount.asString, lotsRequested: order.lotsRequested)
         }
         sellOrders = orders.filter { order in
             return order.figi == settings.figi && order.direction == .sell
         }.map { order in
-            return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox)
+            return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox, direction: order.direction, status: order.executionReportStatus, totalOrderAmount: order.totalOrderAmount.asString, lotsRequested: order.lotsRequested)
         }
         
         let intervals = calculateIntervals(candles: candles)
@@ -378,10 +378,10 @@ public class RobotModel: ObservableObject {
                     case .finished:
                         print("did finish loading postSandboxOrder")
                     }
-                } receiveValue: { [weak self] response in
+                } receiveValue: { [weak self] order in
 //                    print(response)
                     guard let self = self else { return }
-                    self.addOrderToHistory(order: AccountOrder(figi: response.figi, orderId: response.orderID, accountId: self.accountId, isSandbox: self.isSandbox))
+                    self.addOrderToHistory(order: AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox, direction: order.direction, status: order.executionReportStatus, totalOrderAmount: order.totalOrderAmount.asString, lotsRequested: order.lotsRequested))
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -401,10 +401,10 @@ public class RobotModel: ObservableObject {
                     case .finished:
                         print("did finish loading postOrder")
                     }
-                } receiveValue: { [weak self] response in
+                } receiveValue: { [weak self] order in
 //                    print(response)
                     guard let self = self else { return }
-                    self.addOrderToHistory(order: AccountOrder(figi: response.figi, orderId: response.orderID, accountId: self.accountId, isSandbox: self.isSandbox))
+                    self.addOrderToHistory(order: AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox, direction: order.direction, status: order.executionReportStatus, totalOrderAmount: order.totalOrderAmount.asString, lotsRequested: order.lotsRequested))
                 }
                 .store(in: &cancellableSet)
         }

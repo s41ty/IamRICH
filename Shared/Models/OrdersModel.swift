@@ -9,22 +9,23 @@ import Combine
 import Foundation
 import TinkoffInvestSDK
 
+extension Tinkoff_Public_Invest_Api_Contract_V1_OrderDirection: Encodable, Decodable {
+    
+}
+
+extension Tinkoff_Public_Invest_Api_Contract_V1_OrderExecutionReportStatus: Encodable, Decodable {
+    
+}
+
 public struct AccountOrder: Encodable, Decodable {
     var figi: String
     var orderId: String
     var accountId: String
     var isSandbox: Bool
-//    var direction: Tinkoff_Public_Invest_Api_Contract_V1_OrderDirection
-//    executionReportStatusUnspecified
-//    lotsRequested
-//    lotsExecuted
-//    initialOrderPrice
-//    executedOrderPrice
-//
-//    totalOrderAmount
-//    averagePositionPrice
-//    direction
-//    figi
+    var direction: Tinkoff_Public_Invest_Api_Contract_V1_OrderDirection
+    var status: Tinkoff_Public_Invest_Api_Contract_V1_OrderExecutionReportStatus
+    var totalOrderAmount: String
+    var lotsRequested: Int64
 }
 
 extension AccountOrder: Identifiable {
@@ -77,7 +78,7 @@ public class OrdersModel: ObservableObject {
                 } receiveValue: { [weak self] response in
                     guard let self = self else { return }
                     self.all = response.orders.map { order in
-                        return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox)
+                        return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox, direction: order.direction, status: order.executionReportStatus, totalOrderAmount: order.totalOrderAmount.asString, lotsRequested: order.lotsRequested)
                     }
                 }
                 .store(in: &cancellableSet)
@@ -94,7 +95,7 @@ public class OrdersModel: ObservableObject {
                 } receiveValue: { [weak self] response in
                     guard let self = self else { return }
                     self.all = response.orders.map { order in
-                        return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox)
+                        return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox, direction: order.direction, status: order.executionReportStatus, totalOrderAmount: order.totalOrderAmount.asString, lotsRequested: order.lotsRequested)
                     }
                 }
                 .store(in: &cancellableSet)
