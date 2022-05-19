@@ -84,6 +84,8 @@ struct RobotView: View {
                         Section(header: Text("История заявок")) {
                             ForEach(robot.historyOrders, id:\.self) { order in
                                 VStack {
+                                    Spacer()
+                                        .frame(height: 5)
                                     HStack {
                                         if let name = instruments.cached[order.figi] {
                                             Text(name)
@@ -94,22 +96,32 @@ struct RobotView: View {
                                                 }
                                         }
                                         Spacer()
-                                        if (order.direction == .buy) {
-                                            Image(systemName: "arrow.down.to.line.circle.fill")
-                                        } else {
-                                            Image(systemName: "arrow.up.to.line.circle.fill")
-                                        }
+                                        Text("\(order.lotsRequested) шт.")
                                     }
                                     Spacer()
-                                        .frame(width: 20)
+                                        .frame(width: 25)
                                     HStack {
                                         Text("\(order.status.stringValue)")
                                         Spacer()
-                                        Text("\(order.totalOrderAmount)")
+                                        if (order.direction == .buy) {
+                                            Text("-\(order.totalOrderAmount)")
+                                                .foregroundColor(.red)
+                                        } else {
+                                            Text("\(order.totalOrderAmount)")
+                                                .foregroundColor(.green)
+                                        }
                                     }
+                                    Spacer()
+                                        .frame(height: 5)
                                 }
+                                #if os(macOS)
+                                Divider()
+                                #endif
                             }
                         }
+                    }
+                    .refreshable {
+                        robot.updateOrders()
                     }
                 } else {
                     Spacer()
@@ -131,6 +143,7 @@ struct RobotView: View {
                 } else {
                     Button("Остановить робота") {
                         robot.stop()
+                        robot.updateOrders()
                     }
                     .buttonStyle(RoundedButtonStyle(color: .red))
                     .frame(maxWidth: 400)

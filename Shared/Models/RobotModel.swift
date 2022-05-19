@@ -68,6 +68,7 @@ public class RobotModel: ObservableObject {
         self.accountId = accountId
         self.isActive = false
         loadOrdersHistory()
+        updateOrders()
     }
     
     deinit {
@@ -102,10 +103,6 @@ public class RobotModel: ObservableObject {
     @objc private func fetch() {
         print("==========")
         print("fetching data")
-        
-        for order in historyOrders {
-            fetchOrders(order: order)
-        }
         
         let fromDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         let toDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())!
@@ -341,6 +338,8 @@ public class RobotModel: ObservableObject {
                 print(error)
             }
         }
+//        historyOrders.append(AccountOrder(figi: "BBG333333333", orderId: "1122334455", accountId: self.accountId, isSandbox: self.isSandbox, direction: .buy, status: .executionReportStatusUnspecified, totalOrderAmount: "1024 rub", lotsRequested: 100))
+//        historyOrders.append(AccountOrder(figi: "BBG333333333", orderId: "1122334455", accountId: self.accountId, isSandbox: self.isSandbox, direction: .buy, status: .executionReportStatusUnspecified, totalOrderAmount: "1024 rub", lotsRequested: 50))
     }
     
     private func saveOrdersHistory() {
@@ -354,6 +353,12 @@ public class RobotModel: ObservableObject {
     
     
     // MARK: - Orders
+    
+    public func updateOrders() {
+        for order in historyOrders {
+            fetchOrders(order: order)
+        }
+    }
     
     public func addOrder(
         figi: String,
@@ -410,7 +415,7 @@ public class RobotModel: ObservableObject {
         }
     }
     
-    public func fetchOrders(order: AccountOrder) {
+    private func fetchOrders(order: AccountOrder) {
         if order.isSandbox {
             sdk.sandboxService.getSandboxOrderState(accountID: order.accountId, orderID: order.orderId)
                 .receive(on: RunLoop.main)
@@ -421,8 +426,16 @@ public class RobotModel: ObservableObject {
                     case .finished:
                         print("did finish loading getSandboxOrderState")
                     }
-                } receiveValue: { response in
-                    print(response)
+                } receiveValue: { [weak self] order in
+//                    print(order)
+                    guard let self = self else { return }
+                    let indexOfOrder = self.historyOrders.firstIndex { historyOrder in
+                        return order.orderID == historyOrder.orderId
+                    }
+                    guard let index = indexOfOrder else { return }
+                    self.historyOrders.modifyElement(atIndex: index) {
+                        $0.status = order.executionReportStatus
+                    }
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -435,24 +448,18 @@ public class RobotModel: ObservableObject {
                     case .finished:
                         print("did finish loading getOrderState")
                     }
-                } receiveValue: { response in
-                    print(response)
+                } receiveValue: { [weak self] order in
+//                    print(order)
+                    guard let self = self else { return }
+                    let indexOfOrder = self.historyOrders.firstIndex { historyOrder in
+                        return order.orderID == historyOrder.orderId
+                    }
+                    guard let index = indexOfOrder else { return }
+                    self.historyOrders.modifyElement(atIndex: index) {
+                        $0.status = order.executionReportStatus
+                    }
                 }
                 .store(in: &cancellableSet)
         }
-    }
-}
-
-extension Array {
-    mutating func modifyForEach(_ body: (_ index: Index, _ element: inout Element) -> ()) {
-        for index in indices {
-            modifyElement(atIndex: index) { body(index, &$0) }
-        }
-    }
-
-    mutating func modifyElement(atIndex index: Index, _ modifyElement: (_ element: inout Element) -> ()) {
-        var element = self[index]
-        modifyElement(&element)
-        self[index] = element
     }
 }
