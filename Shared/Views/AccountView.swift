@@ -46,46 +46,45 @@ struct AccountView: View {
                 if account.totalAmount.count > 0 {
                     List {
                         Section(header: Text("Счёт")) {
-                            NavigationLink(destination:Text("Всего средств: \(account.totalAmount)")) {
-                                HStack {
-                                    Text("Всего средств")
-                                    Spacer()
-                                    Text("\(account.totalAmount)")
-                                }
+                            HStack {
+                                Text("Всего средств")
+                                Spacer()
+                                Text("\(account.totalAmount)")
+                                Spacer()
+                                    .frame(width: 10)
                             }
                         }
-                        Section(header: Text("Портфель")) {
+                        Section(header: Text("Состав портфеля")) {
                             ForEach(account.positions, id:\.self) { position in
-                                NavigationLink(destination:Text(position.figi)) {
-                                    HStack {
-                                        if let name = instruments.cached[position.figi] {
-                                            Text(name)
-                                        } else {
-                                            Text(position.figi)
-                                                .onAppear() {
-                                                    instruments.getInstrument(figi: position.figi)
-                                                }
-                                        }
-                                        Spacer()
-                                        Text("\(position.quantity)" as String)
+                                HStack {
+                                    if let name = instruments.cached[position.figi] {
+                                        Text(name)
+                                    } else {
+                                        Text(position.figi)
+                                            .onAppear() {
+                                                instruments.getInstrument(figi: position.figi)
+                                            }
                                     }
+                                    Spacer()
+                                    Text("\(position.quantity)" as String)
+                                    Spacer()
+                                        .frame(width: 10)
                                 }
                             }
                         }
-                        Section(header: Text("Заявки")) {
+                        Section(header: Text("Активные заявки")) {
                             ForEach(orders.all, id:\.self) { order in
-                                NavigationLink(destination:Text(order.figi)) {
-                                    HStack {
-                                        if let name = instruments.cached[order.figi] {
-                                            Text(name)
-                                        } else {
-                                            Text(order.figi)
-                                                .onAppear() {
-                                                    instruments.getInstrument(figi: order.figi)
-                                                }
-                                        }
-                                        Spacer()
+                                HStack {
+                                    if let name = instruments.cached[order.figi] {
+                                        Text(name)
+                                    } else {
+                                        Text(order.figi)
+                                            .onAppear() {
+                                                instruments.getInstrument(figi: order.figi)
+                                            }
                                     }
+                                    Spacer()
+                                        .frame(width: 10)
                                 }
                             }
                         }
