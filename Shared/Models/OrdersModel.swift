@@ -9,8 +9,22 @@ import Combine
 import Foundation
 import TinkoffInvestSDK
 
-public struct AccountOrder {
+public struct AccountOrder: Encodable, Decodable {
     var figi: String
+    var orderId: String
+    var accountId: String
+    var isSandbox: Bool
+//    var direction: Tinkoff_Public_Invest_Api_Contract_V1_OrderDirection
+//    executionReportStatusUnspecified
+//    lotsRequested
+//    lotsExecuted
+//    initialOrderPrice
+//    executedOrderPrice
+//
+//    totalOrderAmount
+//    averagePositionPrice
+//    direction
+//    figi
 }
 
 extension AccountOrder: Identifiable {
@@ -46,6 +60,9 @@ public class OrdersModel: ObservableObject {
         self.accountId = accountId
     }
     
+    
+    // MARK: - Data
+    
     public func fetch() {
         if isSandbox {
             sdk.sandboxService.getSandboxOrders(accountID: accountId)
@@ -58,8 +75,9 @@ public class OrdersModel: ObservableObject {
                         print("did finish loading getSandboxOrders")
                     }
                 } receiveValue: { [weak self] response in
-                    self?.all = response.orders.map { order in
-                        return AccountOrder(figi: order.figi)
+                    guard let self = self else { return }
+                    self.all = response.orders.map { order in
+                        return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox)
                     }
                 }
                 .store(in: &cancellableSet)
@@ -74,8 +92,9 @@ public class OrdersModel: ObservableObject {
                         print("did finish loading getOrders")
                     }
                 } receiveValue: { [weak self] response in
-                    self?.all = response.orders.map { order in
-                        return AccountOrder(figi: order.figi)
+                    guard let self = self else { return }
+                    self.all = response.orders.map { order in
+                        return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox)
                     }
                 }
                 .store(in: &cancellableSet)

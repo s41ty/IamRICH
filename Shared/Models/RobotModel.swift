@@ -49,6 +49,8 @@ public class RobotModel: ObservableObject {
     
     @Published public var sellOrders = [AccountOrder]()
     
+    @Published public var historyOrders = [AccountOrder]()
+    
     @Published public var chartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []), metadata: ChartMetadata(), xAxisLabels: nil, chartStyle: LineChartStyle(baseline: .minimumValue, topLine: .maximumValue), noDataText: Text("Загружаю данные"))
     
     private var cancellableSet = Set<AnyCancellable>()
@@ -65,6 +67,7 @@ public class RobotModel: ObservableObject {
         self.isSandbox = isSandbox
         self.accountId = accountId
         self.isActive = false
+        loadOrdersHistory()
     }
     
     deinit {
@@ -99,6 +102,10 @@ public class RobotModel: ObservableObject {
     @objc private func fetch() {
         print("==========")
         print("fetching data")
+        
+        for order in historyOrders {
+            fetchOrders(order: order)
+        }
         
         let fromDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         let toDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())!
@@ -155,12 +162,12 @@ public class RobotModel: ObservableObject {
         buyOrders = orders.filter { order in
             return order.figi == settings.figi && order.direction == .buy
         }.map { order in
-            return AccountOrder(figi: order.figi)
+            return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox)
         }
         sellOrders = orders.filter { order in
             return order.figi == settings.figi && order.direction == .sell
         }.map { order in
-            return AccountOrder(figi: order.figi)
+            return AccountOrder(figi: order.figi, orderId: order.orderID, accountId: self.accountId, isSandbox: self.isSandbox)
         }
         
         let intervals = calculateIntervals(candles: candles)
@@ -192,17 +199,11 @@ public class RobotModel: ObservableObject {
             return
         }
         
-        let lastClose = last.close
-        let previousMACD = previous.macd
-        let lastMACD = last.macd
-        let previousSignal = previous.signal
-        let lastSignal = last.signal
-        
         print("making decision")
         
-        if previousSignal < previousMACD && lastSignal > lastMACD {
+        if previous.signal < previous.macd && last.signal > last.macd {
             print("trying to sell...")
-            let price = lastClose * 0.999
+            let price = last.close * 0.999
             let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
             let fix = Decimal(floatLiteral: round)
             let quantity = NSDecimalNumber(decimal: portfolioQuantity).int64Value
@@ -213,75 +214,21 @@ public class RobotModel: ObservableObject {
             else {
                 print("last price is not good")
             }
-        } else if previousSignal > previousMACD && lastSignal < lastMACD {
+        } else if previous.signal > previous.macd && last.signal < last.macd {
             print("trying to buy...")
-            let price = lastClose * 1.001
+            let price = last.close * 1.001
             let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
             let fix = Decimal(floatLiteral: round)
             let quantity: Int64 = 30
             addOrder(figi: settings.figi, quantity: quantity, price: fix, direction: .buy)
             print("buying quantity:\(quantity) price:\(fix)")
-            addOrder(figi: settings.figi, quantity: quantity, price: lastClose, direction: .buy)
-            print("buying quantity:\(quantity) price:\(lastClose)")
+            addOrder(figi: settings.figi, quantity: quantity, price: last.close, direction: .buy)
+            print("buying quantity:\(quantity) price:\(last.close)")
         } else {
             print("waiting with potfolio quantity:\(portfolioQuantity) average price:\(portfolioPrice), last price:\(lastPrice)")
         }
     }
-    
-    
-    // MARK: - Orders
-    
-    public func addOrder(
-        figi: String,
-        quantity: Int64,
-        price: Decimal,
-        direction: Tinkoff_Public_Invest_Api_Contract_V1_OrderDirection
-    ) {
-        if isSandbox {
-            sdk.sandboxService.postSandboxOrder(
-                accountID: accountId,
-                figi: figi,
-                quantity: quantity,
-                price: price.asQuotation,
-                direction: direction,
-                orderType: .limit
-            )
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading postSandboxOrder")
-                    }
-                } receiveValue: { response in
-//                    print(response)
-                }
-                .store(in: &cancellableSet)
-        } else {
-            sdk.ordersService.postOrder(
-                accountID: accountId,
-                figi: figi,
-                quantity: quantity,
-                price: price.asQuotation,
-                direction: direction,
-                orderType: .limit
-            )
-                .receive(on: RunLoop.main)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
-                    case .finished:
-                        print("did finish loading postOrder")
-                    }
-                } receiveValue: { response in
-//                    print(response)
-                }
-                .store(in: &cancellableSet)
-        }
-    }
-    
+
     
     // MARK: - MACD and signal
     
@@ -376,5 +323,136 @@ public class RobotModel: ObservableObject {
             xAxisLabels: nil,
             chartStyle: LineChartStyle(baseline: .minimumValue, topLine: .maximumValue),
             noDataText: Text("Загружаю данные"))
+    }
+    
+    
+    // MARK: - History
+    
+    public func addOrderToHistory(order: AccountOrder) {
+        historyOrders.append(order)
+        saveOrdersHistory()
+    }
+    
+    private func loadOrdersHistory() {
+        if let data = UserDefaults.standard.data(forKey: "ordersHistory") {
+            do {
+                historyOrders = try JSONDecoder().decode([AccountOrder].self, from: data)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    private func saveOrdersHistory() {
+        do {
+            let data = try JSONEncoder().encode(historyOrders)
+            UserDefaults.standard.set(data, forKey: "ordersHistory")
+        } catch  {
+            print(error)
+        }
+    }
+    
+    
+    // MARK: - Orders
+    
+    public func addOrder(
+        figi: String,
+        quantity: Int64,
+        price: Decimal,
+        direction: Tinkoff_Public_Invest_Api_Contract_V1_OrderDirection
+    ) {
+        if isSandbox {
+            sdk.sandboxService.postSandboxOrder(
+                accountID: accountId,
+                figi: figi,
+                quantity: quantity,
+                price: price.asQuotation,
+                direction: direction,
+                orderType: .limit
+            )
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
+                    case .finished:
+                        print("did finish loading postSandboxOrder")
+                    }
+                } receiveValue: { [weak self] response in
+//                    print(response)
+                    guard let self = self else { return }
+                    self.addOrderToHistory(order: AccountOrder(figi: response.figi, orderId: response.orderID, accountId: self.accountId, isSandbox: self.isSandbox))
+                }
+                .store(in: &cancellableSet)
+        } else {
+            sdk.ordersService.postOrder(
+                accountID: accountId,
+                figi: figi,
+                quantity: quantity,
+                price: price.asQuotation,
+                direction: direction,
+                orderType: .limit
+            )
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
+                    case .finished:
+                        print("did finish loading postOrder")
+                    }
+                } receiveValue: { [weak self] response in
+//                    print(response)
+                    guard let self = self else { return }
+                    self.addOrderToHistory(order: AccountOrder(figi: response.figi, orderId: response.orderID, accountId: self.accountId, isSandbox: self.isSandbox))
+                }
+                .store(in: &cancellableSet)
+        }
+    }
+    
+    public func fetchOrders(order: AccountOrder) {
+        if order.isSandbox {
+            sdk.sandboxService.getSandboxOrderState(accountID: order.accountId, orderID: order.orderId)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
+                    case .finished:
+                        print("did finish loading getSandboxOrderState")
+                    }
+                } receiveValue: { response in
+                    print(response)
+                }
+                .store(in: &cancellableSet)
+        } else {
+            sdk.ordersService.getOrderState(accountID: order.accountId, orderID: order.orderId)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print("\(error.localizedDescription) \(String(describing: error.trailingMetadata))")
+                    case .finished:
+                        print("did finish loading getOrderState")
+                    }
+                } receiveValue: { response in
+                    print(response)
+                }
+                .store(in: &cancellableSet)
+        }
+    }
+}
+
+extension Array {
+    mutating func modifyForEach(_ body: (_ index: Index, _ element: inout Element) -> ()) {
+        for index in indices {
+            modifyElement(atIndex: index) { body(index, &$0) }
+        }
+    }
+
+    mutating func modifyElement(atIndex index: Index, _ modifyElement: (_ element: inout Element) -> ()) {
+        var element = self[index]
+        modifyElement(&element)
+        self[index] = element
     }
 }

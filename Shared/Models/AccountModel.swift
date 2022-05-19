@@ -62,6 +62,9 @@ public class AccountModel: ObservableObject {
         }
     }
 
+    
+    // MARK: - Data
+    
     public func fetch() {
         if isSandbox {
             sdk.sandboxService.getSandboxPortfolio(accountID: accountId)

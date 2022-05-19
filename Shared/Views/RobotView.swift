@@ -77,9 +77,20 @@ struct RobotView: View {
             .zIndex(3)
             .opacity(robot.isActive ? 1 : 0)
             VStack {
-                Spacer()
-                Text("Результаты робота")
-                Spacer()
+                if robot.historyOrders.count > 0 {
+                    List {
+                        Section(header: Text("История заявок")) {
+                            ForEach(robot.historyOrders, id:\.self) { order in
+                                Text(order.orderId)
+                            }
+                        }
+                    }
+                } else {
+                    Spacer()
+                    Text("Результаты робота.\n\nЗдесь будут отображаться заявки созданные роботом.")
+                        .padding()
+                    Spacer()
+                }
             }
             .zIndex(4)
             .opacity(robot.isActive ? 0 : 1)
