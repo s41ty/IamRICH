@@ -349,8 +349,6 @@ public class RobotModel: ObservableObject {
                 print(error)
             }
         }
-//        historyOrders.append(AccountOrder(figi: "BBG333333333", orderId: "1122334455", accountId: self.accountId, isSandbox: self.isSandbox, direction: .buy, status: .executionReportStatusUnspecified, totalOrderAmount: "1024 rub", lotsRequested: 100))
-//        historyOrders.append(AccountOrder(figi: "BBG333333333", orderId: "1122334455", accountId: self.accountId, isSandbox: self.isSandbox, direction: .buy, status: .executionReportStatusUnspecified, totalOrderAmount: "1024 rub", lotsRequested: 50))
     }
     
     private func saveOrdersHistory() {
@@ -367,7 +365,11 @@ public class RobotModel: ObservableObject {
     
     public func updateOrders() {
         for order in historyOrders {
-            fetchOrders(order: order)
+            if order.status == .executionReportStatusUnspecified ||
+                order.status == .executionReportStatusNew ||
+                order.status == .executionReportStatusPartiallyfill {
+                fetchOrders(order: order)
+            }
         }
     }
     
