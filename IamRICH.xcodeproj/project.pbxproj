@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B1DDFC52838499A004FEB4A /* RichText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1DDFC42838499A004FEB4A /* RichText.swift */; };
+		8B1DDFC62838499A004FEB4A /* RichText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1DDFC42838499A004FEB4A /* RichText.swift */; };
 		8B38FB49281BDC6E00EB1F0F /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 8B38FB48281BDC6E00EB1F0F /* KeychainAccess */; };
 		8B38FB4B281BDD7200EB1F0F /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB4A281BDD7200EB1F0F /* Credentials.swift */; };
 		8B38FB4C281BDD7200EB1F0F /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38FB4A281BDD7200EB1F0F /* Credentials.swift */; };
@@ -58,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B1DDFC42838499A004FEB4A /* RichText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichText.swift; sourceTree = "<group>"; };
 		8B38FB4A281BDD7200EB1F0F /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		8B38FB4F281BE92500EB1F0F /* NewTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenView.swift; sourceTree = "<group>"; };
 		8B38FB52281BE9D200EB1F0F /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
@@ -113,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				8B38FB55281C5BF600EB1F0F /* RoundedButtonStyle.swift */,
+				8B1DDFC42838499A004FEB4A /* RichText.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -342,6 +346,7 @@
 				8B7D139D2818A485006CF896 /* ContainerView.swift in Sources */,
 				8BF1A18628231C45007277D6 /* RobotView.swift in Sources */,
 				8BB9217B2832C62A00700612 /* ChartView.swift in Sources */,
+				8B1DDFC52838499A004FEB4A /* RichText.swift in Sources */,
 				8BA65FE7281F054200095B96 /* SettingsView.swift in Sources */,
 				8BBA081D2836B675007DDEFE /* Array+Extenstions.swift in Sources */,
 				8BA0363828353C610056A068 /* RobotSetupView.swift in Sources */,
@@ -368,6 +373,7 @@
 				8B7D139E2818A485006CF896 /* ContainerView.swift in Sources */,
 				8BF1A18728231C45007277D6 /* RobotView.swift in Sources */,
 				8BB9217C2832C62A00700612 /* ChartView.swift in Sources */,
+				8B1DDFC62838499A004FEB4A /* RichText.swift in Sources */,
 				8BA65FE8281F054200095B96 /* SettingsView.swift in Sources */,
 				8BBA081E2836B675007DDEFE /* Array+Extenstions.swift in Sources */,
 				8BA0363928353C610056A068 /* RobotSetupView.swift in Sources */,

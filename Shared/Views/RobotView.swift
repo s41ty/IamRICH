@@ -42,12 +42,14 @@ struct RobotView: View {
         ZStack {
             VStack {
                 Group {
-                    Text("Тикер: \(robot.settings.ticker)")
-                    Text("Последняя цена продажи: \(String(describing: robot.lastPrice))")
-                    Text("Количество на счёте: \(String(describing: robot.portfolioQuantity))")
-                    Text("Средневзвешенная цена: \(String(describing: robot.portfolioPrice))")
-                    Text("Активных заявок (покупка): \(robot.buyOrders.count)")
-                    Text("Активных заявок (продажа): \(robot.sellOrders.count)")
+                    Spacer()
+                        .frame(height: 20)
+                    RichText("Тикер: \(robot.settings.ticker)")
+                    RichText("Последняя цена продажи: \(String(describing: robot.lastPrice))")
+                    RichText("Количество на счёте: \(String(describing: robot.portfolioQuantity))")
+                    RichText("Средневзвешенная цена: \(String(describing: robot.portfolioPrice))")
+                    RichText("Активных заявок (покупка): \(robot.buyOrders.count)")
+                    RichText("Активных заявок (продажа): \(robot.sellOrders.count)")
                     Spacer()
                         .frame(height: 20)
                     Text(robot.decisionMessages.suffix(5).joined(separator: "\n"))
