@@ -92,6 +92,7 @@ struct RobotSetupView: View {
                 robot.updateSettings(newSettings: settings)
                 dismiss()
             }
+            .shadow(radius: 5)
             .buttonStyle(RoundedButtonStyle())
             .frame(maxWidth: 400)
         }

@@ -35,6 +35,7 @@ struct NewTokenView: View {
             Button("Сохранить токен") {
                 credentials.saveToken(newToken)
             }
+            .shadow(radius: 5)
             .buttonStyle(RoundedButtonStyle())
             .frame(maxWidth: 400)
             .disabled(newToken.count < 1)

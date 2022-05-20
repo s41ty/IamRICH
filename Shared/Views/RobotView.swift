@@ -146,6 +146,7 @@ struct RobotView: View {
                     Button("Запустить робота") {
                         robot.start()
                     }
+                    .shadow(radius: 5)
                     .buttonStyle(RoundedButtonStyle())
                     .frame(maxWidth: 400)
                 } else {
@@ -153,6 +154,7 @@ struct RobotView: View {
                         robot.stop()
                         robot.updateOrders()
                     }
+                    .shadow(radius: 5)
                     .buttonStyle(RoundedButtonStyle(color: .red))
                     .frame(maxWidth: 400)
                 }

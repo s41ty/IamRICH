@@ -91,6 +91,7 @@ struct OrderView: View {
                 orders.add(figi: figi, quantity: quantity, price: price, direction: .buy)
                 dismiss()
             }
+            .shadow(radius: 5)
             .buttonStyle(RoundedButtonStyle())
             .frame(maxWidth: 400)
             Button("Продать") {
@@ -98,6 +99,7 @@ struct OrderView: View {
                 orders.add(figi: figi, quantity: quantity, price: price, direction: .sell)
                 dismiss()
             }
+            .shadow(radius: 5)
             .buttonStyle(RoundedButtonStyle(color: .red))
             .frame(maxWidth: 400)
         }

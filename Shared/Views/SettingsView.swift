@@ -41,12 +41,14 @@ struct SettingsView: View {
             Button("Добавить счет в песочнице") {
                 accounts.openSandbox()
             }
+            .shadow(radius: 5)
             .buttonStyle(RoundedButtonStyle(color: .blue))
             .frame(maxWidth: 400)
             Button("Удалить токен") {
                 deleteToken = true
                 dismiss()
             }
+            .shadow(radius: 5)
             .buttonStyle(RoundedButtonStyle(color: .red))
             .frame(maxWidth: 400)
         }

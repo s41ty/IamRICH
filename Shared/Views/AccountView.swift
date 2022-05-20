@@ -137,6 +137,7 @@ struct AccountView: View {
                     selectedMac = true
                     #endif
                 }
+                .shadow(radius: 5)
                 .buttonStyle(RoundedButtonStyle())
                 .frame(maxWidth: 400)
                 .background(
