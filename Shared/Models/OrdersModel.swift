@@ -9,14 +9,6 @@ import Combine
 import Foundation
 import TinkoffInvestSDK
 
-extension Tinkoff_Public_Invest_Api_Contract_V1_OrderDirection: Encodable, Decodable {
-    
-}
-
-extension Tinkoff_Public_Invest_Api_Contract_V1_OrderExecutionReportStatus: Encodable, Decodable {
-    
-}
-
 public struct AccountOrder: Encodable, Decodable {
     var figi: String
     var orderId: String
@@ -188,4 +180,12 @@ public class OrdersModel: ObservableObject {
                 .store(in: &cancellableSet)
         }
     }
+}
+
+extension Tinkoff_Public_Invest_Api_Contract_V1_OrderDirection: Encodable, Decodable {
+    
+}
+
+extension Tinkoff_Public_Invest_Api_Contract_V1_OrderExecutionReportStatus: Encodable, Decodable {
+    
 }
