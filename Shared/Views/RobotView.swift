@@ -87,7 +87,7 @@ struct RobotView: View {
             .zIndex(3)
             .opacity(robot.isActive ? 1 : 0)
             VStack {
-                if robot.historyOrders.count > 0 {
+                if robot.historyOrders.count > 0 && !robot.isActive {
                     List {
                         Section(header: Text("История заявок")) {
                             ForEach(robot.historyOrders, id:\.self) { order in
