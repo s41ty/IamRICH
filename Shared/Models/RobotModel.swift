@@ -224,7 +224,7 @@ public class RobotModel: ObservableObject {
             let price = last.close * 1.001
             let round = Double(round(1000 * NSDecimalNumber(decimal: price).doubleValue) / 1000)
             let fix = Decimal(floatLiteral: round)
-            let quantity: Int64 = 30
+            let quantity: Int64 = 5
             addOrder(figi: settings.figi, quantity: quantity, price: fix, direction: .buy)
             print("buying quantity:\(quantity) price:\(fix)")
             decisionMessages.append("\(currentTime) Заявка на покупку:\(quantity) по цене:\(fix)")
