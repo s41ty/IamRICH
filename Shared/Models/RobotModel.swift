@@ -230,7 +230,7 @@ public class RobotModel: ObservableObject {
             decisionMessages.append("\(currentTime) Заявка на покупку:\(quantity) по цене:\(fix)")
             addOrder(figi: settings.figi, quantity: quantity, price: last.close, direction: .buy)
             print("buying quantity:\(quantity) price:\(last.close)")
-            decisionMessages.append("(currentTime) Заявка на покупку:\(quantity) по цене:\(last.close)")
+            decisionMessages.append("\(currentTime) Заявка на покупку:\(quantity) по цене:\(last.close)")
         } else {
             print("waiting with potfolio quantity:\(portfolioQuantity) average price:\(portfolioPrice), last price:\(lastPrice)")
             decisionMessages.append("\(currentTime) Ожидаю следующего обновления...")
@@ -446,7 +446,9 @@ public class RobotModel: ObservableObject {
                     guard let index = indexOfOrder else { return }
                     self.historyOrders.modifyElement(atIndex: index) {
                         $0.status = order.executionReportStatus
+                        $0.totalOrderAmount = order.totalOrderAmount.asString
                     }
+                    self.saveOrdersHistory()
                 }
                 .store(in: &cancellableSet)
         } else {
@@ -468,7 +470,9 @@ public class RobotModel: ObservableObject {
                     guard let index = indexOfOrder else { return }
                     self.historyOrders.modifyElement(atIndex: index) {
                         $0.status = order.executionReportStatus
+                        $0.totalOrderAmount = order.totalOrderAmount.asString
                     }
+                    self.saveOrdersHistory()
                 }
                 .store(in: &cancellableSet)
         }
