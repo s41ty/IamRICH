@@ -35,7 +35,9 @@ struct SettingsView: View {
                         .imageScale(.large)
                         .foregroundColor(.gray.opacity(0.7))
                 }
+                #if !os(tvOS)
                 .buttonStyle(BorderlessButtonStyle())
+                #endif
             }
             Spacer()
             Button("Добавить счет в песочнице") {

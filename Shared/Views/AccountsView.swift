@@ -47,6 +47,7 @@ struct AccountsView: View {
                                 NavigationLink(destination: AccountView(account: AccountModel(sdk: sdk, account: account, isSandbox: true), orders: OrdersModel(sdk: sdk, accountId: account.id, isSandbox: true)).environmentObject(accounts)) {
                                     Text(account.id)
                                 }
+                                #if os(iOS)
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         accounts.closeSandbox(accountId: account.id)
@@ -54,6 +55,7 @@ struct AccountsView: View {
                                         Label("Удалить", systemImage: "trash")
                                     }
                                 }
+                                #endif
                                 #if os(macOS)
                                 .contextMenu {
                                     Button(action: {

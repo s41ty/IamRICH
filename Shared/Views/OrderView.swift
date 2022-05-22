@@ -38,7 +38,9 @@ struct OrderView: View {
                         .imageScale(.large)
                         .foregroundColor(.gray.opacity(0.7))
                 }
+                #if !os(tvOS)
                 .buttonStyle(BorderlessButtonStyle())
+                #endif
             }
             Spacer()
                 .frame(height: 30)
@@ -49,7 +51,9 @@ struct OrderView: View {
                 }
                 TextField("Идентификатора инструмента - figi", text: $figi)
                     .frame(height: 40)
+                    #if !os(tvOS)
                     .textFieldStyle(.roundedBorder)
+                    #endif
             }
             Spacer()
                 .frame(height: 30)
@@ -63,7 +67,9 @@ struct OrderView: View {
                     set: { quantity = Int64($0) ?? 0 }
                 ))
                 .frame(height: 40)
+                #if !os(tvOS)
                 .textFieldStyle(.roundedBorder)
+                #endif
                 #if os(iOS)
                 .keyboardType(.numbersAndPunctuation)
                 #endif
@@ -80,7 +86,9 @@ struct OrderView: View {
                     set: { price = Decimal(string: $0) ?? 0 }
                 ))
                 .frame(height: 40)
+                #if !os(tvOS)
                 .textFieldStyle(.roundedBorder)
+                #endif
                 #if os(iOS)
                 .keyboardType(.numbersAndPunctuation)
                 #endif

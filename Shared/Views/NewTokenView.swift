@@ -28,8 +28,10 @@ struct NewTokenView: View {
                 .lineLimit(8)
             Divider().frame(height: 2, alignment: .center)
             Spacer()
+            #if !os(tvOS)
             Link("Как получить токен?", destination: URL(string: "https://www.tinkoff.ru/invest/settings/")!)
                 .font(.system(size: 12))
+            #endif
             Spacer()
                 .frame(height: 20)
             Button("Сохранить токен") {

@@ -24,6 +24,10 @@ struct RichText: View {
         Text(text)
             .font(.title2)
             .fontWeight(.medium)
+        #elseif os(tvOS)
+        Text(text)
+            .font(.subheadline)
+            .fontWeight(.medium)
         #endif
     }
 }

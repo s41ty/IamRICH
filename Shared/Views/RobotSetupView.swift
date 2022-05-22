@@ -38,7 +38,9 @@ struct RobotSetupView: View {
                         .imageScale(.large)
                         .foregroundColor(.gray.opacity(0.7))
                 }
+                #if !os(tvOS)
                 .buttonStyle(BorderlessButtonStyle())
+                #endif
             }
             Spacer()
                 .frame(height: 30)
@@ -49,7 +51,9 @@ struct RobotSetupView: View {
                 }
                 TextField("Идентификатора инструмента - figi", text: $figi)
                     .frame(height: 40)
+                    #if !os(tvOS)
                     .textFieldStyle(.roundedBorder)
+                    #endif
             }
             Spacer()
                 .frame(height: 30)
@@ -60,7 +64,9 @@ struct RobotSetupView: View {
                 }
                 TextField("Идентификатора инструмента - ticker", text: $ticker)
                 .frame(height: 40)
+                #if !os(tvOS)
                 .textFieldStyle(.roundedBorder)
+                #endif
                 #if os(iOS)
                 .keyboardType(.numbersAndPunctuation)
                 #endif
@@ -77,7 +83,9 @@ struct RobotSetupView: View {
                     set: { limit = Decimal(string: $0) ?? 0 }
                 ))
                 .frame(height: 40)
+                #if !os(tvOS)
                 .textFieldStyle(.roundedBorder)
+                #endif
                 #if os(iOS)
                 .keyboardType(.numbersAndPunctuation)
                 #endif

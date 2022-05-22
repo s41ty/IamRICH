@@ -125,7 +125,7 @@ struct AccountView: View {
                     LoadingIndicator(animation: .threeBalls, color: .blue, size: .medium)
                 }
             }
-            #if os(macOS)
+            #if os(macOS) || os(tvOS)
             .opacity(selectedMac ? 0 : 1)
             #endif
             VStack {
@@ -133,7 +133,7 @@ struct AccountView: View {
                 Button("Открыть робота") {
                     #if os(iOS)
                     selectedTag = 1
-                    #elseif os(macOS)
+                    #elseif os(macOS) || os(tvOS)
                     selectedMac = true
                     #endif
                 }
@@ -151,10 +151,10 @@ struct AccountView: View {
             }
             .padding()
             .zIndex(1)
-            #if os(macOS)
+            #if os(macOS) || os(tvOS)
             .opacity(selectedMac ? 0 : 1)
             #endif
-            #if os(macOS)
+            #if os(macOS) || os(tvOS)
             VStack {
                 RobotView(robot: RobotModel(sdk: sdk, accountId: account.accountId, isSandbox: account.isSandbox), selectedMac: $selectedMac).environmentObject(orders)
             }
