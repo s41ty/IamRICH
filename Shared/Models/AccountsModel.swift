@@ -48,7 +48,7 @@ public class AccountsModel: ObservableObject {
                     for metadata in trailingMetadata {
                         if metadata.value == "Authentication failed" {
                             print("Authentication failed")
-                            print("Drop is removed")
+                            print("Token is removed")
                             self?.credentials.deleteToken()
                         }
                     }
