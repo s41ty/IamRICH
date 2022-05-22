@@ -18,7 +18,7 @@ struct ChartView: View {
                 .legends(chartData: data, columns: [GridItem(.flexible()), GridItem(.flexible())])
                 .id(data.id)
                 .padding(.horizontal)
-                .frame(minWidth: 75, idealWidth: 75, maxWidth: 600, minHeight: 150, idealHeight: 150, maxHeight: 300, alignment: .center)
+                .frame(minWidth: 75, idealWidth: 75, maxWidth: 1200, minHeight: 150, idealHeight: 150, maxHeight: 300, alignment: .center)
         }
     }
 }
