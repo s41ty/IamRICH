@@ -1,6 +1,5 @@
 # I am RICH
 
-## О приложении
 «I am RICH» - торговый робот для [API Тинькофф Инвестиций](https://github.com/Tinkoff/investAPI) для платформ iOS и macOS. Единый исходный код на Swift 5 позволяет использовать приложения на любых девайсах Apple - iPhone, iPad, MacBook и пр. Используется декларативный язык разметки SwiftUI и реактивный фреймворк Combine.
 
 ## Торговая стратегия робота
@@ -51,7 +50,7 @@
 
 ## Используемые зависимости
 
-[TinkoffInvestSDK](https://github.com/s41ty/TinkoffInvestSDK.git) - собственная библиотека для работы с API Тинькофф Инвестиции
+[TinkoffInvestSDK](https://github.com/s41ty/TinkoffInvestSDK.git) - библиотека для работы с API Тинькофф Инвестиции
 
 [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess) - работа с Keychain
 
