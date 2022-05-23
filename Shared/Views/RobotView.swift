@@ -129,6 +129,9 @@ struct RobotView: View {
                                 #endif
                             }
                         }
+                        Color(.clear)
+                            .frame(height: 30)
+                            .listRowBackground(Color.clear)
                     }
                     .refreshable {
                         robot.updateOrders()
