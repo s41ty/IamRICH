@@ -70,3 +70,10 @@
 macOS | 12.1
 iOS & iPadOS | 15
 tvOS | 15
+
+## iOS
+![iOS](https://screenshots.obs.ru-moscow-1.hc.sbercloud.ru/iOS.gif)
+## macOS
+![macOS](https://screenshots.obs.ru-moscow-1.hc.sbercloud.ru/macOS.gif)
+## tvOS
+![tvOS](https://screenshots.obs.ru-moscow-1.hc.sbercloud.ru/tvOS.gif)
