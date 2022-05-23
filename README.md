@@ -72,9 +72,9 @@ iOS & iPadOS | 15
 tvOS | 15
 
 ## iOS
-![iOS](https://screenshots.obs.ru-moscow-1.hc.sbercloud.ru/iOS.gif)
+![iOS](https://github.com/s41ty/IamRICH/raw/master/Screenshots/iOS.gif)
 ## macOS
-![macOS](https://screenshots.obs.ru-moscow-1.hc.sbercloud.ru/macOS.gif)
+![macOS](https://github.com/s41ty/IamRICH/raw/master/Screenshots/macOS.gif)
 ## tvOS
-![tvOS](https://screenshots.obs.ru-moscow-1.hc.sbercloud.ru/tvOS.gif)
+![tvOS](https://github.com/s41ty/IamRICH/raw/master/Screenshots/tvOS.gif)
 
